@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "menu.h"
 
+
 int main() {
     muestraMenu();
     int option = getOption();

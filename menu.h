@@ -1,11 +1,11 @@
 //
 // Created by Alex on 30/04/2019.
 //
-#include <stdio.h>
-
 #ifndef UNO_MENU_H
 #define UNO_MENU_H
 
+#include <stdio.h>
+#include "baraja.h"
 
 void muestraMenu();
 int getOption();
