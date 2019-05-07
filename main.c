@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "menu.h"
-
+#include "juego.h"
 
 int main() {
     muestraMenu();

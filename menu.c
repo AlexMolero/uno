@@ -2,9 +2,11 @@
 // Created by Alex on 30/04/2019.
 //
 #include "menu.h"
-#define JUGAR  1
+#include "juego.h"
+
+#define JUGAR            1
 #define ESTADISTICAS     2
-#define SALIR  3
+
 void muestraMenu(){
     printf("*********MENU PRINCIPAL*********\n");
     printf("1- Jugar\n");
@@ -23,7 +25,7 @@ void selectOption(int option){
 
     switch (option) {
         case JUGAR:
-
+            juego();
             break;
         case ESTADISTICAS:
 
