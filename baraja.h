@@ -7,7 +7,6 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <time.h>
 
 typedef struct N {
     int valor;
@@ -24,7 +23,6 @@ struct BarajaStruct_t {
 };
 typedef struct BarajaStruct_t * BarajaPtr_t;
 
-int crearBaraja(BarajaPtr_t *baraja);
 void barajar(BarajaPtr_t *baraja);
 
 Deck crear_baraja();

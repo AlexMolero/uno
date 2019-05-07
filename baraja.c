@@ -4,30 +4,18 @@
 #include "menu.h"
 #include "baraja.h"
 
-#define NUM_VALOR_MAX 15
+#define COLORES 4
+#define NUM_MAX_CARTA 13
 
-/*int crearBaraja(BarajaPtr_t *baraja) {
-    *baraja = malloc(sizeof (struct BarajaStruct_t));
-    if (*baraja == NULL) return 1;
-
-    (*baraja)->n_cartas = 2*54; //Generamos 2 barajas de 54 cartas cada una
-    printf("Generando pila con %i barajas (%i cartas)... \n",
-           (*baraja)->n_cartas/54, (*baraja)->n_cartas);
-    (*baraja)->cartas = malloc(sizeof(int) * (*baraja)->n_cartas);
-
-    if ((*baraja)->cartas == NULL) return 1;
-    int i;
-    for (i = 0; i < (*baraja)->n_cartas; i++) {
-        (*baraja)->cartas[i] = i%(NUM_VALOR_MAX) +1;
-        printf(i%(NUM_VALOR_MAX) +1);
-    }
-    printf("Baraja generada con éxito\n\n");
-    return 0;
-}*/
 
 Deck crear_baraja() {
     Deck p;
     p = NULL;
+    for(int i=0;i<COLORES;i++){ // 0=Rojo, 1=Amarillo, 2=Verde, 3=Azul
+        for(int j=0;j<NUM_MAX_CARTA;j++){
+            baraja_push(&p,j,i);
+        }
+    }
     return p;
 }
 void baraja_push(Deck *p, int elemento, int color) {
@@ -36,7 +24,6 @@ void baraja_push(Deck *p, int elemento, int color) {
     if (aux == NULL){
         printf("\nError al hacer push...\n");
     }else{
-        printf("\nHacer push...\n");
 
         aux->valor = elemento;
         aux->color = color;
@@ -53,7 +40,6 @@ void swap(int* a, int* b) {
 }
 
 void barajar(BarajaPtr_t *baraja) {
-    srand(time(NULL));
     for (int i = (*baraja)->n_cartas - 1; i > 0; i--) {
         int j = rand() % (i + 1);
         swap(&(*baraja)->cartas[i], &(*baraja)->cartas[j]);

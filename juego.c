@@ -6,15 +6,16 @@
 void juego(){
     Deck baraja = NULL;
 
-    baraja = crear_baraja();
-    for(int i=0;i<4;i++){
+    baraja = crear_baraja(); //Creamos la baraja con las cartas incluidas
+    /*for(int i=0;i<4;i++){
         baraja_push(&baraja,i,i);
-    }
+    }*/
     if(baraja!=NULL){
         printf("Baraja generada con exito\n");
-
-       /* for(int i=0; i<108;i++){
-            //printf((*baraja).cartas[i]);
-       }*/
+        while (baraja->sig!=NULL){
+            printf("Valor: %d",baraja->valor);
+            printf("   Coolor: %d \n",baraja->color);
+            baraja = baraja->sig;
+        }
     }
 }
