@@ -10,4 +10,5 @@
 void muestraMenu();
 int getOption();
 void selectOption(int option);
+void loadFiles(char *fileUser, char *fileBots);
 #endif //UNO_MENU_H

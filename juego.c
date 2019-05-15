@@ -14,7 +14,7 @@ void juego(){
         printf("Baraja generada con exito\n");
         while (baraja->sig!=NULL){
             printf("Valor: %d",baraja->valor);
-            printf("   Coolor: %d \n",baraja->color);
+            printf("   Color: %d \n",baraja->color);
             baraja = baraja->sig;
         }
     }
