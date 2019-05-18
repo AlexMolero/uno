@@ -37,7 +37,7 @@ void selectOption(int option){
             break;
     }
 }
-void loadFiles(char *fileUser, char *fileBots){
+Jugador loadPlayer(char *fileUser){
     printf("%s",fileUser);
     //Load player and save it in memory
     FILE *f;
@@ -46,29 +46,36 @@ void loadFiles(char *fileUser, char *fileBots){
     if (f == NULL) {
         printf("\nError en obrir fitxer...\n");
     } else {
-    	Jugador *j;
-    	*j = JUGADOR_crea();
-	    char *nombre = malloc(sizeof(char) * 1024);
+    	Jugador j = JUGADOR_crea();
 
+	    char *nombre = malloc(sizeof(char) * 1024);
 	    fgets(nombre, 25, f);
 	    strtok(nombre, "\n");
-	    JUGADOR_insertaNombre(j, nombre);
+	    JUGADOR_insertaNombre(&j, nombre);
 
-	    printf("%s\n", JUGADOR_consultaNombre(*j));
+	    printf("\n Hola %s\n", JUGADOR_consultaNombre(j));
 
-	    int manos_ganadas, manos_perdidas, manos_empatadas;
+	    int partidas_ganadas, partidas_perdidas;
 
-	    fscanf(f, "%d", &manos_ganadas);
-	    JUGADOR_insertaManosGanadas(j, manos_ganadas);
-	    printf("%d\n", JUGADOR_consultaManosGanadas(*j));
+	    fscanf(f, "%d", &partidas_ganadas);
+	    JUGADOR_insertaPartidasGanadas(j, partidas_ganadas);
+	    printf("%d\n", JUGADOR_consultaPartidasGanadas(j));
 
-	    fscanf(f, "%d", &manos_perdidas);
-	    JUGADOR_insertaManosPerdidas(j, manos_perdidas);
-	    printf("%d\n", JUGADOR_consultaManosPerdidas(*j));
+	    fscanf(f, "%d", &partidas_perdidas);
+	    JUGADOR_insertaPartidasPerdidas(j, partidas_perdidas);
+	    printf("%d\n", JUGADOR_consultaPartidasPerdidas(j));
 
-	    fscanf(f, "%d", &manos_empatadas);
-	    JUGADOR_insertaManosEmpatadas(j, manos_empatadas);
-	    printf("%d\n", JUGADOR_consultaManosEmpatadas(*j));
+	    int partidas =
+			    JUGADOR_consultaPartidasGanadas(j) + JUGADOR_consultaPartidasPerdidas(j);
+	    int res;
 
+	    for (int i = 0; i < partidas; i++) {
+		    fscanf(f, "%d", &res);
+//		    JUGADOR_insertaCartasPartida(&j, res);
+//		    printf("%d", JUGADOR_consultaCartasPartida(j, i));
+	    }
+
+	    fclose(f);
+		return j;
     }
 }

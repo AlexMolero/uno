@@ -2,10 +2,12 @@
 #include "menu.h"
 #include "juego.h"
 
+
 int main(int argc, char **argv) {
 
     if(argc == 3){
-        loadFiles(argv[1], argv[2]);
+	    Jugador j = loadPlayer(argv[1]);
+//	    Bot b = loadBots(argv[2]);
         muestraMenu();
         int option = getOption();
         while (option!=3){
