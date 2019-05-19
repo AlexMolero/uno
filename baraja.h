@@ -9,6 +9,7 @@
 #include <stdio.h>
 
 typedef struct N {
+    int cont;
     int valor;
     int color;
     struct N *sig;
@@ -23,10 +24,10 @@ struct BarajaStruct_t {
 };
 typedef struct BarajaStruct_t * BarajaPtr_t;
 
-void barajar(BarajaPtr_t *baraja);
+void barajar(Deck *baraja);
 
 Deck crear_baraja();
 
-void baraja_push(Deck *baraja, int valor, int color);
+void baraja_push(Deck *baraja, int valor, int color, int cont);
 
 #endif //UNO_BARAJA_H
