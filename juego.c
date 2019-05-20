@@ -1,40 +1,55 @@
 //
 // Created by Alex on 30/04/2019.
 //
-#include <stdbool.h>
 #include "juego.h"
 
 void juego(){
     Deck baraja = NULL;
 
     baraja = crear_baraja(); //Creamos la baraja con las cartas incluidas
-    /*for(int i=0;i<4;i++){
-        baraja_push(&baraja,i,i);
-    }*/
+
     if(baraja!=NULL){
         printf("Baraja generada con exito\n");
-        baraja->cont=0;
 
-         while (baraja->sig!=NULL){
+        /* LEER BARAJA
+          while (baraja->sig!=NULL){
               printf("Contador: %d",baraja->cont);
               printf("Valor: %d",baraja->valor);
-              printf("   Coolor: %d \n",baraja->color);
+              printf("Coolor: %d \n",baraja->color);
               baraja = baraja->sig;
           }
+        */
     }
 
     printf("EMPIEZA A BARAJAR");
     barajar(&baraja);
 }
-boolean validar_juego(Deck *p, int valor, int color){
+int validar_jugada(Deck *p, ListaCarta *lista){
 
-    //TODO Valor y color son de la lista del jugador
-    if((*p)->valor==valor || (*p)->color == color || color == 4){
+    //TODO lista???????? se debe llevar previamente a la posicion de la lista para validar
+    if((*p)->valor==(*lista).ant->valor || (*p)->color == (*lista).ant->color || (*lista).ant->color == 4){
         //SE puede jugar la carta
-        return true;
+        return 1;
     }else{
         //No es valida la jugada.
-        return false;
+        return 0;
     }
+}
+/**
+ * Repartir carta: Se pasa por referencia la baraja y una lista de cartas para insertar la cantidad indicada en la lista de cartas
+ * del usuario
+ * @param p
+ * @param lista
+ * @param cantidad
+ * @return
+ */
+int repartir_carta(Deck *p, ListaCarta *lista, int cantidad){
 
+    Nodo *aux;
+    aux = (*p);
+    for(int i=0;i<cantidad;i++){
+        LISTACARTA_inserta((*lista),(*aux));
+        baraja_pop(p);
+    }
+    return 1;
 }

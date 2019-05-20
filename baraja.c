@@ -54,14 +54,22 @@ void baraja_push(Deck *p, int elemento, int color, int cont) {
         *p = aux;
     }
 }
-
+void baraja_pop(Deck *p) {
+    Nodo *aux;
+    if (*p == NULL) {
+        printf("\nError al hacer pop, la pila està vacía.\n");
+    } else {
+        aux = *p;
+        *p = (*p)->sig;
+        free(aux);
+    }
+}
 void swap(Deck *a, Deck *b) {
     Deck temp;
     temp = *a;
     *a = *b;
     *b = temp;
 }
-
 void barajar(Deck *p) {
     printf("Valor: %d",(*p)->valor);
     printf("   Coolor: %d \n",(*p)->color);

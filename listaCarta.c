@@ -1,4 +1,4 @@
-#include <libnet.h>
+//#include <libnet.h>
 #include "listaCarta.h"
 
 ListaCarta LISTACARTA_crea() {
