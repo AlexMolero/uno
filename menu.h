@@ -6,8 +6,11 @@
 
 #include <stdio.h>
 #include "baraja.h"
+#include "jugador.h"
 
 void muestraMenu();
 int getOption();
 void selectOption(int option);
+Jugador loadPlayer(char *fileUser);
+Jugador loadBots(char *fileBots);
 #endif //UNO_MENU_H
