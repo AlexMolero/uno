@@ -6,8 +6,8 @@
 int main(int argc, char **argv) {
 
     //if(argc == 3){
-	   // Jugador j = loadPlayer(argv[1]);
-//	    Bot b = loadBots(argv[2]);
+	   Jugador j = loadPlayer(argv[1]);
+	    Bots *b = loadBots(argv[2]);
         muestraMenu();
         int option = getOption();
         while (option!=3){

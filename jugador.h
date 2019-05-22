@@ -11,17 +11,20 @@ typedef struct {
     int partidas_perdidas;
     int partidas_empatadas;
     ListaCarta cartas;
-	int cartas_partida_i[];
+	int num_partidas;
+    int *cartas_partida_i;
 } Jugador;
 
 Jugador JUGADOR_crea();
 void JUGADOR_insertaNombre(Jugador *j, char *nombre);
-void JUGADOR_insertaPartidasGanadas(Jugador j, int manosGanadas);
-void JUGADOR_insertaPartidasPerdidas(Jugador j, int manosPerdidas);
+void JUGADOR_insertaPartidasGanadas(Jugador *j, int manosGanadas);
+void JUGADOR_insertaPartidasPerdidas(Jugador *j, int manosPerdidas);
 char * JUGADOR_consultaNombre(Jugador j);
 int JUGADOR_consultaPartidasGanadas(Jugador j);
 int JUGADOR_consultaPartidasPerdidas(Jugador j);
-int JUGADOR_insertaCartasPartida(Jugador *j, int cartas);
+void JUGADOR_insertaCartasPartida(Jugador *j, int cartas);
 int JUGADOR_consultaCartasPartida(Jugador j, int cartas);
+int JUGADOR_consultaNumPartidas(Jugador j);
+void JUGADOR_insertaNumPartidas(Jugador *j, int n_partidas);
 
 #endif //INC_21BLACKJACK_JUGADOR_H
