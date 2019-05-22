@@ -14,4 +14,6 @@ int getOption();
 void selectOption(int option);
 Jugador loadPlayer(char *fileUser);
 Bots *loadBots(char *fileBots);
+void selectFirstAction(char option,ListaCarta *lista);
+char getGameOption(char name_player);
 #endif //UNO_MENU_H

@@ -9,6 +9,8 @@
 
 #define JUGAR            1
 #define ESTADISTICAS     2
+#define VER_MANO         'A'
+#define ROBAR_CARTA      'B'
 
 void muestraMenu(){
     printf("*********MENU PRINCIPAL*********\n");
@@ -23,7 +25,28 @@ int getOption(){
     scanf("%d",&option);
     return option;
 }
+char getGameOption(char name_player){
+    char option;
+    printf("%s , escoge una acción\n",&name_player);
+    printf("A. Ver mano\n");
+    printf("B. Robar carta\n");
+    scanf(" %c", &option);
 
+    return option;
+}
+void selectFirstAction(char option, ListaCarta *lista){
+    switch (option) {
+        case VER_MANO:
+
+            break;
+        case ROBAR_CARTA:
+
+            break;
+        default:
+            printf("Opcion erronea, seleccione otra\n");
+            break;
+    }
+}
 void selectOption(int option){
 
     switch (option) {
