@@ -14,19 +14,19 @@ ListaCarta LISTACARTA_crea() {
     }
     return l;
 }
-ListaCarta LISTACARTA_inserta(ListaCarta l, Nodo elemento) {
+ListaCarta LISTACARTA_inserta(ListaCarta *l, Nodo *elemento) {
     Nodo *aux;
     aux = (Nodo*)malloc(sizeof(Nodo));
     if (aux == NULL) {
         printf("\nError al insertar en la lista...\n");
     } else {
-        aux->valor = elemento.valor;
-        aux->color = elemento.color;
-        aux->sig = l.ant->sig;
-        l.ant->sig = aux;
-        l.ant = aux; // para mantener el PDI
+        aux->valor = (*elemento).valor;
+        aux->color = (*elemento).color;
+        aux->sig = (*l).ant->sig;
+        (*l).ant->sig = aux;
+        (*l).ant = aux; // para mantener el PDI
     }
-    return l;
+    return (*l);
 }
 ListaCarta LISTACARTA_elimina(ListaCarta l) {
     Nodo *aux;
@@ -94,7 +94,7 @@ ListaCarta LISTACARTA_destruye(ListaCarta l) {
     return l;
 }
 
-int LISTACARTA_modificar(ListaCarta l, Nodo valor, int * posicion){
+/*int LISTACARTA_modificar(ListaCarta l, Nodo valor, int * posicion){
     int r = 1;
     int p = 0;
     l = LISTACARTA_vesInicio(l);
@@ -108,6 +108,6 @@ int LISTACARTA_modificar(ListaCarta l, Nodo valor, int * posicion){
         }
     }
     return r;
-}
+}*/
 
 

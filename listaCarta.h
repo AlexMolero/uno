@@ -14,7 +14,7 @@ typedef struct {
 }ListaCarta;
 
 ListaCarta LISTACARTA_crea();
-ListaCarta LISTACARTA_inserta(ListaCarta l, Nodo elemento);
+ListaCarta LISTACARTA_inserta(ListaCarta *l, Nodo *elemento);
 ListaCarta LISTACARTA_elimina(ListaCarta l);
 Nodo LISTACARTA_consulta(ListaCarta l);
 ListaCarta LISTACARTA_avanza(ListaCarta l);

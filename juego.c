@@ -25,10 +25,10 @@ void juego(){
     JUGADOR_insertaNombre(&jugador, "Alex Molero");
 
     /*REPARTIMOS LAS CARTAS A CADA JUGADOR*/
-    repartir_carta(&baraja,&jugador.cartas,7);
-    //repartir_carta(&baraja,&bot1.cartas,7);
-   // repartir_carta(&baraja,&bot2.cartas,7);
-   // repartir_carta(&baraja,&bot3.cartas,7);
+       repartir_carta(&baraja,&jugador.cartas,20);
+    // repartir_carta(&baraja,&bot1.cartas,7);
+    // repartir_carta(&baraja,&bot2.cartas,7);
+    // repartir_carta(&baraja,&bot3.cartas,7);
     /*INSERTAMOS CADA JUGADOR A LA LISTA DE JUEGO*/
     LISTAJUEGO_insertaDerecha(&lista_jugadores,jugador);
     LISTAJUEGO_insertaDerecha(&lista_jugadores,bot1);
@@ -68,12 +68,12 @@ int repartir_carta(Deck *p, ListaCarta *lista, int cantidad){
         printf("****************************\n");
         printf("Carta que inserta:\n");
         printf("Valor: %d Color: %d \n",(*p)->valor, (*p)->color);
-        (*lista) = LISTACARTA_inserta((*lista),(*aux));
+        (*lista) = LISTACARTA_inserta(lista,(*p));
+
         baraja_pop(p);
         printf("Carta que se ha insertado:\n");
         printf("Valor: %d Color: %d\n",(*lista).ant->valor, (*lista).ant->color);
         printf("****************************\n");
-
     }
 
     /*(*lista) = LISTACARTA_vesInicio((*lista));
