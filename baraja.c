@@ -24,8 +24,6 @@ Deck crear_baraja() {
                     cont++;
                     baraja_push(&p, j, i, cont);
                 }
-
-
             }
         }
     }
@@ -83,4 +81,12 @@ void barajar(Deck *p) {
 
          swap((*p)->sig, (*p)->sig);
      }*/
+}
+void baraja_next(Deck *p) {
+    if(p != NULL) {
+        (*p) = (*p)->sig;
+    }else{
+        printf("Esta en el final de la baraja \n");
+    }
+
 }

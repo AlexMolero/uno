@@ -13,4 +13,5 @@ void juego();
 int validar_jugada(Deck *p, ListaCarta *lista);
 int repartir_carta(Deck *p, ListaCarta *lista, int cantidad);
 void ver_menu_jugadores(ListaJuego lista_jugadores);
+void ver_lista_cartas(ListaCarta lista);
 #endif //UNO_JUEGO_H

@@ -4,7 +4,6 @@ Jugador JUGADOR_crea() {
     Jugador j;
     j.nombre = "";
     j.cartas = LISTACARTA_crea();
-    j.cartas = LISTACARTA_vesInicio(j.cartas);
     j.partidas_ganadas = 0;
     j.partidas_perdidas = 0;
     j.partidas_empatadas = 0;

@@ -9,8 +9,8 @@
 #include "baraja.h"
 
 typedef struct {
-	Nodo *pri;
-	Nodo *ant;
+    Nodo *pri;
+    Nodo *ant;
 }ListaCarta;
 
 ListaCarta LISTACARTA_crea();
