@@ -77,10 +77,10 @@ void LISTAJUEGO_insertaDerecha(ListaJuego *l, Nodo_jugador nodo){
         } else {
             if(nodo.type==0){
                 aux->jugador = nodo.jugador;
-                aux->type = nodo.type;
+                aux->type = 0;
             }else{
                 aux->bots = nodo.bots;
-                aux->type = nodo.type;
+                aux->type = 1;
             }
             aux->sig = l->pdi->sig;
             aux->ant = l->pdi;

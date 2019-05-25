@@ -11,9 +11,13 @@ void juego(char **argv){
     ListaJuego lista_jugadores = LISTAJUEGO_crea();
     Jugador j = loadPlayer(argv[1]);
     LISTAJUEGO_insertaJugador(&lista_jugadores,j);
-    int numBots;
-    /*Bots *b = loadBots(argv[2],&numBots);
-    for(int i=0; i<numBots;i++){
+    /*int numBots;
+    Bots *b = loadBots(argv[2], &numBots);
+    for (int i = 0; i < numBots ; ++i) {
+        LISTAJUEGO_insertaBot(&lista_jugadores,b[i]);
+        //printf("Nombre: %s", BOTS_consultaNombre(b[i]));
+    }*/
+    /*for(int i=0; i<numBots;i++){
         LISTAJUEGO_insertaBot(&lista_jugadores,b[i]);
     }*/
     /*Fin:Insertamos los bots y jugador a la lista*/
@@ -76,7 +80,7 @@ void ver_menu_jugadores(ListaJuego lista_jugadores){
         }else{
             //print bot
             printf("%s \n", j.bots.nombre);
-            //ver_lista_cartas(j.bots.cartas);
+            ver_lista_cartas(j.bots.cartas);
         }
         LISTAJUEGO_avanza(&lista_jugadores);
     }
