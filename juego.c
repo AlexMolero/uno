@@ -8,22 +8,21 @@
 
 void juego(char **argv){
     /*Inicio:Insertamos los bots y jugador a la lista*/
+    Deck baraja = NULL;
+    baraja = crear_baraja();
     ListaJuego lista_jugadores = LISTAJUEGO_crea();
     Jugador j = loadPlayer(argv[1]);
+    repartir_carta(&baraja,&j.cartas,7);
     LISTAJUEGO_insertaJugador(&lista_jugadores,j);
-    /*int numBots;
+    int numBots;
     Bots *b = loadBots(argv[2], &numBots);
     for (int i = 0; i < numBots ; ++i) {
+        //repartir_carta(&baraja,&b[i].cartas,b[i].carta_maxima);
         LISTAJUEGO_insertaBot(&lista_jugadores,b[i]);
-        //printf("Nombre: %s", BOTS_consultaNombre(b[i]));
-    }*/
-    /*for(int i=0; i<numBots;i++){
-        LISTAJUEGO_insertaBot(&lista_jugadores,b[i]);
-    }*/
+    }
     /*Fin:Insertamos los bots y jugador a la lista*/
 
-    Deck baraja = NULL;
-    baraja = crear_baraja(); //Creamos la baraja con las cartas incluidas
+     //Creamos la baraja con las cartas incluidas
     ListaCarta descarte = LISTACARTA_crea(); //Creamos la baraja de descartes
 
 
@@ -57,16 +56,9 @@ int repartir_carta(Deck *p, ListaCarta *lista, int cantidad){
     Nodo *aux;
     aux = (*p);
     for(int i=0;i<cantidad;i++){
-       /* printf("****************************\n");
-        printf("Carta que inserta:\n");
-        printf("Valor: %d Color: %d \n",(*p)->valor, (*p)->color);*/
         (*lista) = LISTACARTA_inserta(lista,(*p));
         baraja_pop(p);
-       /* printf("Carta que se ha insertado:\n");
-        printf("Valor: %d Color: %d\n",(*lista).ant->valor, (*lista).ant->color);
-        printf("****************************\n");*/
     }
-
     return 1;
 }
 void ver_menu_jugadores(ListaJuego lista_jugadores){
@@ -77,10 +69,11 @@ void ver_menu_jugadores(ListaJuego lista_jugadores){
             //print jugador
             printf("%s \n", j.jugador.nombre);
             ver_lista_cartas(j.jugador.cartas);
+            printf("Numero de cartas: %d",LISTACARTA_contarCartas(j.jugador.cartas));
         }else{
             //print bot
             printf("%s \n", j.bots.nombre);
-            ver_lista_cartas(j.bots.cartas);
+            //ver_lista_cartas(j.bots.cartas);
         }
         LISTAJUEGO_avanza(&lista_jugadores);
     }

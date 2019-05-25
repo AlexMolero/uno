@@ -94,20 +94,14 @@ ListaCarta LISTACARTA_destruye(ListaCarta l) {
     return l;
 }
 
-/*int LISTACARTA_modificar(ListaCarta l, Nodo valor, int * posicion){
-    int r = 1;
-    int p = 0;
+int LISTACARTA_contarCartas(ListaCarta l){
     l = LISTACARTA_vesInicio(l);
-    while (!LISTACARTA_final(l)) {
-        l=LISTACARTA_avanza(l);
-        p++;
-        if(p== *posicion){
-            l= LISTACARTA_elimina(l);
-            l = LISTACARTA_inserta(l, valor);
-            r = 0;
-        }
+    int count=0;
+    while (l.ant->sig!=NULL){
+        count++;
+        l = LISTACARTA_avanza(l);
     }
-    return r;
-}*/
+    return count;
+}
 
 

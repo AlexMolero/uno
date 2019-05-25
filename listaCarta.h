@@ -24,4 +24,5 @@ int LISTACARTA_vacia(ListaCarta l);
 ListaCarta LISTACARTA_destruye(ListaCarta l);
 ListaCarta LISTACARTA_unir(ListaCarta l1, ListaCarta l2);
 int LISTACARTA_modificar(ListaCarta l, Nodo valor, int * posicion);
+int LISTACARTA_contarCartas(ListaCarta l);
 #endif //UNO_LISTACARTA_H

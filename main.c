@@ -4,7 +4,7 @@
 
 
 int main(int argc, char **argv) {
-
+    setbuf(stdout,0);
     if(argc == 3){
         muestraMenu();
         int option = getOption();
