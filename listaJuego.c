@@ -51,7 +51,20 @@ void LISTAJUEGO_insertaIzquierda(ListaJuego *l, Jugador jugador){
         }
     }
 }
+void LISTAJUEGO_insertaJugador(ListaJuego *l, Jugador jugador){
+    Nodo_jugador nodo;
+    nodo.jugador = jugador;
+    nodo.type = 0;
+    LISTAJUEGO_insertaDerecha(l,nodo);
 
+}
+void LISTAJUEGO_insertaBot(ListaJuego *l, Bots bot){
+    Nodo_jugador nodo;
+    nodo.bots = bot;
+    nodo.type = 1;
+    LISTAJUEGO_insertaDerecha(l,nodo);
+
+}
 void LISTAJUEGO_insertaDerecha(ListaJuego *l, Nodo_jugador nodo){
     Nodo_jugador *aux;
 
@@ -63,9 +76,15 @@ void LISTAJUEGO_insertaDerecha(ListaJuego *l, Nodo_jugador nodo){
             printf("\nError al insertar a la derecha...\n");
         } else {
             if(nodo.type==0){
+                Bots b;
                 aux->jugador = nodo.jugador;
+                aux->bots = b;
+                printf("%s",nodo.jugador.nombre);
             }else{
+                Jugador j;
                 aux->bots = nodo.bots;
+                aux->jugador = j;
+
             }
             aux->sig = l->pdi->sig;
             aux->ant = l->pdi;

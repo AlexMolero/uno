@@ -23,6 +23,8 @@ typedef struct {
 
 
 ListaJuego LISTAJUEGO_crea();
+void LISTAJUEGO_insertaJugador(ListaJuego *l, Jugador jugador);
+void LISTAJUEGO_insertaBot(ListaJuego *l, Bots bot);
 void LISTAJUEGO_insertaIzquierda(ListaJuego *l, Jugador jugador);
 void LISTAJUEGO_insertaDerecha(ListaJuego *l, Nodo_jugador nodo);
 Nodo_jugador LISTAJUEGO_consulta(ListaJuego l);

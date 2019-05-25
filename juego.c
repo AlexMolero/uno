@@ -7,35 +7,26 @@
 #include "menu.h"
 
 void juego(char **argv){
+    /*Inicio:Insertamos los bots y jugador a la lista*/
     ListaJuego lista_jugadores = LISTAJUEGO_crea();
-
     Jugador j = loadPlayer(argv[1]);
-    Nodo_jugador nodo;
-    nodo.jugador = j;
-    nodo.type = 0;
-    LISTAJUEGO_insertaDerecha(&lista_jugadores,nodo);
+    LISTAJUEGO_insertaJugador(&lista_jugadores,j);
     int numBots;
-    Bots *b = loadBots(argv[2],&numBots);
+    /*Bots *b = loadBots(argv[2],&numBots);
+    for(int i=0; i<numBots;i++){
+        LISTAJUEGO_insertaBot(&lista_jugadores,b[i]);
+    }*/
+    /*Fin:Insertamos los bots y jugador a la lista*/
 
     Deck baraja = NULL;
-    //Jugador jugador, bot1,bot2,bot3;
     baraja = crear_baraja(); //Creamos la baraja con las cartas incluidas
     ListaCarta descarte = LISTACARTA_crea(); //Creamos la baraja de descartes
-    lista_jugadores = LISTAJUEGO_crea();   //Creamos una lista de los jugadores
-
-
-
-    /*INSERTAMOS NOMBRE PRUEBA*/
 
 
     /*REPARTIMOS LAS CARTAS A CADA JUGADOR*/
-     repartir_carta(&baraja,&lista_jugadores.pri->jugador.cartas,7);
-
-
+     //repartir_carta(&baraja,&lista_jugadores.pri->jugador.cartas,7);
     //Jugador j = LISTAJUEGO_consulta(lista_jugadores);
-
     ver_menu_jugadores(lista_jugadores);
-    printf("EMPIEZA A BARAJAR");
     //barajar(&baraja);
 }
 int validar_jugada(Deck *p, ListaCarta *lista){
@@ -78,8 +69,15 @@ void ver_menu_jugadores(ListaJuego lista_jugadores){
     LISTAJUEGO_vesInicio(&lista_jugadores);
     while(lista_jugadores.pdi->sig != NULL){ //MAL isEmpty usar LISTAJUEGO_final
         Nodo_jugador j = LISTAJUEGO_consulta(lista_jugadores);
-        //printf("%s \n", j.nombre);
-        //ver_lista_cartas(j.cartas);
+        if(j.type==0){
+            //print jugador
+            printf("%s \n", j.jugador.nombre);
+            ver_lista_cartas(j.jugador.cartas);
+        }else{
+            //print bot
+            printf("%s \n", j.bots.nombre);
+            ver_lista_cartas(j.bots.cartas);
+        }
         LISTAJUEGO_avanza(&lista_jugadores);
     }
 }
