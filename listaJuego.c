@@ -76,16 +76,11 @@ void LISTAJUEGO_insertaDerecha(ListaJuego *l, Nodo_jugador nodo){
             printf("\nError al insertar a la derecha...\n");
         } else {
             if(nodo.type==0){
-                Bots b;
                 aux->jugador = nodo.jugador;
-                aux->bots = b;
-                aux->type= 0;
-                printf("%s",nodo.jugador.nombre);
+                aux->type = nodo.type;
             }else{
-                Jugador j;
                 aux->bots = nodo.bots;
-                aux->jugador = j;
-                aux->type = 1;
+                aux->type = nodo.type;
             }
             aux->sig = l->pdi->sig;
             aux->ant = l->pdi;
