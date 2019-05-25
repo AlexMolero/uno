@@ -5,9 +5,12 @@
 #define UNO_LISTAJUEGO_H
 
 #include "jugador.h"
+#include "bots.h"
 
 typedef struct Node {
+    int type;
     Jugador jugador;
+    Bots bots;
     struct Node *sig;
     struct Node *ant;
 }Nodo_jugador;
@@ -22,7 +25,7 @@ typedef struct {
 ListaJuego LISTAJUEGO_crea();
 void LISTAJUEGO_insertaIzquierda(ListaJuego *l, Jugador jugador);
 void LISTAJUEGO_insertaDerecha(ListaJuego *l, Jugador jugador);
-Jugador  LISTAJUEGO_consulta(ListaJuego l);
+Nodo_jugador LISTAJUEGO_consulta(ListaJuego l);
 void LISTAJUEGO_elimina(ListaJuego *l);
 void LISTAJUEGO_avanza(ListaJuego *l);
 void LISTAJUEGO_retrocede(ListaJuego *l);

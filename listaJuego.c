@@ -72,16 +72,15 @@ void LISTAJUEGO_insertaDerecha(ListaJuego *l, Jugador jugador){
     }
 }
 
-Jugador LISTAJUEGO_consulta(ListaJuego l){
-    Jugador jugador;
-
+Nodo_jugador LISTAJUEGO_consulta(ListaJuego l){
+    Nodo_jugador *nodo;
     if (l.pdi==l.pri || l.pdi==l.ult) {
         printf("\nError al consultar, PDI al incio o al final, ...\n");
     } else {
-        jugador = l.pdi->jugador;
+        nodo = l.pdi;
     }
 
-    return jugador;
+    return (*nodo);
 }
 
 void LISTAJUEGO_elimina(ListaJuego *l){

@@ -5,7 +5,7 @@
 #include "baraja.h"
 
 #define COLORES 4
-#define NUM_MAX_CARTA 13
+#define NUM_MAX_CARTA 10
 
 
 Deck crear_baraja() {
@@ -28,7 +28,7 @@ Deck crear_baraja() {
         }
     }
     //Insertamos los comodines
-    int value_comodin = NUM_MAX_CARTA+1;
+    int value_comodin = NUM_MAX_CARTA;
     for(int i=0;i<8;i++){
         if(i>=4){
             baraja_push(&p, value_comodin+1, COLORES, cont);

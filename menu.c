@@ -34,10 +34,10 @@ char getGameOption(char name_player){
 
     return option;
 }
-void selectFirstAction(char option, ListaCarta *lista){
+void selectFirstAction(char option, ListaCarta lista){
     switch (option) {
         case VER_MANO:
-
+            ver_lista_cartas(lista);
             break;
         case ROBAR_CARTA:
 
@@ -157,4 +157,37 @@ Bots *loadBots(char *fileBot){
 
         return bots;
     }
+}
+void convertirCarta(int valor, int color){
+
+    //comodin de color(value 10) y 4 cartas comodin de robar 4 (value 11)
+    switch (valor) { //0=Rojo, 1=Amarillo, 2=Verde, 3=Azul y 4 = Comodin
+        case 10:
+            printf(" Cambio de color");
+            break;
+        case 11:
+            printf(" Robar 4");
+            break;
+        default:
+            printf("%d",valor);
+            break;
+    }
+
+    switch (color) { //0=Rojo, 1=Amarillo, 2=Verde, 3=Azul y 4 = Comodin
+        case 0:
+            printf(" Rojo");
+            break;
+        case 1:
+            printf(" Amarillo");
+            break;
+        case 2:
+            printf(" Verde");
+            break;
+        case 3:
+            printf(" Azul");
+            break;
+        default:
+            break;
+    }
+    printf("\n");
 }

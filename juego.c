@@ -4,6 +4,7 @@
 #include "juego.h"
 #include "jugador.h"
 #include "listaJuego.h"
+#include "menu.h"
 
 void juego(Jugador j, Bots *b){
     Deck baraja = NULL;
@@ -25,18 +26,18 @@ void juego(Jugador j, Bots *b){
     JUGADOR_insertaNombre(&jugador, "Alex Molero");
 
     /*REPARTIMOS LAS CARTAS A CADA JUGADOR*/
-       repartir_carta(&baraja,&jugador.cartas,20);
-    // repartir_carta(&baraja,&bot1.cartas,7);
-    // repartir_carta(&baraja,&bot2.cartas,7);
-    // repartir_carta(&baraja,&bot3.cartas,7);
+     repartir_carta(&baraja,&jugador.cartas,7);
+     repartir_carta(&baraja,&bot1.cartas,7);
+     repartir_carta(&baraja,&bot2.cartas,7);
+     repartir_carta(&baraja,&bot3.cartas,7);
     /*INSERTAMOS CADA JUGADOR A LA LISTA DE JUEGO*/
     LISTAJUEGO_insertaDerecha(&lista_jugadores,jugador);
     LISTAJUEGO_insertaDerecha(&lista_jugadores,bot1);
     LISTAJUEGO_insertaDerecha(&lista_jugadores,bot2);
     LISTAJUEGO_insertaDerecha(&lista_jugadores,bot3);
-    //ver_menu_jugadores(lista_jugadores);
-    //Nodo carta = LISTACARTA_consulta(jugador.cartas);
-    //printf("%d", carta.valor);
+    //Jugador j = LISTAJUEGO_consulta(lista_jugadores);
+
+    ver_menu_jugadores(lista_jugadores);
     printf("EMPIEZA A BARAJAR");
     //barajar(&baraja);
 }
@@ -64,46 +65,35 @@ int repartir_carta(Deck *p, ListaCarta *lista, int cantidad){
     Nodo *aux;
     aux = (*p);
     for(int i=0;i<cantidad;i++){
-        printf("****************************\n");
+       /* printf("****************************\n");
         printf("Carta que inserta:\n");
-        printf("Valor: %d Color: %d \n",(*p)->valor, (*p)->color);
+        printf("Valor: %d Color: %d \n",(*p)->valor, (*p)->color);*/
         (*lista) = LISTACARTA_inserta(lista,(*p));
-
         baraja_pop(p);
-        printf("Carta que se ha insertado:\n");
+       /* printf("Carta que se ha insertado:\n");
         printf("Valor: %d Color: %d\n",(*lista).ant->valor, (*lista).ant->color);
-        printf("****************************\n");
+        printf("****************************\n");*/
     }
-
-    /*(*lista) = LISTACARTA_vesInicio((*lista));
-    Nodo carta = LISTACARTA_consulta((*lista));
-    printf("%d ",carta.color);
-    printf("%d ",carta.valor);
-    (*lista) = LISTACARTA_avanza((*lista));
-    carta = LISTACARTA_consulta((*lista));
-    printf("%d ",carta.color);
-    printf("%d ",carta.valor);*/
 
     return 1;
 }
 void ver_menu_jugadores(ListaJuego lista_jugadores){
     LISTAJUEGO_vesInicio(&lista_jugadores);
-    while(lista_jugadores.pri != NULL){ //MAL isEmpty usar LISTAJUEGO_final
-        Jugador j = LISTAJUEGO_consulta(lista_jugadores);
-        printf("%s \n", j.nombre);
-        ver_lista_cartas(j.cartas);
+    while(lista_jugadores.pdi->sig != NULL){ //MAL isEmpty usar LISTAJUEGO_final
+        Nodo_jugador j = LISTAJUEGO_consulta(lista_jugadores);
+        //printf("%s \n", j.nombre);
+        //ver_lista_cartas(j.cartas);
         LISTAJUEGO_avanza(&lista_jugadores);
     }
 }
 void ver_lista_cartas(ListaCarta lista){
     lista = LISTACARTA_vesInicio(lista);
-   // while (lista.ant!=NULL){
+    int count=1;
+    while (lista.ant->sig!=NULL){
         Nodo carta = LISTACARTA_consulta(lista);
-        printf("Valor: %d ",carta.valor);
-        printf("Color: %d \n",carta.color);
+        printf("%d . " ,count);
+        convertirCarta(carta.valor,carta.color);
         lista = LISTACARTA_avanza(lista);
-        carta = LISTACARTA_consulta(lista);
-        printf("Valor: %d ",carta.valor);
-        printf("Color: %d \n",carta.color);
-   // }
+        count++;
+    }
 }
