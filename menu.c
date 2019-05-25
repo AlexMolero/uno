@@ -47,11 +47,14 @@ void selectFirstAction(char option, ListaCarta *lista){
             break;
     }
 }
-void selectOption(int option){
-
+void selectOption(int option, char **argv){
+    Jugador j;
+    Bots *b;
     switch (option) {
         case JUGAR:
-            juego();
+            j = loadPlayer(argv[1]);
+            b = loadBots(argv[2]);
+            juego(j, b);
             break;
         case ESTADISTICAS:
 

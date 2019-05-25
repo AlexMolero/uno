@@ -8,8 +8,9 @@
 #include "baraja.h"
 #include "listaCarta.h"
 #include "listaJuego.h"
+#include "bots.h"
 
-void juego();
+void juego(Jugador j, Bots *b);
 int validar_jugada(Deck *p, ListaCarta *lista);
 int repartir_carta(Deck *p, ListaCarta *lista, int cantidad);
 void ver_menu_jugadores(ListaJuego lista_jugadores);

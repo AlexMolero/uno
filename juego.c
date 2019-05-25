@@ -5,7 +5,7 @@
 #include "jugador.h"
 #include "listaJuego.h"
 
-void juego(){
+void juego(Jugador j, Bots *b){
     Deck baraja = NULL;
     Jugador jugador, bot1,bot2,bot3;
     baraja = crear_baraja(); //Creamos la baraja con las cartas incluidas
@@ -34,7 +34,6 @@ void juego(){
     LISTAJUEGO_insertaDerecha(&lista_jugadores,bot1);
     LISTAJUEGO_insertaDerecha(&lista_jugadores,bot2);
     LISTAJUEGO_insertaDerecha(&lista_jugadores,bot3);
-    Jugador j = LISTAJUEGO_consulta(lista_jugadores);
     //ver_menu_jugadores(lista_jugadores);
     //Nodo carta = LISTACARTA_consulta(jugador.cartas);
     //printf("%d", carta.valor);
