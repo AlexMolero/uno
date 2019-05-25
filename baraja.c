@@ -12,8 +12,8 @@ Deck crear_baraja() {
     //Añadir 4 cartas comodin de color(value 14) y 4 cartas comodin de robar 4 (value 15)
     Deck p;
     p = NULL;
-    int cont=0;
-    int j =0;
+    int cont = 0;
+    int j = 0;
     for(int b=0;b<2;b++){
         for(int i=0;i<COLORES;i++){
             // 0=Rojo, 1=Amarillo, 2=Verde, 3=Azul y 4 = Comodin

@@ -6,6 +6,7 @@
 #include "juego.h"
 #include "jugador.h"
 #include "bots.h"
+#include "estadisticas.h"
 
 #define JUGAR            1
 #define ESTADISTICAS     2
@@ -48,16 +49,12 @@ void selectFirstAction(char option, ListaCarta lista){
     }
 }
 void selectOption(int option, char **argv){
-    Jugador j;
-    Bots *b;
     switch (option) {
         case JUGAR:
-            j = loadPlayer(argv[1]);
-            b = loadBots(argv[2]);
-            juego(j, b);
+            juego(argv);
             break;
         case ESTADISTICAS:
-
+            estadisticas(argv);
             break;
         default:
             printf("Opcion erronea, seleccione otra\n");

@@ -5,4 +5,5 @@
 #ifndef UNO_ESTADISTICAS_H
 #define UNO_ESTADISTICAS_H
 
+void estadisticas(char **args);
 #endif //UNO_ESTADISTICAS_H

@@ -6,7 +6,9 @@
 #include "listaJuego.h"
 #include "menu.h"
 
-void juego(Jugador j, Bots *b){
+void juego(char **argv){
+    Jugador j = loadPlayer(argv[1]);
+    Bots *b = loadBots(argv[2]);
     Deck baraja = NULL;
     Jugador jugador, bot1,bot2,bot3;
     baraja = crear_baraja(); //Creamos la baraja con las cartas incluidas
