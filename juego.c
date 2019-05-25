@@ -72,11 +72,11 @@ void ver_menu_jugadores(ListaJuego lista_jugadores){
         if(j.type==0){
             //print jugador
             printf("%s \n", j.jugador.nombre);
-            ver_lista_cartas(j.jugador.cartas);
+            //ver_lista_cartas(j.jugador.cartas);
         }else{
             //print bot
             printf("%s \n", j.bots.nombre);
-            ver_lista_cartas(j.bots.cartas);
+           // ver_lista_cartas(j.bots.cartas);
         }
         LISTAJUEGO_avanza(&lista_jugadores);
     }

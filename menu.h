@@ -10,8 +10,10 @@
 #include "bots.h"
 
 void muestraMenu();
+void muestraMenuEstadisticas();
 int getOption();
 void selectOption(int option, char **argv);
+void selectOptionEstadisticas(int opcion, char **args);
 Jugador loadPlayer(char *fileUser);
 Bots *loadBots(char *fileBots, int *numBots);
 void selectFirstAction(char option,ListaCarta lista);

@@ -13,10 +13,19 @@
 #define VER_MANO         'A'
 #define ROBAR_CARTA      'B'
 
+#define ESTADISTICAS_JUGADOR  1
+#define ESTADISTICAS_BOTS     2
+
 void muestraMenu(){
     printf("*********MENU PRINCIPAL*********\n");
     printf("1- Jugar\n");
     printf("2- Mostrar estadísticas\n");
+    printf("3- Salir\n");
+}
+void muestraMenuEstadisticas(){
+    printf("*********MENU ESTADISTICAS*********\n");
+    printf("1- Jugador\n");
+    printf("2- Bots\n");
     printf("3- Salir\n");
 }
 
@@ -55,6 +64,19 @@ void selectOption(int option, char **argv){
             break;
         case ESTADISTICAS:
             estadisticas(argv);
+            break;
+        default:
+            printf("Opcion erronea, seleccione otra\n");
+            break;
+    }
+}
+void selectOptionEstadisticas(int option, char **args){
+    switch (option) {
+        case ESTADISTICAS_JUGADOR:
+            estadisticas_jugador(args);
+            break;
+        case ESTADISTICAS_BOTS:
+            estadisticas_bots(args);
             break;
         default:
             printf("Opcion erronea, seleccione otra\n");

@@ -7,6 +7,29 @@
 #include "menu.h"
 
 void estadisticas(char **argv){
+    muestraMenuEstadisticas();
+    int option = getOption();
+    while (option!=3){
+        selectOptionEstadisticas(option, argv);
+        muestraMenuEstadisticas();
+        option = getOption();
+    }
+}
+void estadisticas_jugador(char **argv){
+    Jugador j = loadPlayer(argv[1]);
+    printf("\nUNO - Estadísticas del jugador\n");
+    printf("Nombre: %s\n", JUGADOR_consultaNombre(j));
+    printf("Estadisticas de partidas: \n");
+    int partidas = JUGADOR_consultaPartidasGanadas(j) + JUGADOR_consultaPartidasPerdidas(j);
 
-
+    printf("\t Ganadas:  ... \t %d (%d%%)\n", JUGADOR_consultaPartidasGanadas(j), (JUGADOR_consultaPartidasGanadas(j)*100)/partidas);
+    printf("\t Perdidas:  ... \t %d (%d%%)\n", JUGADOR_consultaPartidasPerdidas(j), (JUGADOR_consultaPartidasPerdidas(j)*100)/partidas);
+//presiona enter para volver al menú principal
+}
+void estadisticas_bots(char **argv){
+    int numbots;
+    Bots *b = loadBots(argv[2], &numbots);
+    printf("\nUNO - Estadísticas de Bots\n");
+    printf("Nombre \t P.Ganadas \t P.Perdidas\n");
+    printf("---------------------\n");
 }

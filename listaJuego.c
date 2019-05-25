@@ -79,12 +79,13 @@ void LISTAJUEGO_insertaDerecha(ListaJuego *l, Nodo_jugador nodo){
                 Bots b;
                 aux->jugador = nodo.jugador;
                 aux->bots = b;
+                aux->type= 0;
                 printf("%s",nodo.jugador.nombre);
             }else{
                 Jugador j;
                 aux->bots = nodo.bots;
                 aux->jugador = j;
-
+                aux->type = 1;
             }
             aux->sig = l->pdi->sig;
             aux->ant = l->pdi;
