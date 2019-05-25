@@ -27,9 +27,14 @@ void estadisticas_jugador(char **argv){
 //presiona enter para volver al menú principal
 }
 void estadisticas_bots(char **argv){
-    int numbots;
-    Bots *b = loadBots(argv[2], &numbots);
+    int numBots;
+    Bots *b = loadBots(argv[2], &numBots);
     printf("\nUNO - Estadísticas de Bots\n");
     printf("Nombre \t P.Ganadas \t P.Perdidas\n");
-    printf("---------------------\n");
+    for (int i = 0; i < numBots ; ++i) {
+        printf("%s \t P.Ganadas \t P.Perdidas\n", BOTS_consultaNombre(b[i]));
+    }
+    printf("------------------------------------\n");
+
+
 }

@@ -125,7 +125,6 @@ Jugador loadPlayer(char *fileUser){
 }
 Bots *loadBots(char *fileBot, int *numBots){
     printf("%s",fileBot);
-
     FILE *f;
     f = fopen(fileBot, "r");
 
@@ -133,7 +132,7 @@ Bots *loadBots(char *fileBot, int *numBots){
         printf("\nError en obrir fitxer...\n");
     }else {
         fscanf(f, "%d", numBots);
-        Bots bots[(*numBots)];
+        Bots *bots = malloc(sizeof(Bots) * (*numBots));
         //printf("%d\n", numBots);
 
         char aux;
