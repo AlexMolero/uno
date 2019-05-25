@@ -7,36 +7,31 @@
 #include "menu.h"
 
 void juego(char **argv){
+    ListaJuego lista_jugadores = LISTAJUEGO_crea();
+
     Jugador j = loadPlayer(argv[1]);
-    Bots *b = loadBots(argv[2]);
+    Nodo_jugador nodo;
+    nodo.jugador = j;
+    nodo.type = 0;
+    LISTAJUEGO_insertaDerecha(&lista_jugadores,nodo);
+    int numBots;
+    Bots *b = loadBots(argv[2],&numBots);
+
     Deck baraja = NULL;
-    Jugador jugador, bot1,bot2,bot3;
+    //Jugador jugador, bot1,bot2,bot3;
     baraja = crear_baraja(); //Creamos la baraja con las cartas incluidas
     ListaCarta descarte = LISTACARTA_crea(); //Creamos la baraja de descartes
-    ListaJuego lista_jugadores = LISTAJUEGO_crea();   //Creamos una lista de los jugadores
+    lista_jugadores = LISTAJUEGO_crea();   //Creamos una lista de los jugadores
 
-    /*CREAMOS LOS JUGADORES DEL JUEGO*/
-    jugador = JUGADOR_crea();
-    bot1 = JUGADOR_crea();
-    bot2 = JUGADOR_crea();
-    bot3 = JUGADOR_crea();
+
 
     /*INSERTAMOS NOMBRE PRUEBA*/
-    JUGADOR_insertaNombre(&bot1, "Obra Dinn");
-    JUGADOR_insertaNombre(&bot2, "Olivia Colomar");
-    JUGADOR_insertaNombre(&bot3, "Syrio Forel");
-    JUGADOR_insertaNombre(&jugador, "Alex Molero");
+
 
     /*REPARTIMOS LAS CARTAS A CADA JUGADOR*/
-     repartir_carta(&baraja,&jugador.cartas,7);
-     repartir_carta(&baraja,&bot1.cartas,7);
-     repartir_carta(&baraja,&bot2.cartas,7);
-     repartir_carta(&baraja,&bot3.cartas,7);
-    /*INSERTAMOS CADA JUGADOR A LA LISTA DE JUEGO*/
-    LISTAJUEGO_insertaDerecha(&lista_jugadores,jugador);
-    LISTAJUEGO_insertaDerecha(&lista_jugadores,bot1);
-    LISTAJUEGO_insertaDerecha(&lista_jugadores,bot2);
-    LISTAJUEGO_insertaDerecha(&lista_jugadores,bot3);
+     repartir_carta(&baraja,&lista_jugadores.pri->jugador.cartas,7);
+
+
     //Jugador j = LISTAJUEGO_consulta(lista_jugadores);
 
     ver_menu_jugadores(lista_jugadores);

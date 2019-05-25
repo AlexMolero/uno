@@ -75,7 +75,6 @@ void barajar(Deck *p) {
     //aux = (Nodo*)malloc(sizeof(Nodo));
    // aux = (*p)->sig;
 
-
     /* for (int i = 51; i > 0; i--) {
          int j = rand() % (i + 1);
 

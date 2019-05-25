@@ -8,7 +8,7 @@
 #include "bots.h"
 
 typedef struct Node {
-    int type;
+    int type; // Si es 0 es Jugador y si es 1 es Bot
     Jugador jugador;
     Bots bots;
     struct Node *sig;
@@ -24,7 +24,7 @@ typedef struct {
 
 ListaJuego LISTAJUEGO_crea();
 void LISTAJUEGO_insertaIzquierda(ListaJuego *l, Jugador jugador);
-void LISTAJUEGO_insertaDerecha(ListaJuego *l, Jugador jugador);
+void LISTAJUEGO_insertaDerecha(ListaJuego *l, Nodo_jugador nodo);
 Nodo_jugador LISTAJUEGO_consulta(ListaJuego l);
 void LISTAJUEGO_elimina(ListaJuego *l);
 void LISTAJUEGO_avanza(ListaJuego *l);

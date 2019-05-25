@@ -52,17 +52,21 @@ void LISTAJUEGO_insertaIzquierda(ListaJuego *l, Jugador jugador){
     }
 }
 
-void LISTAJUEGO_insertaDerecha(ListaJuego *l, Jugador jugador){
+void LISTAJUEGO_insertaDerecha(ListaJuego *l, Nodo_jugador nodo){
     Nodo_jugador *aux;
 
-    if (l->pdi == l->ult) { // l->pdi->sig == NULL
+    if (l->pdi == l->ult) { //l->pdi->sig == NULL
         printf("\nError al insertar a la derecha, el PDI está al final...\n");
     } else {
         aux = (Nodo_jugador*)malloc(sizeof(Nodo_jugador));
         if (aux == NULL) {
             printf("\nError al insertar a la derecha...\n");
         } else {
-            aux->jugador = jugador;
+            if(nodo.type==0){
+                aux->jugador = nodo.jugador;
+            }else{
+                aux->bots = nodo.bots;
+            }
             aux->sig = l->pdi->sig;
             aux->ant = l->pdi;
             aux->sig->ant = aux;
@@ -79,7 +83,6 @@ Nodo_jugador LISTAJUEGO_consulta(ListaJuego l){
     } else {
         nodo = l.pdi;
     }
-
     return (*nodo);
 }
 

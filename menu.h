@@ -13,7 +13,7 @@ void muestraMenu();
 int getOption();
 void selectOption(int option, char **argv);
 Jugador loadPlayer(char *fileUser);
-Bots *loadBots(char *fileBots);
+Bots *loadBots(char *fileBots, int *numBots);
 void selectFirstAction(char option,ListaCarta lista);
 char getGameOption(char name_player);
 void convertirCarta(int valor, int color);

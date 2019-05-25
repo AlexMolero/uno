@@ -76,7 +76,7 @@ Jugador loadPlayer(char *fileUser){
 	    strtok(nombre, "\n");
 	    JUGADOR_insertaNombre(&j, nombre);
 
-	    printf("\n Hola %s\n", JUGADOR_consultaNombre(j));
+	    //printf("\n Hola %s\n", JUGADOR_consultaNombre(j));
 
 	    int partidas_ganadas, partidas_perdidas;
 
@@ -101,7 +101,7 @@ Jugador loadPlayer(char *fileUser){
 		return j;
     }
 }
-Bots *loadBots(char *fileBot){
+Bots *loadBots(char *fileBot, int *numBots){
     printf("%s",fileBot);
 
     FILE *f;
@@ -110,10 +110,9 @@ Bots *loadBots(char *fileBot){
     if (f == NULL) {
         printf("\nError en obrir fitxer...\n");
     }else {
-        int numBots;
-        fscanf(f, "%d", &numBots);
-        Bots bots[numBots];
-        printf("%d\n", numBots);
+        fscanf(f, "%d", numBots);
+        Bots bots[(*numBots)];
+        //printf("%d\n", numBots);
 
         char aux;
         fscanf(f, "%c", &aux);
@@ -122,7 +121,7 @@ Bots *loadBots(char *fileBot){
         fgets(nombre, 25, f);
         strtok(nombre, "\n");
         BOTS_insertaNombre(&bots[0], nombre);
-        printf("%s\n", BOTS_consultaNombre(bots[0]));
+        //printf("%s\n", BOTS_consultaNombre(bots[0]));
 
         int i = 0;
         while (!feof(f)) {
@@ -135,12 +134,12 @@ Bots *loadBots(char *fileBot){
                 car = 'c';
             }
             BOTS_insertaCaracter(&bots[i], car);
-            printf("%c\n", BOTS_consultaCaracter(bots[i]));
+            //printf("%c\n", BOTS_consultaCaracter(bots[i]));
 
             int cartaMax;
             fscanf(f, "%d", &cartaMax);
             BOTS_insertaCartaMax(&bots[i], cartaMax);
-            printf("%d\n", BOTS_consultaCartaMax(bots[i]));
+           // printf("%d\n", BOTS_consultaCartaMax(bots[i]));
 
             i++;
 
@@ -149,7 +148,7 @@ Bots *loadBots(char *fileBot){
             fgets(nombre, 25, f);
             strtok(nombre, "\n");
             BOTS_insertaNombre(&bots[i], nombre);
-            printf("%s\n", BOTS_consultaNombre(bots[i]));
+           // printf("%s\n", BOTS_consultaNombre(bots[i]));
         }
 
         return bots;
