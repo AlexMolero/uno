@@ -6,7 +6,7 @@
 #include "listaJuego.h"
 #include "menu.h"
 
-void juego(char **argv){
+ListaJuego juego(char **argv){
     /*Inicio:Insertamos los bots y jugador a la lista*/
     Deck baraja = NULL;
     baraja = crear_baraja();
@@ -31,6 +31,7 @@ void juego(char **argv){
     //Jugador j = LISTAJUEGO_consulta(lista_jugadores);
     ver_menu_jugadores(lista_jugadores);
     //barajar(&baraja);
+    return lista_jugadores;
 }
 int validar_jugada(Deck *p, ListaCarta *lista){
 

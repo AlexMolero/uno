@@ -6,10 +6,11 @@
 int main(int argc, char **argv) {
     setbuf(stdout,0);
     if(argc == 3){
+        ListaJuego lista_jugadores;
         muestraMenu();
         int option = getOption();
-        while (option!=3){
-            selectOption(option, argv);
+        while (option > 0 || option < 4){
+            selectOption(option, argv, lista_jugadores);
             muestraMenu();
             option = getOption();
         }

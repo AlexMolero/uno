@@ -8,11 +8,12 @@
 #include "baraja.h"
 #include "jugador.h"
 #include "bots.h"
+#include "listaJuego.h"
 
 void muestraMenu();
 void muestraMenuEstadisticas();
 int getOption();
-void selectOption(int option, char **argv);
+void selectOption(int option, char **argv, ListaJuego lista_jugadores);
 void selectOptionEstadisticas(int opcion, char **args);
 Jugador loadPlayer(char *fileUser);
 Bots *loadBots(char *fileBots, int *numBots);

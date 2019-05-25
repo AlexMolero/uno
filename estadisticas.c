@@ -30,11 +30,10 @@ void estadisticas_bots(char **argv){
     int numBots;
     Bots *b = loadBots(argv[2], &numBots);
     printf("\nUNO - Estadísticas de Bots\n");
-    printf("Nombre \t P.Ganadas \t P.Perdidas\n");
+    printf("%-25s \t P.Ganadas \t P.Perdidas\n", "Nombre");
     for (int i = 0; i < numBots ; ++i) {
-        printf("%s \t P.Ganadas \t P.Perdidas\n", BOTS_consultaNombre(b[i]));
+        printf("%-25s \t P.Ganadas \t P.Perdidas\n", BOTS_consultaNombre(b[i]));
     }
     printf("------------------------------------\n");
-
 
 }

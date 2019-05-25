@@ -36,5 +36,6 @@ void LISTAJUEGO_vesFinal(ListaJuego *l);
 int  LISTAJUEGO_inicio(ListaJuego l);
 int  LISTAJUEGO_final(ListaJuego l);
 int  LISTAJUEGO_vacia(ListaJuego l);
+int LISTAJUEGO_count(ListaJuego l);
 void LISTAJUEGO_destruye(ListaJuego *l);
 #endif //UNO_LISTAJUEGO_H

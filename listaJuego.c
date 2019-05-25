@@ -159,4 +159,12 @@ void LISTAJUEGO_destruye(ListaJuego *l) {
     }
     l->ult = l->pdi = NULL;
 }
-
+int LISTAJUEGO_count(ListaJuego l){
+    int count = 0;
+    LISTAJUEGO_vesInicio(&l);
+    while(LISTAJUEGO_final(l)){
+        LISTAJUEGO_avanza(&l);
+        count++;
+    }
+    return count;
+}
