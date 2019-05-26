@@ -10,6 +10,8 @@ typedef struct {
     char *nombre;
     char caracter;
     int carta_maxima;
+    int partidas_ganadas;
+    int partidas_perdidas;
     ListaCarta cartas;
     int n_bots;
 } Bots;
@@ -26,6 +28,8 @@ void BOTS_insertaCartas(Bots *b, ListaCarta cartas);
 char * BOTS_consultaNombre(Bots b);
 char BOTS_consultaCaracter(Bots b);
 int BOTS_consultaCartaMax(Bots b);
+int BOTS_consultaPartidasGanadas(Bots j);
+int BOTS_consultaPartidasPerdidas(Bots j);
 ListaCarta BOTS_consultaCartas(Bots b);
 //n_bots BOTS_nBots(Bots b);
 

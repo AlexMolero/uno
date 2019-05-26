@@ -6,7 +6,6 @@ Jugador JUGADOR_crea() {
     j.cartas = LISTACARTA_crea();
     j.partidas_ganadas = 0;
     j.partidas_perdidas = 0;
-    j.partidas_empatadas = 0;
     j.num_partidas = 0;
     return j;
 }

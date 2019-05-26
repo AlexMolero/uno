@@ -6,19 +6,19 @@
 #include "listaJuego.h"
 #include "menu.h"
 
-ListaJuego juego(char **argv){
+void juego(char **argv, ListaJuego *lista_jugadores){
     /*Inicio:Insertamos los bots y jugador a la lista*/
     Deck baraja = NULL;
     baraja = crear_baraja();
-    ListaJuego lista_jugadores = LISTAJUEGO_crea();
+    *lista_jugadores = LISTAJUEGO_crea();
     Jugador j = loadPlayer(argv[1]);
     repartir_carta(&baraja,&j.cartas,7);
-    LISTAJUEGO_insertaJugador(&lista_jugadores,j);
+    LISTAJUEGO_insertaJugador(lista_jugadores,j);
     int numBots;
     Bots *b = loadBots(argv[2], &numBots);
     for (int i = 0; i < numBots ; ++i) {
         //repartir_carta(&baraja,&b[i].cartas,b[i].carta_maxima);
-        LISTAJUEGO_insertaBot(&lista_jugadores,b[i]);
+        LISTAJUEGO_insertaBot(lista_jugadores,b[i]);
     }
     /*Fin:Insertamos los bots y jugador a la lista*/
 
@@ -29,9 +29,8 @@ ListaJuego juego(char **argv){
     /*REPARTIMOS LAS CARTAS A CADA JUGADOR*/
      //repartir_carta(&baraja,&lista_jugadores.pri->jugador.cartas,7);
     //Jugador j = LISTAJUEGO_consulta(lista_jugadores);
-    ver_menu_jugadores(lista_jugadores);
+    ver_menu_jugadores(*lista_jugadores);
     //barajar(&baraja);
-    return lista_jugadores;
 }
 int validar_jugada(Deck *p, ListaCarta *lista){
 

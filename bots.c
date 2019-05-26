@@ -37,6 +37,12 @@ char BOTS_consultaCaracter(Bots b) {
 int BOTS_consultaCartaMax(Bots b) {
     return b.carta_maxima;
 }
+int BOTS_consultaPartidasGanadas(Bots b){
+    return b.partidas_ganadas;
+}
+int BOTS_consultaPartidasPerdidas(Bots b){
+    return b.partidas_ganadas;
+}
 
 ListaCarta BOTS_consultaCartas(Bots b) {
     return b.cartas;

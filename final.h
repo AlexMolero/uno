@@ -7,5 +7,7 @@
 
 #include "listaJuego.h"
 
-void salir(ListaJuego lista_jugadores);
+void salir(ListaJuego *lista_jugadores, char **argv);
+void savePlayer(ListaJuego *listaJuego, char *fileplayer);
+void saveBots(ListaJuego *listaJuego, char *fileplayer);
 #endif //UNO_FINAL_H

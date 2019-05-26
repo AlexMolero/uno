@@ -10,7 +10,7 @@
 #include "listaJuego.h"
 #include "bots.h"
 
-ListaJuego juego(char **argv);
+void juego(char **argv, ListaJuego *lista_jugadores);
 int validar_jugada(Deck *p, ListaCarta *lista);
 int repartir_carta(Deck *p, ListaCarta *lista, int cantidad);
 void ver_menu_jugadores(ListaJuego lista_jugadores);

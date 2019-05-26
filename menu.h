@@ -13,8 +13,8 @@
 void muestraMenu();
 void muestraMenuEstadisticas();
 int getOption();
-void selectOption(int option, char **argv, ListaJuego lista_jugadores);
-void selectOptionEstadisticas(int opcion, char **args);
+void selectOption(int option, char **argv, ListaJuego *lista_jugadores);
+void selectOptionEstadisticas(int opcion, char **args, ListaJuego *lista_jugadores);
 Jugador loadPlayer(char *fileUser);
 Bots *loadBots(char *fileBots, int *numBots);
 void selectFirstAction(char option,ListaCarta lista);

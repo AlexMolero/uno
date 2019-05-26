@@ -6,14 +6,15 @@
 int main(int argc, char **argv) {
     setbuf(stdout,0);
     if(argc == 3){
-        ListaJuego lista_jugadores;
+        ListaJuego lista_jugadores = LISTAJUEGO_crea();
         muestraMenu();
         int option = getOption();
-        while (option > 0 || option < 4){
-            selectOption(option, argv, lista_jugadores);
+        while (option!=3){
+            selectOption(option, argv, &lista_jugadores);
             muestraMenu();
             option = getOption();
         }
+        selectOption(option, argv, &lista_jugadores);
     }
     else{
         printf("Error con los argumentos del programa.\n");

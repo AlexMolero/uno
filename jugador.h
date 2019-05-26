@@ -9,7 +9,6 @@ typedef struct {
     char *nombre;
     int partidas_ganadas;
     int partidas_perdidas;
-    int partidas_empatadas;
     ListaCarta cartas;
 	int num_partidas;
     int *cartas_partida_i;

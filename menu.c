@@ -59,29 +59,29 @@ void selectFirstAction(char option, ListaCarta lista){
             break;
     }
 }
-void selectOption(int option, char **argv, ListaJuego lista_jugadores){
+void selectOption(int option, char **argv, ListaJuego *lista_jugadores){
     switch (option) {
         case JUGAR:
-            lista_jugadores = juego(argv);
+            juego(argv, lista_jugadores);
             break;
         case ESTADISTICAS:
-            estadisticas(argv);
+            estadisticas(lista_jugadores, argv);
             break;
         case SALIR:
-            salir(lista_jugadores);
+            salir(lista_jugadores, argv);
             break;
         default:
             printf("Opcion erronea, seleccione otra\n");
             break;
     }
 }
-void selectOptionEstadisticas(int option, char **args){
+void selectOptionEstadisticas(int option, char **args, ListaJuego *lista_jugadores){
     switch (option) {
         case ESTADISTICAS_JUGADOR:
             estadisticas_jugador(args);
             break;
         case ESTADISTICAS_BOTS:
-            estadisticas_bots(args);
+            estadisticas_bots(lista_jugadores, args);
             break;
         default:
             printf("Opcion erronea, seleccione otra\n");

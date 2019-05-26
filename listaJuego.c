@@ -100,7 +100,36 @@ Nodo_jugador LISTAJUEGO_consulta(ListaJuego l){
     }
     return (*nodo);
 }
+char *LISTAJUEGO_consultaNombre(Nodo_jugador nodo){
 
+    if(nodo.type==0){
+        return JUGADOR_consultaNombre(nodo.jugador);
+    }
+    else{
+        return BOTS_consultaNombre(nodo.bots);
+    }
+}
+
+int LISTAJUEGO_consultaTipo(Nodo_jugador nodo){
+
+    return nodo.type;
+}
+int LISTAJUEGO_consultaPartidasGanadas(Nodo_jugador nodo){
+    if(LISTAJUEGO_consultaTipo(nodo)){
+        return BOTS_consultaPartidasGanadas(nodo.bots);
+    }
+    else{
+        return JUGADOR_consultaPartidasGanadas(nodo.jugador);
+    }
+}
+int LISTAJUEGO_consultaPartidasPerdidas(Nodo_jugador nodo){
+    if(LISTAJUEGO_consultaTipo(nodo)){
+        return BOTS_consultaPartidasPerdidas(nodo.bots);
+    }
+    else{
+        return JUGADOR_consultaPartidasPerdidas(nodo.jugador);
+    }
+}
 void LISTAJUEGO_elimina(ListaJuego *l){
     Nodo_jugador *aux;
     if (l->pdi == l->pri || l->pdi == l->ult) {
@@ -162,7 +191,7 @@ void LISTAJUEGO_destruye(ListaJuego *l) {
 int LISTAJUEGO_count(ListaJuego l){
     int count = 0;
     LISTAJUEGO_vesInicio(&l);
-    while(LISTAJUEGO_final(l)){
+    while(!LISTAJUEGO_final(l)){
         LISTAJUEGO_avanza(&l);
         count++;
     }
