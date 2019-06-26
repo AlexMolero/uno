@@ -17,7 +17,7 @@ void selectOption(int option, char **argv, ListaJuego *lista_jugadores);
 void selectOptionEstadisticas(int opcion, char **args, ListaJuego *lista_jugadores);
 Jugador loadPlayer(char *fileUser);
 Bots *loadBots(char *fileBots, int *numBots);
-void selectFirstAction(char option,ListaCarta lista);
-char getGameOption(char name_player);
+void selectFirstAction(char option, ListaCarta *lista, ListaCarta *descarte);
+char getGameOption(char *name_player);
 void convertirCarta(int valor, int color);
 #endif //UNO_MENU_H

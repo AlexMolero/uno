@@ -48,3 +48,6 @@ int JUGADOR_consultaNumPartidas(Jugador j){
 void JUGADOR_insertaNumPartidas(Jugador *j, int n_partidas){
     j->num_partidas = n_partidas;
 }
+ListaCarta * JUGADOR_consultaCartas(Jugador b) {
+    return &b.cartas;
+}

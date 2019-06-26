@@ -37,19 +37,38 @@ int getOption(){
     scanf("%d",&option);
     return option;
 }
-char getGameOption(char name_player){
+char getGameOption(char *name_player){
     char option;
-    printf("%s , escoge una acción\n",&name_player);
+    printf("\n %s , escoge una acción\n",name_player);
     printf("A. Ver mano\n");
     printf("B. Robar carta\n");
     scanf(" %c", &option);
 
     return option;
 }
-void selectFirstAction(char option, ListaCarta lista){
+char getGame(char *name_player){
+    char option;
+    printf("\n %s , escoge una acción\n",name_player);
+    printf("A. Jugar carta\n");
+    printf("B. Robar carta\n");
+    scanf(" %c", &option);
+
+    return option;
+}
+int selectCarta(){
+    int option;
+    printf("Qué carta quieres jugar? \n");
+    scanf("%d",&option);
+    return option;
+}
+void selectFirstAction(char option, ListaCarta *lista, ListaCarta *descarte){
     switch (option) {
         case VER_MANO:
-            ver_lista_cartas(lista);
+            ver_lista_cartas((*lista), (*descarte));
+
+            int carta = selectCarta();
+            //LISTACARTA_eliminaPosicion(lista,descarte,carta);
+
             break;
         case ROBAR_CARTA:
 
@@ -89,7 +108,7 @@ void selectOptionEstadisticas(int option, char **args, ListaJuego *lista_jugador
     }
 }
 Jugador loadPlayer(char *fileUser){
-    printf("%s",fileUser);
+   // printf("%s",fileUser);
     FILE *f;
     f = fopen(fileUser, "r");
 
@@ -109,11 +128,11 @@ Jugador loadPlayer(char *fileUser){
 
 	    fscanf(f, "%d", &partidas_ganadas);
 	    JUGADOR_insertaPartidasGanadas(&j, partidas_ganadas);
-	    printf("%d\n", JUGADOR_consultaPartidasGanadas(j));
+	   // printf("%d\n", JUGADOR_consultaPartidasGanadas(j));
 
 	    fscanf(f, "%d", &partidas_perdidas);
 	    JUGADOR_insertaPartidasPerdidas(&j, partidas_perdidas);
-	    printf("%d\n", JUGADOR_consultaPartidasPerdidas(j));
+	  //  printf("%d\n", JUGADOR_consultaPartidasPerdidas(j));
 
 	    int partidas =
 			    JUGADOR_consultaPartidasGanadas(j) + JUGADOR_consultaPartidasPerdidas(j);
@@ -129,7 +148,7 @@ Jugador loadPlayer(char *fileUser){
     }
 }
 Bots *loadBots(char *fileBot, int *numBots){
-    printf("%s",fileBot);
+    //printf("%s",fileBot);
     FILE *f;
     f = fopen(fileBot, "r");
 
@@ -211,5 +230,4 @@ void convertirCarta(int valor, int color){
         default:
             break;
     }
-    printf("\n");
 }

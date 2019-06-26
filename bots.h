@@ -30,7 +30,7 @@ char BOTS_consultaCaracter(Bots b);
 int BOTS_consultaCartaMax(Bots b);
 int BOTS_consultaPartidasGanadas(Bots j);
 int BOTS_consultaPartidasPerdidas(Bots j);
-ListaCarta BOTS_consultaCartas(Bots b);
+ListaCarta * BOTS_consultaCartas(Bots b);
 //n_bots BOTS_nBots(Bots b);
 
 #endif //INC_21BLACKJACK_BOTS_H

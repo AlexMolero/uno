@@ -15,11 +15,9 @@ int main(int argc, char **argv) {
             option = getOption();
         }
         selectOption(option, argv, &lista_jugadores);
-    }
-    else{
+    }else{
         printf("Error con los argumentos del programa.\n");
     }
-
     printf("Has salido del programa\n");
     return 0;
 }
