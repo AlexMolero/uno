@@ -109,6 +109,13 @@ char *LISTAJUEGO_consultaNombre(Nodo_jugador nodo){
         return BOTS_consultaNombre(nodo.bots);
     }
 }
+char * LISTAJUEGO_consultaCaracter(Nodo_jugador nodo){
+
+    if(nodo.type!=0){
+        return BOTS_consultaNombreCaracter(nodo.bots);
+    }
+}
+
 
 int LISTAJUEGO_consultaTipo(Nodo_jugador nodo){
 
@@ -129,6 +136,14 @@ int LISTAJUEGO_consultaPartidasPerdidas(Nodo_jugador nodo){
     else{
         return JUGADOR_consultaPartidasPerdidas(nodo.jugador);
     }
+}
+int LISTAJUEGO_consultaCartasPartida(Nodo_jugador j, int partida){
+    if(!LISTAJUEGO_consultaTipo(j)){
+        return JUGADOR_consultaCartasPartida(j.jugador, partida);
+    }
+}
+int LISTAJUEGO_consultaNBots(Nodo_jugador j){
+    return BOTS_consultaNBots(j.bots);
 }
 ListaCarta * LISTAJUEGO_consultaCartas(Nodo_jugador nodo){
 

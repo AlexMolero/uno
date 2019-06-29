@@ -29,9 +29,20 @@ void BOTS_insertaCartas(Bots *b, ListaCarta cartas) {
 char *BOTS_consultaNombre(Bots b) {
     return b.nombre;
 }
+int BOTS_consultaNBots(Bots b){
+    return b.n_bots;
+}
 
 char BOTS_consultaCaracter(Bots b) {
     return b.caracter;
+}
+char * BOTS_consultaNombreCaracter(Bots b) {
+    if(b.caracter == 'a'){
+        return "Agresivo";
+    }
+    else {
+        return "Calmado";
+    }
 }
 
 int BOTS_consultaCartaMax(Bots b) {
