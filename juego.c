@@ -6,29 +6,7 @@
 #include "listaJuego.h"
 #include "menu.h"
 
-void crear_juego(char **argv, ListaJuego *lista_jugadores){
-    /*Inicio:Insertamos los bots y jugador a la lista*/
-    Deck baraja = NULL;
-    baraja = crear_baraja();
-    *lista_jugadores = LISTAJUEGO_crea();
-    Jugador j = loadPlayer(argv[1]);
-    repartir_carta(&baraja,&j.cartas,30);
-    LISTAJUEGO_insertaJugador(lista_jugadores,j);
-    /*int numBots;
-    Bots *b = loadBots(argv[2], &numBots);
-    for (int i = 0; i < numBots ; ++i) {
-        //repartir_carta(&baraja,&b[i].cartas,b[i].carta_maxima);
-        LISTAJUEGO_insertaBot(&lista_jugadores,b[i]);
-    }*/
-    /*Fin:Insertamos los bots y jugador a la lista*/
 
-    /*REPARTIMOS LAS CARTAS A CADA JUGADOR Y A LA LISTA DE DESCARTES*/
-    ListaCarta descarte = LISTACARTA_crea(); //Creamos la baraja de descartes
-    repartir_carta(&baraja, &descarte,1);
-    /*INICIAMOS EL JUEGO POR TURNOS*/
-    jugar_por_turnos(lista_jugadores,&descarte,&baraja);
-
-}
 void jugar_por_turnos(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
     int final=0; //Cuando final sea 1, significa que uno de los jugadores se ha quedado sin cartas y ha ganado la partida
     LISTAJUEGO_vesInicio(lista_jugadores);
@@ -49,10 +27,11 @@ void jugar_por_turnos(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p
         final++;
     }
 }
-int validar_jugada(ListaCarta lista_jugador, ListaCarta descarte){
+//int validar_jugada(ListaCarta lista_jugador, ListaCarta descarte){
+int validar_jugada(Nodo carta_jugador, Nodo carta_descarte){
 
-    Nodo carta_jugador = LISTACARTA_consulta(lista_jugador);
-    Nodo carta_descarte = LISTACARTA_consulta(descarte);
+    //Nodo carta_jugador = LISTACARTA_consulta(lista_jugador);
+    //Nodo carta_descarte = LISTACARTA_consulta(descarte);
 
     if(carta_jugador.color==carta_descarte.color || carta_jugador.valor==carta_descarte.valor|| carta_jugador.color==4){
         //SE puede jugar la carta
@@ -104,9 +83,10 @@ void ver_lista_cartas(ListaJuego lista_jugadores, ListaCarta descarte){
 
     while (lista.ant->sig!=NULL){
         Nodo carta = LISTACARTA_consulta(lista);
+        Nodo carta_descarte = LISTACARTA_consulta(descarte);
         printf("%d . " ,count);
         convertirCarta(carta.valor,carta.color);
-        if(validar_jugada(lista,descarte)==1){
+        if(validar_jugada(carta,carta_descarte)==1){
             printf("*");
         }
         printf("\n");
@@ -128,15 +108,21 @@ void robar_carta(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
 
             LISTACARTA_roba(&lista_jugadores->pdi->jugador.cartas,(*p)); //insertamos una carta de la baraja
             Nodo carta_robada = baraja_top(*p);
+            Nodo carta_descarte = LISTACARTA_consulta(*descarte);
             baraja_pop(p); //eliminamos la carta que hemos insertado de la baraja
             printf("Se ha robado un ");
             convertirCarta(carta_robada.valor,carta_robada.color);
-            printf("\n");
-            //ver_lista_cartas((*lista_jugadores), (*descarte));
-            //printf("asadf %d",validar_jugada(lista_jugadores->pdi->jugador.cartas,(*descarte)));
-            if(validar_jugada(lista_jugadores->pdi->jugador.cartas,(*descarte))==1){
-                printf("Se puede jugar la carta\n");
+
+            if(validar_jugada(carta_robada,carta_descarte)==1){
+                printf(". ¿Deseas jugarlo? [S/N]\n");
+                char opcion_robo = opcion_robar();
+
+                int cantidad = LISTACARTA_contarCartas(lista_jugadores->pdi->jugador.cartas);
+                LISTACARTA_eliminaPosicion(&lista_jugadores->pdi->jugador.cartas,descarte,cantidad);
+            }else{
+                printf(". No se puede jugar.\n");
             }
+
         }else{
             LISTACARTA_roba(&lista_jugadores->pdi->bots.cartas,(*p)); //insertamos una carta de la baraja
             baraja_pop(p); //eliminamos la carta que hemos insertado de la baraja

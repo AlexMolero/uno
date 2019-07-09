@@ -47,6 +47,12 @@ char getGameOption(char *name_player){
 
     return option;
 }
+char opcion_robar(){
+    // return [S/N]
+    char option;
+    scanf(" %c", &option);
+    return option;
+}
 char getGame(char *name_player){
     char option;
     printf("\n %s , escoge una acción \n", name_player);
@@ -99,10 +105,15 @@ void selectSecondAction(char option, ListaJuego *lista_jugadores, ListaCarta *de
             break;
     }
 }
-void selectOption(int option, char **argv, ListaJuego *lista_jugadores){
+void selectOption(int option, char **argv, ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
+
     switch (option) {
         case JUGAR:
-            crear_juego(argv, lista_jugadores);
+
+            jugar_por_turnos(lista_jugadores,descarte,p);
+
+            //crear_juego(argv, lista_jugadores, juego_creado);
+
             break;
         case ESTADISTICAS:
             estadisticas(lista_jugadores, argv);

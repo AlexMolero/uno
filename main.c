@@ -5,16 +5,33 @@
 
 int main(int argc, char **argv) {
     setbuf(stdout,0);
+    int juego_creado=1;
     if(argc == 3){
+        /*Inicio: Creacion de lista y pilas*/
         ListaJuego lista_jugadores = LISTAJUEGO_crea();
+        Deck baraja = NULL;
+        baraja = crear_baraja();
+        Jugador j = loadPlayer(argv[1]);
+        repartir_carta(&baraja,&j.cartas,30);
+        LISTAJUEGO_insertaJugador(&lista_jugadores,j);
+        int numBots;
+        Bots *b = loadBots(argv[2], &numBots);
+        for (int i = 0; i < numBots ; ++i) {
+            //repartir_carta(&baraja,&b[i].cartas,b[i].carta_maxima);
+            LISTAJUEGO_insertaBot(&lista_jugadores,b[i]);
+        }
+        ListaCarta descarte = LISTACARTA_crea(); //Creamos la baraja de descartes
+        repartir_carta(&baraja, &descarte,1);
+        /*Fin: Creacion de lista y pilas*/
+
         muestraMenu();
         int option = getOption();
         while (option!=3){
-            selectOption(option, argv, &lista_jugadores);
+            selectOption(option, argv, &lista_jugadores,&descarte,&baraja);
             muestraMenu();
             option = getOption();
         }
-        selectOption(option, argv, &lista_jugadores);
+        selectOption(option, argv, &lista_jugadores,&descarte,&baraja);
     }else{
         printf("Error con los argumentos del programa.\n");
     }

@@ -83,13 +83,12 @@ ListaCarta LISTACARTA_destruye(ListaCarta l) {
 }
 void LISTACARTA_eliminaPosicion(ListaCarta *l, ListaCarta *descarte, int posicion){
     Nodo *aux;
-        LISTACARTA_vesInicio((*l));
-
+    (*l) = LISTACARTA_vesInicio((*l));
 
     if ((*l).ant->sig == NULL) {
         printf("\nError al eliminar, el PDI está al final...\n");
     } else {
-        for(int i=0;i<posicion;i++){
+        for(int i=0;i<(posicion-1);i++){
             LISTACARTA_avanza((*l));
         }
         Nodo nodo_carta = LISTACARTA_consulta((*l));//Recuperamos la carta que queremos jugar.

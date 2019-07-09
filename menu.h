@@ -13,7 +13,7 @@
 void muestraMenu();
 void muestraMenuEstadisticas();
 int getOption();
-void selectOption(int option, char **argv, ListaJuego *lista_jugadores);
+void selectOption(int option, char **argv, ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p);
 void selectOptionEstadisticas(int opcion, char **args, ListaJuego *lista_jugadores);
 Jugador loadPlayer(char *fileUser);
 Bots *loadBots(char *fileBots, int *numBots);
@@ -22,4 +22,5 @@ void selectSecondAction(char option, ListaJuego *lista_jugadores, ListaCarta *de
 char getGameOption(char *name_player);
 char getGame(char *name_player);
 void convertirCarta(int valor, int color);
+char opcion_robar();
 #endif //UNO_MENU_H
