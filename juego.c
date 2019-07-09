@@ -6,7 +6,7 @@
 #include "listaJuego.h"
 #include "menu.h"
 
-void juego(char **argv, ListaJuego *lista_jugadores){
+void crear_juego(char **argv, ListaJuego *lista_jugadores){
     /*Inicio:Insertamos los bots y jugador a la lista*/
     Deck baraja = NULL;
     baraja = crear_baraja();
@@ -27,22 +27,24 @@ void juego(char **argv, ListaJuego *lista_jugadores){
     repartir_carta(&baraja, &descarte,1);
     /*INICIAMOS EL JUEGO POR TURNOS*/
     jugar_por_turnos(lista_jugadores,&descarte,&baraja);
-    //ver_jugadores(lista_jugadores);
-    //barajar(&baraja);
+
 }
 void jugar_por_turnos(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
     int final=0; //Cuando final sea 1, significa que uno de los jugadores se ha quedado sin cartas y ha ganado la partida
     LISTAJUEGO_vesInicio(lista_jugadores);
     while(final!=1){
-        *descarte = LISTACARTA_vesInicio(*descarte);
+        (*descarte) = LISTACARTA_vesInicio((*descarte));
         ver_jugadores((*lista_jugadores),(*descarte));
-        Nodo carta = LISTACARTA_consulta(*descarte);
-        convertirCarta(carta.valor,carta.color);
+        Nodo carta_descarte = LISTACARTA_consulta((*descarte));
+
+        printf("### ");
+        convertirCarta(carta_descarte.valor,carta_descarte.color);
+        printf(" ### \n");
+
+        //Aqui selecciona ver mano o robar
 
         char *name = LISTAJUEGO_consultaNombre((LISTAJUEGO_consulta(*lista_jugadores)));
-        //*lista_jugadores->pdi. = LISTAJUEGO_consultaListaCarta((*lista_jugadores));
-
-        selectFirstAction(getGameOption(name), LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores)),descarte);
+        selectFirstAction(getGameOption(name),lista_jugadores,descarte, p);
 
         final++;
     }
@@ -60,14 +62,6 @@ int validar_jugada(ListaCarta lista_jugador, ListaCarta descarte){
         return 0;
     }
 }
-/**
- * Repartir carta: Se pasa por referencia la baraja y una lista de cartas para insertar la cantidad indicada en la lista de cartas
- * del usuario
- * @param p
- * @param lista
- * @param cantidad
- * @return
- */
 int repartir_carta(Deck *p, ListaCarta *lista, int cantidad){
 
     Nodo *aux;
@@ -85,18 +79,29 @@ void ver_jugadores(ListaJuego lista_jugadores, ListaCarta descarte){
         if(j.type==0){
             //print jugador
             printf("%s - %d \n", j.jugador.nombre, LISTACARTA_contarCartas(j.jugador.cartas));
-            ver_lista_cartas(j.jugador.cartas, descarte);
+            //ver_lista_cartas(j.jugador.cartas, descarte);
         }else{
             //print bot
             printf("%s \n", j.bots.nombre);
-            ver_lista_cartas(j.bots.cartas, descarte);
+            //ver_lista_cartas(j.bots.cartas, descarte);
         }
         LISTAJUEGO_avanza(&lista_jugadores);
     }
 }
-void ver_lista_cartas(ListaCarta lista, ListaCarta descarte){
+void ver_lista_cartas(ListaJuego lista_jugadores, ListaCarta descarte){
+    Nodo_jugador j = LISTAJUEGO_consulta(lista_jugadores);
+
+    //ListaCarta lista = LISTACARTA_devolverLista(j);
+    ListaCarta lista;
+    if(j.type==0){
+        lista =  j.jugador.cartas;
+    }else{
+        lista =  j.bots.cartas;
+    }
+
     lista = LISTACARTA_vesInicio(lista);
     int count=1;
+
     while (lista.ant->sig!=NULL){
         Nodo carta = LISTACARTA_consulta(lista);
         printf("%d . " ,count);
@@ -109,5 +114,32 @@ void ver_lista_cartas(ListaCarta lista, ListaCarta descarte){
         lista = LISTACARTA_avanza(lista);
         count++;
     }
+
+}
+void robar_carta(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
+    /**
+     *
+     * Recuperar carta de la baraja
+     * Insertarla en lista de carta
+     * comprobar si se puede jugar
+     * jugar o no
+     */
+        if(LISTAJUEGO_esJugador((*lista_jugadores))==0){
+
+            LISTACARTA_roba(&lista_jugadores->pdi->jugador.cartas,(*p)); //insertamos una carta de la baraja
+            Nodo carta_robada = baraja_top(*p);
+            baraja_pop(p); //eliminamos la carta que hemos insertado de la baraja
+            printf("Se ha robado un ");
+            convertirCarta(carta_robada.valor,carta_robada.color);
+            printf("\n");
+            //ver_lista_cartas((*lista_jugadores), (*descarte));
+            //printf("asadf %d",validar_jugada(lista_jugadores->pdi->jugador.cartas,(*descarte)));
+            if(validar_jugada(lista_jugadores->pdi->jugador.cartas,(*descarte))==1){
+                printf("Se puede jugar la carta\n");
+            }
+        }else{
+            LISTACARTA_roba(&lista_jugadores->pdi->bots.cartas,(*p)); //insertamos una carta de la baraja
+            baraja_pop(p); //eliminamos la carta que hemos insertado de la baraja
+        }
 
 }

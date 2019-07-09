@@ -46,7 +46,8 @@ int  LISTAJUEGO_vacia(ListaJuego l);
 int LISTAJUEGO_count(ListaJuego l);
 void LISTAJUEGO_destruye(ListaJuego *l);
 //char *LISTAJUEGO_consultaNombre(ListaJuego l);
-ListaCarta LISTAJUEGO_consultaListaCarta(ListaJuego l);
+ListaCarta *LISTAJUEGO_consultaListaCarta(ListaJuego *l);
 ListaCarta *LISTAJUEGO_consultaLista(ListaJuego l);
 ListaCarta * LISTAJUEGO_consultaCartas(Nodo_jugador nodo);
+int LISTAJUEGO_esJugador(ListaJuego l);
 #endif //UNO_LISTAJUEGO_H

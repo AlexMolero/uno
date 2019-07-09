@@ -26,4 +26,5 @@ ListaCarta LISTACARTA_unir(ListaCarta l1, ListaCarta l2);
 int LISTACARTA_modificar(ListaCarta l, Nodo valor, int * posicion);
 int LISTACARTA_contarCartas(ListaCarta l);
 void LISTACARTA_eliminaPosicion(ListaCarta *l, ListaCarta *descarte, int posicion);
+void LISTACARTA_roba(ListaCarta *l, Nodo *elemento);
 #endif //UNO_LISTACARTA_H

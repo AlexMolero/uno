@@ -228,11 +228,15 @@ int LISTAJUEGO_count(ListaJuego l){
         return l.pdi->bots.nombre;
     }
 }*/
-ListaCarta LISTAJUEGO_consultaListaCarta(ListaJuego l){
-    if(l.pdi->type==0){
-        return l.pdi->jugador.cartas;
+ListaCarta * LISTAJUEGO_consultaListaCarta(ListaJuego *l){
+    if(l->pdi->type==0){
+        ListaCarta lista = l->pdi->jugador.cartas;
+        return &l->pdi->jugador.cartas;
     }else{
-        return l.pdi->bots.cartas;
+        return &l->pdi->bots.cartas;
     }
+}
+int LISTAJUEGO_esJugador(ListaJuego l){
+    return l.pdi->type;
 }
 

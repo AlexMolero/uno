@@ -89,3 +89,13 @@ void baraja_next(Deck *p) {
     }
 
 }
+Nodo baraja_top(Deck p){
+    Nodo aux;
+    if (p==NULL) {
+        printf("\nError al hacer top, la pila está vacía.\n");
+    } else {
+        aux.valor = p->valor;
+        aux.color = p->color;
+    }
+    return aux;
+}

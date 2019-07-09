@@ -79,18 +79,6 @@ ListaCarta LISTACARTA_destruye(ListaCarta l) {
         l.pri = l.pri->sig;
         free(aux);
     }
-
-/*
-
-	l = LISTACARTA_vesInicio(l);
-
-	while (!LISTACARTA_vacia(l)) {
-		l = LISTACARTA_elimina(l);
-	}
-
-	free(l.pri); // borramos el fantasma
-	l.pri = l.ant = NULL;
-*/
     return l;
 }
 void LISTACARTA_eliminaPosicion(ListaCarta *l, ListaCarta *descarte, int posicion){
@@ -121,5 +109,17 @@ int LISTACARTA_contarCartas(ListaCarta l){
     }
     return count;
 }
-
+void LISTACARTA_roba(ListaCarta *l, Nodo *elemento) {
+    Nodo *aux;
+    aux = (Nodo*)malloc(sizeof(Nodo));
+    if (aux == NULL) {
+        printf("\nError al insertar en la lista...\n");
+    }else{
+        aux->valor = (*elemento).valor;
+        aux->color = (*elemento).color;
+        aux->sig = (*l).ant->sig;
+        (*l).ant->sig = aux;
+        (*l).ant = aux; // para mantener el PDI
+    }
+}
 

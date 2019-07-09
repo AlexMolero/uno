@@ -10,6 +10,7 @@
 #include "final.h"
 
 #define JUGAR            1
+#define JUGAR_CARTA      'A'
 #define ESTADISTICAS     2
 #define SALIR            3
 #define VER_MANO         'A'
@@ -48,7 +49,7 @@ char getGameOption(char *name_player){
 }
 char getGame(char *name_player){
     char option;
-    printf("\n %s , escoge una acción\n",name_player);
+    printf("\n %s , escoge una acción \n", name_player);
     printf("A. Jugar carta\n");
     printf("B. Robar carta\n");
     scanf(" %c", &option);
@@ -61,16 +62,36 @@ int selectCarta(){
     scanf("%d",&option);
     return option;
 }
-void selectFirstAction(char option, ListaCarta *lista, ListaCarta *descarte){
+
+void selectFirstAction(char option, ListaJuego *lista_jugadores, ListaCarta *descarte,Deck *p){
     switch (option) {
         case VER_MANO:
-            ver_lista_cartas((*lista), (*descarte));
 
-            int carta = selectCarta();
+            ver_lista_cartas((*lista_jugadores), (*descarte));
+            char *name = LISTAJUEGO_consultaNombre((LISTAJUEGO_consulta((*lista_jugadores))));
+            selectSecondAction(getGame(name),lista_jugadores,descarte,p);
+            //int carta = selectCarta();
+
             //LISTACARTA_eliminaPosicion(lista,descarte,carta);
 
             break;
         case ROBAR_CARTA:
+            robar_carta(lista_jugadores,descarte,p);
+
+            break;
+        default:
+            printf("Opcion erronea, seleccione otra\n");
+            break;
+    }
+}
+void selectSecondAction(char option, ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
+    switch (option) {
+        case JUGAR_CARTA:
+                printf("entra aqui");
+            break;
+        case ROBAR_CARTA:
+
+                robar_carta(lista_jugadores,descarte,p);
 
             break;
         default:
@@ -81,7 +102,7 @@ void selectFirstAction(char option, ListaCarta *lista, ListaCarta *descarte){
 void selectOption(int option, char **argv, ListaJuego *lista_jugadores){
     switch (option) {
         case JUGAR:
-            juego(argv, lista_jugadores);
+            crear_juego(argv, lista_jugadores);
             break;
         case ESTADISTICAS:
             estadisticas(lista_jugadores, argv);
