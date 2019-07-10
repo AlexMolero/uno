@@ -142,7 +142,10 @@ int LISTAJUEGO_consultaCartasPartida(Nodo_jugador j, int partida){
 int LISTAJUEGO_consultaNBots(Nodo_jugador j){
     return BOTS_consultaNBots(j.bots);
 }
-ListaCarta * LISTAJUEGO_consultaCartas(Nodo_jugador nodo){
+int LISTAJUEGO_consultaCartaMax(Nodo_jugador j){
+    return BOTS_consultaCartaMax(j.bots);
+}
+ListaCarta LISTAJUEGO_consultaCartas(Nodo_jugador nodo){
     if(!LISTAJUEGO_consultaTipo(nodo)){
         return JUGADOR_consultaCartas(nodo.jugador);
         //return &nodo.jugador.cartas;

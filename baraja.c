@@ -70,18 +70,18 @@ void swap(Deck *a, Deck *b) {
 }
 void barajar(Deck *p) {
     printf("Valor: %d",(*p)->valor);
-    printf("   Coolor: %d \n",(*p)->color);
+    printf("   Color: %d \n",(*p)->color);
     Deck *aux;
-    //aux = (Nodo*)malloc(sizeof(Nodo));
-   // aux = (*p)->sig;
-
-    /* for (int i = 51; i > 0; i--) {
-         int j = rand() % (i + 1);
+    aux = (Nodo*)malloc(sizeof(Nodo));
+    aux = (*p)->sig;
+    int j = 0;
+     for (int i = 51; i > 0; i--) {
+         j = rand() % (i + 1);
 
          swap((*p)->sig, (*p)->sig);
-     }*/
+     }
 }
-void baraja_next(Deck *p) {
+void baraja_next(Deck *p){
     if(p != NULL) {
         (*p) = (*p)->sig;
     }else{

@@ -25,5 +25,5 @@ void JUGADOR_insertaCartasPartida(Jugador *j, int cartas);
 	int JUGADOR_consultaCartasPartida(Jugador j, int partida);
 int JUGADOR_consultaNumPartidas(Jugador j);
 void JUGADOR_insertaNumPartidas(Jugador *j, int n_partidas);
-ListaCarta * JUGADOR_consultaCartas(Jugador b);
+ListaCarta JUGADOR_consultaCartas(Jugador b);
 #endif //INC_21BLACKJACK_JUGADOR_H

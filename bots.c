@@ -55,6 +55,6 @@ int BOTS_consultaPartidasPerdidas(Bots b){
     return b.partidas_ganadas;
 }
 
-ListaCarta * BOTS_consultaCartas(Bots b) {
-    return &b.cartas;
+ListaCarta BOTS_consultaCartas(Bots b) {
+    return b.cartas;
 }

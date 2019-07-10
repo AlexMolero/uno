@@ -70,7 +70,7 @@ void saveBots(ListaJuego *listaJuego, char *fileBots){
                 fwrite(&nombre, sizeof(nombre), 1, f);
                 caracter = LISTAJUEGO_consultaCaracter(LISTAJUEGO_consulta(*listaJuego));
                 fwrite(&caracter, sizeof(caracter), 1, f);
-                cartas = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*listaJuego));
+                cartas = LISTAJUEGO_consultaCartaMax(LISTAJUEGO_consulta(*listaJuego));
                 sprintf(cartass,"%d", cartas);
                 fwrite(&cartass, sizeof(cartass), 1, f);
             }

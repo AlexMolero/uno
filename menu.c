@@ -97,7 +97,8 @@ void selectSecondAction(char option, ListaJuego *lista_jugadores, ListaCarta *de
             Nodo carta_descarte  = LISTACARTA_consulta((*descarte));
             Nodo_jugador jugador = LISTAJUEGO_consulta(*lista_jugadores);
             printf("jugador: %s \n", jugador.jugador.nombre);
-            ListaCarta (*lista)  = LISTAJUEGO_consultaCartas(jugador);
+            ListaCarta lista  = LISTAJUEGO_consultaCartas(jugador);
+
 
             //Nodo carta_jugador = LISTACARTA_consulta(*lista);
 
