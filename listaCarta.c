@@ -89,7 +89,9 @@ void LISTACARTA_eliminaPosicion(ListaCarta *l, ListaCarta *descarte, int posicio
         printf("\nError al eliminar, el PDI está al final...\n");
     } else {
         for(int i=0;i<(posicion-1);i++){
-            LISTACARTA_avanza((*l));
+            (*l) = LISTACARTA_avanza((*l));
+            printf("valor: %d , color: %d \n", (*l).ant->valor, (*l).ant->color);
+
         }
         Nodo nodo_carta = LISTACARTA_consulta((*l));//Recuperamos la carta que queremos jugar.
         LISTACARTA_inserta(descarte,&nodo_carta);//Insertar en la lista de descartes la carta seleccionada.

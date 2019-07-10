@@ -114,11 +114,21 @@ void robar_carta(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
             convertirCarta(carta_robada.valor,carta_robada.color);
 
             if(validar_jugada(carta_robada,carta_descarte)==1){
-                printf(". ¿Deseas jugarlo? [S/N]\n");
+                printf(". Deseas jugarlo? [S/N]\n");
                 char opcion_robo = opcion_robar();
+                if(strcmp(&opcion_robo, "S") == 0){
+                    //Desea jugar la carta robada.
 
-                int cantidad = LISTACARTA_contarCartas(lista_jugadores->pdi->jugador.cartas);
-                LISTACARTA_eliminaPosicion(&lista_jugadores->pdi->jugador.cartas,descarte,cantidad);
+                    int cantidad = LISTACARTA_contarCartas(lista_jugadores->pdi->jugador.cartas);
+                    LISTACARTA_eliminaPosicion(&lista_jugadores->pdi->jugador.cartas,descarte,cantidad);
+
+                    printf("ENTRA AQUI -- SI");
+
+                }else{
+                    printf("ENTRA AQUI -- NO");
+                    //No desea jugar la carta.
+                    //PASAR AL SIGUIENTE JUGADOR
+                }
             }else{
                 printf(". No se puede jugar.\n");
             }
