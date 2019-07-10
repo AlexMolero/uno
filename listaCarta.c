@@ -57,20 +57,16 @@ ListaCarta LISTACARTA_avanza(ListaCarta l) {
     }
     return l;
 }
-
 ListaCarta LISTACARTA_vesInicio(ListaCarta l) {
     l.ant = l.pri;
     return l;
 }
-
 int LISTACARTA_final(ListaCarta l) {
     return l.ant->sig==NULL;
 }
-
 int LISTACARTA_vacia(ListaCarta l) {
     return l.pri->sig == NULL;
 }
-
 ListaCarta LISTACARTA_destruye(ListaCarta l) {
     Nodo *aux;
 
@@ -123,4 +119,5 @@ void LISTACARTA_roba(ListaCarta *l, Nodo *elemento) {
         (*l).ant = aux; // para mantener el PDI
     }
 }
+
 

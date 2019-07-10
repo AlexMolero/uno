@@ -31,7 +31,6 @@ void muestraMenuEstadisticas(){
     printf("2- Bots\n");
     printf("3- Salir\n");
 }
-
 int getOption(){
     int option;
     printf("Selecciona una opcion: \n");
@@ -92,8 +91,22 @@ void selectFirstAction(char option, ListaJuego *lista_jugadores, ListaCarta *des
 }
 void selectSecondAction(char option, ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
     switch (option) {
+        int sel_carta;
         case JUGAR_CARTA:
-                printf("entra aqui");
+            sel_carta =  selectCarta();
+            Nodo carta_descarte  = LISTACARTA_consulta((*descarte));
+            Nodo_jugador jugador = LISTAJUEGO_consulta(*lista_jugadores);
+            printf("jugador: %s \n", jugador.jugador.nombre);
+            ListaCarta (*lista)  = LISTAJUEGO_consultaCartas(jugador);
+
+            //Nodo carta_jugador = LISTACARTA_consulta(*lista);
+
+             /*if(validar_jugada(carta_jugador,carta_descarte)==1){
+
+             }else{
+                 printf("No se puede jugar el");
+                 convertirCarta(carta_jugador.valor,carta_jugador.color);
+             }*/
             break;
         case ROBAR_CARTA:
 

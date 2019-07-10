@@ -90,7 +90,6 @@ void LISTAJUEGO_insertaDerecha(ListaJuego *l, Nodo_jugador nodo){
         }
     }
 }
-
 Nodo_jugador LISTAJUEGO_consulta(ListaJuego l){
     Nodo_jugador *nodo;
     if (l.pdi==l.pri || l.pdi==l.ult) {
@@ -115,8 +114,6 @@ char * LISTAJUEGO_consultaCaracter(Nodo_jugador nodo){
         return BOTS_consultaNombreCaracter(nodo.bots);
     }
 }
-
-
 int LISTAJUEGO_consultaTipo(Nodo_jugador nodo){
 
     return nodo.type;
@@ -146,14 +143,14 @@ int LISTAJUEGO_consultaNBots(Nodo_jugador j){
     return BOTS_consultaNBots(j.bots);
 }
 ListaCarta * LISTAJUEGO_consultaCartas(Nodo_jugador nodo){
-
-    if(LISTAJUEGO_consultaTipo(nodo)){
+    if(!LISTAJUEGO_consultaTipo(nodo)){
         return JUGADOR_consultaCartas(nodo.jugador);
-    }
-    else{
+        //return &nodo.jugador.cartas;
+    }else{
         return BOTS_consultaCartas(nodo.bots);
     }
 }
+
 void LISTAJUEGO_elimina(ListaJuego *l){
     Nodo_jugador *aux;
     if (l->pdi == l->pri || l->pdi == l->ult) {
@@ -230,7 +227,6 @@ int LISTAJUEGO_count(ListaJuego l){
 }*/
 ListaCarta * LISTAJUEGO_consultaListaCarta(ListaJuego *l){
     if(l->pdi->type==0){
-        ListaCarta lista = l->pdi->jugador.cartas;
         return &l->pdi->jugador.cartas;
     }else{
         return &l->pdi->bots.cartas;

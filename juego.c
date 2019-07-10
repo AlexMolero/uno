@@ -20,18 +20,13 @@ void jugar_por_turnos(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p
         printf(" ### \n");
 
         //Aqui selecciona ver mano o robar
-
         char *name = LISTAJUEGO_consultaNombre((LISTAJUEGO_consulta(*lista_jugadores)));
         selectFirstAction(getGameOption(name),lista_jugadores,descarte, p);
 
         final++;
     }
 }
-//int validar_jugada(ListaCarta lista_jugador, ListaCarta descarte){
 int validar_jugada(Nodo carta_jugador, Nodo carta_descarte){
-
-    //Nodo carta_jugador = LISTACARTA_consulta(lista_jugador);
-    //Nodo carta_descarte = LISTACARTA_consulta(descarte);
 
     if(carta_jugador.color==carta_descarte.color || carta_jugador.valor==carta_descarte.valor|| carta_jugador.color==4){
         //SE puede jugar la carta
@@ -79,6 +74,7 @@ void ver_lista_cartas(ListaJuego lista_jugadores, ListaCarta descarte){
     }
 
     lista = LISTACARTA_vesInicio(lista);
+    printf("%d cartas: \n", LISTACARTA_contarCartas(lista));
     int count=1;
 
     while (lista.ant->sig!=NULL){
