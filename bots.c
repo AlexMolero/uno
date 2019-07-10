@@ -6,7 +6,7 @@ Bots BOTS_crea() {
     b.caracter = ' ';
     b.carta_maxima = 0;
     b.cartas = LISTACARTA_crea();
-    b.cartas = LISTACARTA_vesInicio(b.cartas);
+    //b.cartas = LISTACARTA_vesInicio(b.cartas);
     return b;
 }
 

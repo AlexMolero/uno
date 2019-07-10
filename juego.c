@@ -56,7 +56,9 @@ void ver_jugadores(ListaJuego lista_jugadores, ListaCarta descarte){
             //ver_lista_cartas(j.jugador.cartas, descarte);
         }else{
             //print bot
-            printf("%s \n", j.bots.nombre);
+           // printf("%s \n", j.bots.nombre);
+            printf("%s - %d \n", j.bots.nombre, LISTACARTA_contarCartas(j.bots.cartas));
+
             //ver_lista_cartas(j.bots.cartas, descarte);
         }
         LISTAJUEGO_avanza(&lista_jugadores);

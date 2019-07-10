@@ -220,6 +220,7 @@ Bots *loadBots(char *fileBot, int *numBots){
                 car = 'c';
             }
             BOTS_insertaCaracter(&bots[i], car);
+            bots[i].cartas = LISTACARTA_crea();
             //printf("%c\n", BOTS_consultaCaracter(bots[i]));
 
             int cartaMax;
