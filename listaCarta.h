@@ -27,4 +27,6 @@ int LISTACARTA_modificar(ListaCarta l, Nodo valor, int * posicion);
 int LISTACARTA_contarCartas(ListaCarta l);
 void LISTACARTA_eliminaPosicion(ListaCarta *l, ListaCarta *descarte, int posicion);
 void LISTACARTA_roba(ListaCarta *l, Nodo *elemento);
+Nodo LISTACARTA_consultaByPosicion(ListaCarta l, int posicion);
+
 #endif //UNO_LISTACARTA_H

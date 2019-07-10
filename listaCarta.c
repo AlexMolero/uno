@@ -78,6 +78,10 @@ ListaCarta LISTACARTA_destruye(ListaCarta l) {
     return l;
 }
 void LISTACARTA_eliminaPosicion(ListaCarta *l, ListaCarta *descarte, int posicion){
+    /**
+     * Elimina la posición de la lista y inserta en descartes
+     *
+     * */
     Nodo *aux;
     (*l) = LISTACARTA_vesInicio((*l));
 
@@ -86,7 +90,6 @@ void LISTACARTA_eliminaPosicion(ListaCarta *l, ListaCarta *descarte, int posicio
     } else {
         for(int i=0;i<(posicion-1);i++){
             (*l) = LISTACARTA_avanza((*l));
-            printf("valor: %d , color: %d \n", (*l).ant->valor, (*l).ant->color);
 
         }
         Nodo nodo_carta = LISTACARTA_consulta((*l));//Recuperamos la carta que queremos jugar.
@@ -118,6 +121,19 @@ void LISTACARTA_roba(ListaCarta *l, Nodo *elemento) {
         (*l).ant->sig = aux;
         (*l).ant = aux; // para mantener el PDI
     }
+}
+Nodo LISTACARTA_consultaByPosicion(ListaCarta l, int posicion) {
+    Nodo *aux;
+    if (l.pri->sig == NULL) {
+        printf("\nError al consultar, el PDI está al final...\n");
+    } else {
+        l = LISTACARTA_vesInicio(l);
+        for(int i=0;i<(posicion-1);i++){
+            l = LISTACARTA_avanza(l);
+        }
+        aux = l.ant->sig;
+    }
+    return *aux;
 }
 
 

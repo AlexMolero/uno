@@ -16,7 +16,7 @@ void jugar_por_turnos(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p
         Nodo carta_descarte = LISTACARTA_consulta((*descarte));
 
         printf("### ");
-        convertirCarta(carta_descarte.valor,carta_descarte.color);
+        convertirCarta(carta_descarte);
         printf(" ### \n");
 
         //Aqui selecciona ver mano o robar
@@ -81,7 +81,7 @@ void ver_lista_cartas(ListaJuego lista_jugadores, ListaCarta descarte){
         Nodo carta = LISTACARTA_consulta(lista);
         Nodo carta_descarte = LISTACARTA_consulta(descarte);
         printf("%d . " ,count);
-        convertirCarta(carta.valor,carta.color);
+        convertirCarta(carta);
         if(validar_jugada(carta,carta_descarte)==1){
             printf("*");
         }
@@ -107,7 +107,7 @@ void robar_carta(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
             Nodo carta_descarte = LISTACARTA_consulta(*descarte);
             baraja_pop(p); //eliminamos la carta que hemos insertado de la baraja
             printf("Se ha robado un ");
-            convertirCarta(carta_robada.valor,carta_robada.color);
+            convertirCarta(carta_robada);
 
             if(validar_jugada(carta_robada,carta_descarte)==1){
                 printf(". Deseas jugarlo? [S/N]\n");

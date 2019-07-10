@@ -50,6 +50,7 @@ char opcion_robar(){
     // return [S/N]
     char option;
     scanf(" %c", &option);
+
     return option;
 }
 char getGame(char *name_player){
@@ -71,18 +72,13 @@ int selectCarta(){
 void selectFirstAction(char option, ListaJuego *lista_jugadores, ListaCarta *descarte,Deck *p){
     switch (option) {
         case VER_MANO:
-
             ver_lista_cartas((*lista_jugadores), (*descarte));
             char *name = LISTAJUEGO_consultaNombre((LISTAJUEGO_consulta((*lista_jugadores))));
             selectSecondAction(getGame(name),lista_jugadores,descarte,p);
-            //int carta = selectCarta();
-
-            //LISTACARTA_eliminaPosicion(lista,descarte,carta);
 
             break;
         case ROBAR_CARTA:
             robar_carta(lista_jugadores,descarte,p);
-
             break;
         default:
             printf("Opcion erronea, seleccione otra\n");
@@ -98,16 +94,15 @@ void selectSecondAction(char option, ListaJuego *lista_jugadores, ListaCarta *de
             Nodo_jugador jugador = LISTAJUEGO_consulta(*lista_jugadores);
             printf("jugador: %s \n", jugador.jugador.nombre);
             ListaCarta lista  = LISTAJUEGO_consultaCartas(jugador);
+            Nodo carta_jugador = LISTACARTA_consultaByPosicion(lista,sel_carta);
 
-
-            //Nodo carta_jugador = LISTACARTA_consulta(*lista);
-
-             /*if(validar_jugada(carta_jugador,carta_descarte)==1){
+             if(validar_jugada(carta_jugador,carta_descarte)==1){
+                 LISTACARTA_eliminaPosicion(&lista,descarte,sel_carta);
 
              }else{
                  printf("No se puede jugar el");
-                 convertirCarta(carta_jugador.valor,carta_jugador.color);
-             }*/
+                 convertirCarta(carta_jugador);
+             }
             break;
         case ROBAR_CARTA:
 
@@ -245,8 +240,9 @@ Bots *loadBots(char *fileBot, int *numBots){
         return bots;
     }
 }
-void convertirCarta(int valor, int color){
-
+void convertirCarta(Nodo carta){
+    int valor = carta.valor;
+    int color = carta.color;
     //comodin de color(value 10) y 4 cartas comodin de robar 4 (value 11)
     switch (valor) { //0=Rojo, 1=Amarillo, 2=Verde, 3=Azul y 4 = Comodin
         case 10:

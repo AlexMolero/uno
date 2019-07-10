@@ -21,6 +21,6 @@ void selectFirstAction(char option, ListaJuego *lista_jugadores, ListaCarta *des
 void selectSecondAction(char option, ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p);
 char getGameOption(char *name_player);
 char getGame(char *name_player);
-void convertirCarta(int valor, int color);
+void convertirCarta(Nodo carta);
 char opcion_robar();
 #endif //UNO_MENU_H
