@@ -146,6 +146,7 @@ void jugar_carta(ListaJuego *lista_jugadores, ListaCarta *descarte,Deck *p){
     Nodo carta_jugador = LISTACARTA_consultaByPosicion(lista,sel_carta);
 
     if(validar_jugada(carta_jugador,carta_descarte)){
+
         logica_jugar_carta( carta_jugador,lista_jugadores,p);
         if(es_roba_4(carta_jugador)){
             int sel_color = getColor();
