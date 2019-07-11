@@ -12,7 +12,7 @@ int main(int argc, char **argv) {
         Deck baraja = NULL;
         baraja      = crear_baraja();
         Jugador j   = loadPlayer(argv[1]);
-        repartir_carta(&baraja,&j.cartas,30);
+        repartir_carta(&baraja,&j.cartas,7);
         LISTAJUEGO_insertaJugador(&lista_jugadores,j);
         int numBots;
         Bots *b = loadBots(argv[2], &numBots);
@@ -22,8 +22,9 @@ int main(int argc, char **argv) {
         }
         ListaCarta descarte = LISTACARTA_crea(); //Creamos la baraja de descartes
         repartir_carta(&baraja, &descarte,1);
-        /*Fin: Creacion de lista y pilas*/
+        LISTAJUEGO_vesInicio(&lista_jugadores);
 
+        /*Fin: Creacion de lista y pilas*/
         muestraMenu();
         int option = getOption();
         while (option!=3){

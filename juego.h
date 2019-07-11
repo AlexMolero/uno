@@ -16,4 +16,5 @@ void ver_jugadores(ListaJuego lista_jugadores, ListaCarta descarte);
 void ver_lista_cartas(ListaJuego lista_jugadores, ListaCarta descarte);
 void jugar_por_turnos(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p);
 void robar_carta(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p);
+void jugar_carta(ListaJuego *lista_jugadores, ListaCarta *descarte);
 #endif //UNO_JUEGO_H

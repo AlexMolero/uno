@@ -15,7 +15,6 @@
 #define SALIR            3
 #define VER_MANO         'A'
 #define ROBAR_CARTA      'B'
-
 #define ESTADISTICAS_JUGADOR  1
 #define ESTADISTICAS_BOTS     2
 
@@ -68,7 +67,6 @@ int selectCarta(){
     scanf("%d",&option);
     return option;
 }
-
 void selectFirstAction(char option, ListaJuego *lista_jugadores, ListaCarta *descarte,Deck *p){
     switch (option) {
         case VER_MANO:
@@ -87,22 +85,9 @@ void selectFirstAction(char option, ListaJuego *lista_jugadores, ListaCarta *des
 }
 void selectSecondAction(char option, ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
     switch (option) {
-        int sel_carta;
         case JUGAR_CARTA:
-            sel_carta =  selectCarta();
-            Nodo carta_descarte  = LISTACARTA_consulta((*descarte));
-            Nodo_jugador jugador = LISTAJUEGO_consulta(*lista_jugadores);
-            printf("jugador: %s \n", jugador.jugador.nombre);
-            ListaCarta lista  = LISTAJUEGO_consultaCartas(jugador);
-            Nodo carta_jugador = LISTACARTA_consultaByPosicion(lista,sel_carta);
+            jugar_carta(lista_jugadores,descarte);
 
-             if(validar_jugada(carta_jugador,carta_descarte)==1){
-                 LISTACARTA_eliminaPosicion(&lista,descarte,sel_carta);
-
-             }else{
-                 printf("No se puede jugar el");
-                 convertirCarta(carta_jugador);
-             }
             break;
         case ROBAR_CARTA:
 
