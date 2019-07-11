@@ -5,11 +5,16 @@
 #include "baraja.h"
 
 #define COLORES 4
-#define NUM_MAX_CARTA 10
-
+#define NUM_MAX_CARTA 13
 
 Deck crear_baraja() {
-    //Añadir 4 cartas comodin de color(value 14) y 4 cartas comodin de robar 4 (value 15)
+    /*
+     * Valor 10 y color -->Saltar turno
+     * Valor 11 y color -->Cambiar dirección
+     * Valor 12 y color -->Suma dos
+     * Valor 13         -->Comodín color
+     * Valor 14         -->Sumar 4 mas color
+     */
     Deck p;
     p = NULL;
     int cont = 0;
@@ -99,3 +104,39 @@ Nodo baraja_top(Deck p){
     }
     return aux;
 }
+int es_roba_4(Nodo carta){
+    if(carta.valor==14 && carta.color==4){
+        return 1;
+    } else{
+        return 0;
+    }
+}
+int es_comodin_color(Nodo carta){
+    if(carta.valor==13 && carta.color==4){
+        return 1;
+    }else{
+        return 0;
+    }
+}
+int es_suma_2(Nodo carta){
+    if(carta.valor==12){
+        return 1;
+    }else{
+        return 0;
+    }
+}
+int es_cambio_direccion(Nodo carta){
+    if(carta.valor==11){
+        return 1;
+    }else{
+        return 0;
+    }
+}
+int es_saltar_turno(Nodo carta){
+    if(carta.valor==10){
+        return 1;
+    }else{
+        return 0;
+    }
+}
+

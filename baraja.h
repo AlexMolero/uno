@@ -22,5 +22,9 @@ void baraja_push(Deck *baraja, int valor, int color, int cont);
 void baraja_pop(Deck *p);
 void baraja_next(Deck *p);
 Nodo baraja_top(Deck p);
-
+int es_roba_4(Nodo carta);
+int es_comodin_color(Nodo carta);
+int es_suma_2(Nodo carta);
+int es_cambio_direccion(Nodo carta);
+int es_saltar_turno(Nodo carta);
 #endif //UNO_BARAJA_H

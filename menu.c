@@ -67,6 +67,23 @@ int selectCarta(){
     scanf("%d",&option);
     return option;
 }
+int getColor(){
+
+    /*
+     * En la estructura del programa los colores tienen los siguientes valores:
+     * 0=Rojo, 1=Amarillo, 2=Verde, 3=Azul y 4 = Comodin
+     */
+
+    int color;
+    printf("Elige un color: \n");
+    printf("1. Rojo \n");
+    printf("2. Amarillo\n");
+    printf("3. Verde \n");
+    printf("4. Azul \n");
+    scanf("%d",&color);
+    color--;
+    return color;
+}
 void selectFirstAction(char option, ListaJuego *lista_jugadores, ListaCarta *descarte,Deck *p){
     switch (option) {
         case VER_MANO:
@@ -86,7 +103,7 @@ void selectFirstAction(char option, ListaJuego *lista_jugadores, ListaCarta *des
 void selectSecondAction(char option, ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
     switch (option) {
         case JUGAR_CARTA:
-            jugar_carta(lista_jugadores,descarte);
+            jugar_carta(lista_jugadores,descarte,p);
 
             break;
         case ROBAR_CARTA:
@@ -232,9 +249,18 @@ void convertirCarta(Nodo carta){
     //comodin de color(value 10) y 4 cartas comodin de robar 4 (value 11)
     switch (valor) { //0=Rojo, 1=Amarillo, 2=Verde, 3=Azul y 4 = Comodin
         case 10:
-            printf(" Cambio de color");
+            printf("Saltar turno");
             break;
         case 11:
+            printf("Cambiar direccion");
+            break;
+        case 12:
+            printf("Suma dos");
+            break;
+        case 13:
+            printf(" Cambio de color");
+            break;
+        case 14:
             printf(" Robar 4");
             break;
         default:

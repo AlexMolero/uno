@@ -117,28 +117,43 @@ void robar_carta(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
     }
 
 }
-void jugar_carta(ListaJuego *lista_jugadores, ListaCarta *descarte){
+void logica_jugar_carta(Nodo carta_jugada,ListaJuego *lista_jugadores, Deck *p){
+    ListaCarta lista  = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores));
+
+    if(es_roba_4(carta_jugada)){ // Si es roba 4 mas color
+        //FALTA ELEGIR EL COLORRRRRRR !!!!!!!!!!!!!!
+        LISTAJUEGO_avanza(lista_jugadores);
+        lista  = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores));
+        repartir_carta(p,&lista,4);
+        LISTAJUEGO_retrocede(lista_jugadores);
+    }
+    if(es_suma_2(carta_jugada)){
+        LISTAJUEGO_avanza(lista_jugadores);
+        lista  = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores));
+        repartir_carta(p,&lista,2);
+        LISTAJUEGO_retrocede(lista_jugadores);
+    }
+    if(es_saltar_turno(carta_jugada)){
+        LISTAJUEGO_avanza(lista_jugadores);
+    }
+
+
+}
+void jugar_carta(ListaJuego *lista_jugadores, ListaCarta *descarte,Deck *p){
     int sel_carta =  selectCarta();
     Nodo carta_descarte  = LISTACARTA_consulta((*descarte));
     ListaCarta lista  = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores));
     Nodo carta_jugador = LISTACARTA_consultaByPosicion(lista,sel_carta);
 
     if(validar_jugada(carta_jugador,carta_descarte)){
+        logica_jugar_carta( carta_jugador,lista_jugadores,p);
+        if(es_roba_4(carta_jugador)){
+            int sel_color = getColor();
+        }
         LISTACARTA_eliminaPosicion(&lista,descarte,sel_carta);
     }else{
         printf("No se puede jugar el ");
         convertirCarta(carta_jugador);
         printf("\n");
     }
-}
-void logica_jugar_carta(Nodo carta_jugada){
-
-     if(carta_jugada.valor==11 && carta_jugada.color==4){
-
-     }
-
-    //Si es +2 de color, avanzar la lista_jugador repartir 2 cartas al jugador y retroceder la lista jugador
-    //Si es +4 avanzar la lista, que el jugador robe 4 cartas, retroceder lista y elegir el color
-    //cambio de sentido ¿?¿¿?¿
-
 }
