@@ -8,8 +8,9 @@
 
 
 void jugar_por_turnos(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
-    int final=0; //Cuando final sea 1, significa que uno de los jugadores se ha quedado sin cartas y ha ganado la partida
-    while(final!=1){
+    ListaCarta lista = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores));
+    int cartas = LISTACARTA_contarCartas(lista); // Si esto es 0 la partida debe finalizar
+
         (*descarte) = LISTACARTA_vesInicio((*descarte));
         ver_jugadores((*lista_jugadores),(*descarte));
         Nodo carta_descarte = LISTACARTA_consulta((*descarte));
@@ -20,18 +21,13 @@ void jugar_por_turnos(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p
 
         char *name = LISTAJUEGO_consultaNombre((LISTAJUEGO_consulta(*lista_jugadores)));
         selectFirstAction(getGameOption(name),lista_jugadores,descarte, p);
-
         LISTAJUEGO_avanza(lista_jugadores);
-        /*
-        if(LISTAJUEGO_final(*lista_jugadores)){
-            LISTAJUEGO_inicio(*lista_jugadores);
-        }else{
-            LISTAJUEGO_avanza(lista_jugadores);
-        }
-        */
 
-        final++;
-    }
+        if(LISTAJUEGO_final(*lista_jugadores)){
+            LISTAJUEGO_vesInicio(lista_jugadores);
+        }
+        //funcion comprobar si hay un jugador con 0 cartas, final = 0:
+
 }
 int  validar_jugada(Nodo carta_jugador, Nodo carta_descarte){
 
@@ -103,19 +99,16 @@ void robar_carta(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
 
     if(validar_jugada(carta_robada,carta_descarte)==1){ //la jugada es valida
         printf(". Deseas jugarlo? [S/N]\n");
-        char opcion_robo = opcion_robar();
-        if(strcmpi(&opcion_robo, "S") == 0){
+        char opcion_robo;
+        scanf(" %c", &opcion_robo);
+        if(!strcmpi(&opcion_robo, "S")){
             //Desea jugar la carta robada.
-
             int cantidad = LISTACARTA_contarCartas(lista);
             LISTACARTA_eliminaPosicion(&lista,descarte,cantidad);
-
-            printf("ENTRA AQUI -- SI");
         }
     }else{
         printf(". No se puede jugar.\n");
     }
-
 }
 void logica_jugar_carta(Nodo carta_jugada,ListaJuego *lista_jugadores, Deck *p){
     ListaCarta lista  = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores));
@@ -136,7 +129,6 @@ void logica_jugar_carta(Nodo carta_jugada,ListaJuego *lista_jugadores, Deck *p){
     if(es_saltar_turno(carta_jugada)){
         LISTAJUEGO_avanza(lista_jugadores);
     }
-
 
 }
 void jugar_carta(ListaJuego *lista_jugadores, ListaCarta *descarte,Deck *p){

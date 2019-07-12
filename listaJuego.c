@@ -145,14 +145,14 @@ void LISTAJUEGO_elimina(ListaJuego *l){
 void LISTAJUEGO_avanza(ListaJuego *l){
     if (l->pdi == l->ult) {
         printf("\nError al avanzar...\n");
-    } else {
+    }else{
         l->pdi = l->pdi->sig;
     }
 }
 void LISTAJUEGO_retrocede(ListaJuego *l){
     if (l->pdi == l->pri) {
         printf("\nError al retroceder...\n");
-    } else {
+    }else{
         l->pdi = l->pdi->ant;
     }
 }
@@ -206,4 +206,3 @@ ListaCarta * LISTAJUEGO_consultaListaCarta(ListaJuego *l){
 int LISTAJUEGO_esJugador(ListaJuego l){
     return l.pdi->type;
 }
-
