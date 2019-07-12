@@ -10,23 +10,25 @@
 void jugar_por_turnos(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
     ListaCarta lista = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores));
     int cartas = LISTACARTA_contarCartas(lista); // Si esto es 0 la partida debe finalizar
+    if(cartas==0){
+        //FIN DE PARTIDA!!!!!!!!
+    }
+    (*descarte) = LISTACARTA_vesInicio((*descarte));
+    ver_jugadores((*lista_jugadores),(*descarte));
+    Nodo carta_descarte = LISTACARTA_consulta((*descarte));
 
-        (*descarte) = LISTACARTA_vesInicio((*descarte));
-        ver_jugadores((*lista_jugadores),(*descarte));
-        Nodo carta_descarte = LISTACARTA_consulta((*descarte));
+    printf("### ");
+    convertirCarta(carta_descarte);
+    printf(" ### \n");
 
-        printf("### ");
-        convertirCarta(carta_descarte);
-        printf(" ### \n");
+    char *name = LISTAJUEGO_consultaNombre((LISTAJUEGO_consulta(*lista_jugadores)));
+    selectFirstAction(getGameOption(name),lista_jugadores,descarte, p);
+    LISTAJUEGO_avanza(lista_jugadores);
 
-        char *name = LISTAJUEGO_consultaNombre((LISTAJUEGO_consulta(*lista_jugadores)));
-        selectFirstAction(getGameOption(name),lista_jugadores,descarte, p);
-        LISTAJUEGO_avanza(lista_jugadores);
-
-        if(LISTAJUEGO_final(*lista_jugadores)){
-            LISTAJUEGO_vesInicio(lista_jugadores);
-        }
-        //funcion comprobar si hay un jugador con 0 cartas, final = 0:
+    if(LISTAJUEGO_final(*lista_jugadores)){
+        LISTAJUEGO_vesInicio(lista_jugadores);
+    }
+    //funcion comprobar si hay un jugador con 0 cartas, final = 0:
 
 }
 int  validar_jugada(Nodo carta_jugador, Nodo carta_descarte){
