@@ -25,6 +25,7 @@ Deck crear_baraja() {
             for (int j = 0; j < NUM_MAX_CARTA; j++) {
                 if(b==1 && j==0){
                     //Aqui entra cuando es el 0 en la segunda baraja
+                    baraja_push(&p, j, i, cont);
                 }else{
                     cont++;
                     baraja_push(&p, j, i, cont);
@@ -73,6 +74,7 @@ void swap(Deck *a, Deck *b) {
     *a = *b;
     *b = temp;
 }
+/*
 void barajar(Deck *p) {
     printf("Valor: %d",(*p)->valor);
     printf("   Color: %d \n",(*p)->color);
@@ -85,7 +87,7 @@ void barajar(Deck *p) {
 
          swap((*p)->sig, (*p)->sig);
      }
-}
+}*/
 void baraja_next(Deck *p){
     if(p != NULL) {
         (*p) = (*p)->sig;
@@ -139,4 +141,13 @@ int es_saltar_turno(Nodo carta){
         return 0;
     }
 }
-
+void cambiar_color(Nodo *carta, int color){
+    carta->color = color;
+}
+int es_cero (Nodo carta){
+    if(carta.valor==0){
+        return 1;
+    }else{
+        return 0;
+    }
+}

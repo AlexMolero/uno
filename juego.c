@@ -6,21 +6,26 @@
 #include "listaJuego.h"
 #include "menu.h"
 
+void  ver_resumen(ListaJuego *lista_jugadores, ListaCarta *descarte){
+    ver_jugadores((*lista_jugadores),(*descarte));
+    Nodo carta_descarte = LISTACARTA_consulta((*descarte));
 
+    printf("### ");
+    convertirCarta(carta_descarte);
+    printf(" ### \n");
+}
 void jugar_por_turnos(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
-    ListaCarta lista = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores));
-    int cartas = LISTACARTA_contarCartas(lista); // Si esto es 0 la partida debe finalizar
 
         (*descarte) = LISTACARTA_vesInicio((*descarte));
-        ver_jugadores((*lista_jugadores),(*descarte));
-        Nodo carta_descarte = LISTACARTA_consulta((*descarte));
-
-        printf("### ");
-        convertirCarta(carta_descarte);
-        printf(" ### \n");
 
         char *name = LISTAJUEGO_consultaNombre((LISTAJUEGO_consulta(*lista_jugadores)));
-        selectFirstAction(getGameOption(name),lista_jugadores,descarte, p);
+        if(!LISTAJUEGO_esJugador(*lista_jugadores)){
+            ver_resumen(lista_jugadores,descarte);
+            selectFirstAction(getGameOption(name),lista_jugadores,descarte, p);
+        }else{
+            logica_jugar_bot(lista_jugadores,descarte,p);
+           // printf("ENTRA EN BOT \n");
+        }
         LISTAJUEGO_avanza(lista_jugadores);
 
         if(LISTAJUEGO_final(*lista_jugadores)){
@@ -110,15 +115,20 @@ void robar_carta(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
         printf(". No se puede jugar.\n");
     }
 }
-void logica_jugar_carta(Nodo carta_jugada,ListaJuego *lista_jugadores, Deck *p){
+void logica_jugar_carta(Nodo carta_jugada,ListaJuego *lista_jugadores, Deck *p, int sel_carta){
     ListaCarta lista  = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores));
 
     if(es_roba_4(carta_jugada)){ // Si es roba 4 mas color
-        //FALTA ELEGIR EL COLORRRRRRR !!!!!!!!!!!!!!
         LISTAJUEGO_avanza(lista_jugadores);
         lista  = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores));
         repartir_carta(p,&lista,4);
         LISTAJUEGO_retrocede(lista_jugadores);
+        int sel_color = getColor();
+        LISTACARTA_cambiaColorComodin(&lista,sel_carta,sel_color);
+    }
+    if(es_comodin_color(carta_jugada)){
+        int sel_color = getColor();
+        LISTACARTA_cambiaColorComodin(&lista,sel_carta,sel_color);
     }
     if(es_suma_2(carta_jugada)){
         LISTAJUEGO_avanza(lista_jugadores);
@@ -128,7 +138,22 @@ void logica_jugar_carta(Nodo carta_jugada,ListaJuego *lista_jugadores, Deck *p){
     }
     if(es_saltar_turno(carta_jugada)){
         LISTAJUEGO_avanza(lista_jugadores);
+        if(LISTAJUEGO_final(*lista_jugadores)){
+            LISTAJUEGO_vesInicio(lista_jugadores);
+        }
     }
+}
+void logica_jugar_bot(ListaJuego *lista_jugadores, ListaCarta *descarte,Deck *p){
+    Nodo_jugador j = LISTAJUEGO_consulta(*lista_jugadores);
+    ListaCarta lista  = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores));
+    //Nodo carta_jugador  = LISTACARTA_consulta(lista);
+
+    if(es_cero(carta_jugador)){
+        //Jugará el 0
+
+    }
+    printf("%s juega un 9 Azul. \n", LISTAJUEGO_consultaNombre(j));
+
 
 }
 void jugar_carta(ListaJuego *lista_jugadores, ListaCarta *descarte,Deck *p){
@@ -138,11 +163,7 @@ void jugar_carta(ListaJuego *lista_jugadores, ListaCarta *descarte,Deck *p){
     Nodo carta_jugador = LISTACARTA_consultaByPosicion(lista,sel_carta);
 
     if(validar_jugada(carta_jugador,carta_descarte)){
-
-        logica_jugar_carta( carta_jugador,lista_jugadores,p);
-        if(es_roba_4(carta_jugador)){
-            int sel_color = getColor();
-        }
+        logica_jugar_carta(carta_jugador,lista_jugadores,p,sel_carta);
         LISTACARTA_eliminaPosicion(&lista,descarte,sel_carta);
     }else{
         printf("No se puede jugar el ");

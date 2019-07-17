@@ -28,5 +28,5 @@ int LISTACARTA_contarCartas(ListaCarta l);
 void LISTACARTA_eliminaPosicion(ListaCarta *l, ListaCarta *descarte, int posicion);
 void LISTACARTA_roba(ListaCarta *l, Nodo *elemento);
 Nodo LISTACARTA_consultaByPosicion(ListaCarta l, int posicion);
-
+void LISTACARTA_cambiaColorComodin(ListaCarta *l, int posicion, int color);
 #endif //UNO_LISTACARTA_H

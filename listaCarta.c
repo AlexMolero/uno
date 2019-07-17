@@ -135,5 +135,17 @@ Nodo LISTACARTA_consultaByPosicion(ListaCarta l, int posicion) {
     }
     return *aux;
 }
+void LISTACARTA_cambiaColorComodin(ListaCarta *l, int posicion, int color){
+    (*l) = LISTACARTA_vesInicio((*l));
 
+    if ((*l).ant->sig == NULL) {
+        printf("\nError al eliminar, el PDI está al final...\n");
+    } else {
+        for(int i=0;i<(posicion-1);i++){
+            (*l) = LISTACARTA_avanza((*l));
+        }
+        Nodo carta = LISTACARTA_consulta(*l);
+        cambiar_color(&carta, color);
+    }
+}
 
