@@ -31,7 +31,7 @@ void muestraMenuEstadisticas(){
     printf("2- Bots\n");
     printf("3- Salir\n");
 }
-int getOption(){
+int  getOption(){
     int option;
     printf("Selecciona una opcion: \n");
     scanf("%d",&option);
@@ -62,13 +62,13 @@ char getGame(char *name_player){
 
     return option;
 }
-int selectCarta(){
+int  selectCarta(){
     int option;
     printf("Qué carta quieres jugar? \n");
     scanf("%d",&option);
     return option;
 }
-int getColor(){
+int  getColor(){
 
     /*
      * En la estructura del programa los colores tienen los siguientes valores:
@@ -195,7 +195,7 @@ Jugador loadPlayer(char *fileUser){
 		return j;
     }
 }
-Bots *loadBots(char *fileBot, int *numBots){
+Bots    *loadBots(char *fileBot, int *numBots){
     //printf("%s",fileBot);
     FILE *f;
     f = fopen(fileBot, "r");

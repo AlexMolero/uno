@@ -6,7 +6,7 @@
 #include "listaJuego.h"
 #include "menu.h"
 
-void  ver_resumen(ListaJuego *lista_jugadores, ListaCarta *descarte){
+void ver_resumen(ListaJuego *lista_jugadores, ListaCarta *descarte){
     ver_jugadores((*lista_jugadores),(*descarte));
     Nodo carta_descarte = LISTACARTA_consulta((*descarte));
 
@@ -115,7 +115,7 @@ void robar_carta(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
         printf(". No se puede jugar.\n");
     }
 }
-void logica_jugar_carta(Nodo carta_jugada,ListaJuego *lista_jugadores, Deck *p, int sel_carta){
+void logica_jugar_carta(Nodo carta_jugada,ListaJuego *lista_jugadores, Deck *p, int sel_carta, ListaCarta *descarte){
     ListaCarta lista  = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores));
 
     if(es_roba_4(carta_jugada)){ // Si es roba 4 mas color
@@ -124,35 +124,98 @@ void logica_jugar_carta(Nodo carta_jugada,ListaJuego *lista_jugadores, Deck *p, 
         repartir_carta(p,&lista,4);
         LISTAJUEGO_retrocede(lista_jugadores);
         int sel_color = getColor();
-        LISTACARTA_cambiaColorComodin(&lista,sel_carta,sel_color);
-    }
-    if(es_comodin_color(carta_jugada)){
+        lista  = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores));
+        LISTACARTA_cambiaColorComodin(&lista,sel_carta,sel_color,descarte);
+    }else if(es_comodin_color(carta_jugada)){
         int sel_color = getColor();
-        LISTACARTA_cambiaColorComodin(&lista,sel_carta,sel_color);
-    }
-    if(es_suma_2(carta_jugada)){
+        LISTACARTA_cambiaColorComodin(&lista,sel_carta,sel_color,descarte);
+    }else if(es_suma_2(carta_jugada)){
         LISTAJUEGO_avanza(lista_jugadores);
         lista  = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores));
         repartir_carta(p,&lista,2);
         LISTAJUEGO_retrocede(lista_jugadores);
-    }
-    if(es_saltar_turno(carta_jugada)){
+        LISTACARTA_eliminaPosicion(&lista,descarte,sel_carta);
+
+    }else if(es_saltar_turno(carta_jugada)){
         LISTAJUEGO_avanza(lista_jugadores);
         if(LISTAJUEGO_final(*lista_jugadores)){
             LISTAJUEGO_vesInicio(lista_jugadores);
         }
+    }else{
+        //Se juega una carta normal
+        LISTACARTA_eliminaPosicion(&lista,descarte,sel_carta);
     }
+}
+int  carta_preferencia_bot(ListaCarta lista, ListaCarta descarte, Nodo_jugador j){
+    //Busca una carte de preferencia
+    /*
+     *1- Ceros
+     *      Agresivos:  si el color no les favorece, tiran comodin, si es comodin de color eligen el color que mas les favorece.
+     *2- Mismo color
+     *      Calmados: Tiran comodin
+     *3- Roban carta
+     *4- Si la carta robada la pueden tirar la tiran.
+     *
+     * */
+    char *caracter      = LISTAJUEGO_consultaCaracter(j);
+    int  posicion_carta = 0;
+    Nodo carta_descarte = LISTACARTA_consulta(descarte);
+    Nodo carta_juego;
+    posicion_carta      = LISTACARTA_hayCero(lista);
+
+    if(posicion_carta!=0){
+        carta_juego = LISTACARTA_consultaByPosicion(lista,posicion_carta);
+        if(validar_jugada(carta_juego,carta_descarte)){
+            //si la jugada es valida
+            return  posicion_carta;
+        }else{
+            posicion_carta = 0;
+        }
+    }
+    if(!strcmpi(caracter, "Agresivo")){
+        if(!LISTACARTA_favoreceColor(lista,carta_descarte)){
+            //Aqui la carta no favorece, mejor jugar el comodin.
+
+            printf("Juega el comodin, no favorece \n");
+        }
+        printf("El bot es agresivo \n");
+    }
+    //Aqui si es agresivo juega color si no le favorece
+    posicion_carta = LISTACARTA_mismoColor(lista,descarte);
+    if(posicion_carta!=0){
+        carta_juego = LISTACARTA_consultaByPosicion(lista,posicion_carta);
+        if(validar_jugada(carta_juego,carta_descarte)){
+            //si la jugada es valida
+            return  posicion_carta;
+        }else{
+            posicion_carta = 0;
+        }
+    }
+    if(!strcmpi(caracter, "Calmado")){
+        printf("El bot es calmado \n");
+    }
+    //Aqui calmados tiran comodin
+    //Roban carta
+    //Si la carta robada se puede tirar la tiran.
+
+    return posicion_carta;
+
 }
 void logica_jugar_bot(ListaJuego *lista_jugadores, ListaCarta *descarte,Deck *p){
     Nodo_jugador j = LISTAJUEGO_consulta(*lista_jugadores);
     ListaCarta lista  = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores));
-    //Nodo carta_jugador  = LISTACARTA_consulta(lista);
 
-    if(es_cero(carta_jugador)){
-        //Jugará el 0
-
+    int sel_carta = 0;
+    printf("Bot: %s \n",j.bots.nombre);
+    ver_lista_cartas(*lista_jugadores,*descarte);
+    sel_carta = carta_preferencia_bot(lista,*descarte,j);
+    if(sel_carta!=0){
+        printf("El bot puede jugar una carta de la posicion: %d \n", sel_carta);
+    }else{
+        //Robar carta
     }
-    printf("%s juega un 9 Azul. \n", LISTAJUEGO_consultaNombre(j));
+
+    //printf("%s juega un 9 Azul. \n", LISTAJUEGO_consultaNombre(j));
 
 
 }
@@ -163,8 +226,7 @@ void jugar_carta(ListaJuego *lista_jugadores, ListaCarta *descarte,Deck *p){
     Nodo carta_jugador = LISTACARTA_consultaByPosicion(lista,sel_carta);
 
     if(validar_jugada(carta_jugador,carta_descarte)){
-        logica_jugar_carta(carta_jugador,lista_jugadores,p,sel_carta);
-        LISTACARTA_eliminaPosicion(&lista,descarte,sel_carta);
+        logica_jugar_carta(carta_jugador,lista_jugadores,p,sel_carta,descarte);
     }else{
         printf("No se puede jugar el ");
         convertirCarta(carta_jugador);

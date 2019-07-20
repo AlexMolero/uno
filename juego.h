@@ -17,6 +17,7 @@ void ver_lista_cartas(ListaJuego lista_jugadores, ListaCarta descarte);
 void jugar_por_turnos(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p);
 void robar_carta(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p);
 void jugar_carta(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p);
-void logica_jugar_carta(Nodo carta_jugada,ListaJuego *lista_jugadores, Deck *p, int sel_carta);
+void logica_jugar_carta(Nodo carta_jugada,ListaJuego *lista_jugadores, Deck *p, int sel_carta, ListaCarta *descarte);
 void logica_jugar_bot(ListaJuego *lista_jugadores, ListaCarta *descarte,Deck *p);
+int carta_preferencia_bot(ListaCarta lista, ListaCarta descarte, Nodo_jugador j);
 #endif //UNO_JUEGO_H
