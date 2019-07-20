@@ -1,5 +1,6 @@
 //#include <libnet.h>
 #include "listaCarta.h"
+#include "juego.h"
 #define COLOR_COMODIN  4
 
 ListaCarta LISTACARTA_crea() {
@@ -252,6 +253,59 @@ int LISTACARTA_favoreceColor(ListaCarta l, Nodo carta){
         return 0;
     }
 
+}
+int LISTACARTA_devolverColorFavorecido(ListaCarta l){
+    int rojo,azul,amarillo,verde;
+    l = LISTACARTA_vesInicio(l);
+    while (l.ant->sig!=NULL){
+        Nodo carta_lista = LISTACARTA_consulta(l);
+        // 0=Rojo, 1=Amarillo, 2=Verde, 3=Azul y 4 = Comodin
+        switch(carta_lista.color){
+            case 0:
+                rojo++;
+                break;
+            case 1:
+                amarillo++;
+                break;
+            case 2:
+                verde++;
+                break;
+            case 3:
+                azul++;
+                break;
+        }
+        l = LISTACARTA_avanza(l);
+    }
+    if(rojo>=amarillo && rojo>=verde && rojo>=azul){
+        //ROJO predomina
+        return 0;
+    }else if(amarillo>=rojo && amarillo>=verde && amarillo>=azul){
+        //Amarillo predomina
+        return 1;
+
+    }else if(verde>=rojo && verde>=amarillo && verde>=azul){
+        //Verde predomina
+        return 2;
+    }else{
+        //AZUL
+        return 3;
+    }
+}
+int LISTACARTA_posicionComodin(ListaCarta lista, int posicion_carta, Nodo carta_descarte, Nodo carta_juego){
+    if(!LISTACARTA_favoreceColor(lista,carta_descarte)){
+        //Aqui la carta no favorece, mejor jugar el comodin.
+        //int mejor_color =  LISTACARTA_devolverColorFavorecido(lista);
+        posicion_carta = LISTACARTA_comodin(lista);
+        if(posicion_carta!=0){
+            carta_juego = LISTACARTA_consultaByPosicion(lista,posicion_carta);
+            if(validar_jugada(carta_juego,carta_descarte)){
+                //si la jugada es valida
+                return  posicion_carta;
+            }else{
+                return 0;
+            }
+        }
+    }
 }
 
 
