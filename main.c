@@ -11,7 +11,7 @@ int main(int argc, char **argv) {
         ListaJuego lista_jugadores = LISTAJUEGO_crea();
         Deck baraja = NULL;
         baraja      = crear_baraja();
-
+        barajar(&baraja);
         Jugador j   = loadPlayer(argv[1]);
         repartir_carta(&baraja,&j.cartas,7);
         LISTAJUEGO_insertaJugador(&lista_jugadores,j);

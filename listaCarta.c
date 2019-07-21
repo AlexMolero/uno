@@ -31,10 +31,7 @@ ListaCarta LISTACARTA_inserta(ListaCarta *l, Nodo *elemento) {
     return (*l);
 }
 void LISTACARTA_elimina(ListaCarta *l, int posicion){
-    /**
-     * Elimina la posición de la lista y inserta en descartes
-     *
-     * */
+
     Nodo *aux;
     (*l) = LISTACARTA_vesInicio((*l));
 
@@ -108,7 +105,6 @@ void LISTACARTA_eliminaPosicion(ListaCarta *l, ListaCarta *descarte, int posicio
         }
         Nodo nodo_carta = LISTACARTA_consulta((*l));//Recuperamos la carta que queremos jugar.
         LISTACARTA_inserta(descarte,&nodo_carta);//Insertar en la lista de descartes la carta seleccionada.
-
         aux = (*l).ant->sig;
         (*l).ant->sig = aux->sig; // Eliminamos la carta que hemos jugado de la lista de cartas.
         free(aux);

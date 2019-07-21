@@ -74,20 +74,59 @@ void swap(Deck *a, Deck *b) {
     *a = *b;
     *b = temp;
 }
-/*
+void PILA_destruye(Deck *p) {
+    Nodo *aux;
+    while (*p != NULL) {
+        aux = *p;
+        *p = (*p)->sig;
+        free(aux);
+    }
+}
+Deck PILA_crea() {
+    Deck p;
+    p = NULL;
+    return p;
+}
+int PILA_count(Deck p) {
+    int cont = 0;
+    while(p != NULL){
+        cont++;
+        p = p->sig;
+    }
+    return cont;
+}
 void barajar(Deck *p) {
-    printf("Valor: %d",(*p)->valor);
-    printf("   Color: %d \n",(*p)->color);
-    Deck *aux;
-    aux = (Nodo*)malloc(sizeof(Nodo));
-    aux = (*p)->sig;
-    int j = 0;
-     for (int i = 51; i > 0; i--) {
-         j = rand() % (i + 1);
+    int i, cont, random;
+    int size = PILA_count(*p);
 
-         swap((*p)->sig, (*p)->sig);
-     }
-}*/
+    int* positions;
+    positions = malloc(sizeof(int) * size);
+    for(i = 0; i < size; i++) {
+        positions[i] = 0;
+    }
+
+    Deck c = PILA_crea();
+    for(i = 0; i < size; i++) {
+        do {
+            random = rand() % size;
+        } while(positions[random] > 0);
+        positions[random] = 1;
+
+        Nodo* aux;
+        aux = *p;
+        cont = 0;
+        while(cont < random) {
+            aux = aux->sig;
+            cont++;
+        }
+        //PILA_push(&c,aux->valor, aux->color,0);
+        baraja_push(&c,aux->valor, aux->color,0);
+    }
+
+    PILA_destruye(p);
+    *p = c;
+}
+
 void baraja_next(Deck *p){
     if(p != NULL) {
         (*p) = (*p)->sig;
