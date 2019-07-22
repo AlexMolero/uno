@@ -20,6 +20,7 @@ void barajar(Deck *baraja);
 Deck crear_baraja();
 void baraja_push(Deck *baraja, int valor, int color, int cont);
 void baraja_pop(Deck *p);
+int PILA_vacia(Deck p);
 void baraja_next(Deck *p);
 Nodo baraja_top(Deck p);
 int es_roba_4(Nodo carta);

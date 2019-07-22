@@ -52,6 +52,13 @@ int  repartir_carta(Deck *p, ListaCarta *lista, int cantidad){
     Nodo *aux;
     aux = (*p);
     for(int i=0;i<cantidad;i++){
+        if(PILA_vacia(*p)){
+            printf("La pila esta vacia \n");
+            //Vaciamos la lista de descartes en la pila de cartas y la barajamos para que pueda seguir robando
+
+        }else{
+            printf("La pila esta llena \n");
+        }
         (*lista) = LISTACARTA_inserta(lista,(*p));
         baraja_pop(p);
     }
@@ -136,7 +143,7 @@ void robar_bot(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
         logica_jugar_carta(carta_robada, lista_jugadores,p,posicion,descarte);
     }
 }
-int seleccionar_color(ListaJuego lista_jugadores){
+int  seleccionar_color(ListaJuego lista_jugadores){
     int sel_color;
     ListaCarta lista  = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(lista_jugadores));
 

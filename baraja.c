@@ -83,6 +83,13 @@ void PILA_destruye(Deck *p) {
         free(aux);
     }
 }
+int PILA_vacia(Deck p){
+    if (p == NULL) {
+        return 1;
+    }else{
+        return 0;
+    }
+}
 Deck PILA_crea() {
     Deck p;
     p = NULL;
