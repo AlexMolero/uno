@@ -10,7 +10,7 @@ void ver_resumen(ListaJuego *lista_jugadores, ListaCarta *descarte){
     ver_jugadores((*lista_jugadores),(*descarte));
     Nodo carta_descarte = LISTACARTA_consulta((*descarte));
 
-    printf("### ");
+    printf("\n ### ");
     convertirCarta(carta_descarte);
     printf(" ### \n");
 }
@@ -32,7 +32,6 @@ void jugar_por_turnos(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p
         convertirCarta(carta_descarte);
         printf("\n");
         LISTAJUEGO_avanza(lista_jugadores);
-
 
         if(LISTAJUEGO_final(*lista_jugadores)){
             LISTAJUEGO_vesInicio(lista_jugadores);
@@ -60,11 +59,11 @@ int  repartir_carta(Deck *p, ListaCarta *lista, int cantidad){
 }
 void ver_jugadores(ListaJuego lista_jugadores, ListaCarta descarte){
     LISTAJUEGO_vesInicio(&lista_jugadores);
-    while(!LISTAJUEGO_final(lista_jugadores)){ //MAL isEmpty usar LISTAJUEGO_final
+    while(!LISTAJUEGO_final(lista_jugadores)){
         Nodo_jugador j = LISTAJUEGO_consulta(lista_jugadores);
         ListaCarta lista = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(lista_jugadores));
 
-        printf("%s - %d \n", LISTAJUEGO_consultaNombre(j), LISTACARTA_contarCartas(lista));
+        printf("%-15s \t %-3d \t  \n", LISTAJUEGO_consultaNombre(j), LISTACARTA_contarCartas(lista));
 
         LISTAJUEGO_avanza(&lista_jugadores);
     }
@@ -120,7 +119,9 @@ void robar_carta(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
     }
 }
 void robar_bot(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
-
+    /*
+     * El bot roba una carta, si la puede jugar la juega, en caso de elegir color, selecciona el que mas le convenga
+     * */
     ListaCarta lista = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores));
     LISTACARTA_roba(&lista,(*p)); //insertamos una carta de la baraja
     Nodo carta_robada = baraja_top(*p);
@@ -129,18 +130,11 @@ void robar_bot(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
     printf("Se ha robado un ");
     convertirCarta(carta_robada);
 
-    /*if(validar_jugada(carta_robada,carta_descarte)==1){ //la jugada es valida
-        printf(". Deseas jugarlo? [S/N]\n");
-        char opcion_robo;
-        scanf(" %c", &opcion_robo);
-        if(!strcmpi(&opcion_robo, "S")){
-            //Desea jugar la carta robada.
-            int cantidad = LISTACARTA_contarCartas(lista);
-            LISTACARTA_eliminaPosicion(&lista,descarte,cantidad);
-        }
-    }else{
-        printf(". No se puede jugar.\n");
-    }*/
+    if(validar_jugada(carta_robada,carta_descarte)==1){ //la jugada es valida
+        int posicion = LISTACARTA_contarCartas(lista);
+        //LISTACARTA_eliminaPosicion(&lista,descarte,posicion);
+        logica_jugar_carta(carta_robada, lista_jugadores,p,posicion,descarte);
+    }
 }
 int seleccionar_color(ListaJuego lista_jugadores){
     int sel_color;
@@ -177,6 +171,8 @@ void logica_jugar_carta(Nodo carta_jugada,ListaJuego *lista_jugadores, Deck *p, 
         LISTACARTA_eliminaPosicion(&lista,descarte,sel_carta);
 
     }else if(es_saltar_turno(carta_jugada)){
+        //FALTA QUE SE TIRE LA CARTA
+        LISTACARTA_eliminaPosicion(&lista,descarte,sel_carta);
         LISTAJUEGO_avanza(lista_jugadores);
         if(LISTAJUEGO_final(*lista_jugadores)){
             LISTAJUEGO_vesInicio(lista_jugadores);
@@ -239,8 +235,8 @@ void logica_jugar_bot(ListaJuego *lista_jugadores, ListaCarta *descarte,Deck *p)
     }else{
         printf("El bot tiene que robar una carta.\n");
         robar_bot(lista_jugadores,descarte,p);
-    }
 
+    }
 }
 void jugar_carta(ListaJuego *lista_jugadores, ListaCarta *descarte,Deck *p){
     int sel_carta =  selectCarta();
@@ -256,4 +252,3 @@ void jugar_carta(ListaJuego *lista_jugadores, ListaCarta *descarte,Deck *p){
         printf("\n");
     }
 }
-

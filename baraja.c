@@ -1,6 +1,7 @@
 //
 // Created by Alex on 30/04/2019.
 //
+#include <time.h>
 #include "menu.h"
 #include "baraja.h"
 
@@ -98,6 +99,7 @@ int PILA_count(Deck p) {
 void barajar(Deck *p) {
     int i, cont, random;
     int size = PILA_count(*p);
+    srand(time(NULL));
 
     int* positions;
     positions = malloc(sizeof(int) * size);
@@ -119,14 +121,12 @@ void barajar(Deck *p) {
             aux = aux->sig;
             cont++;
         }
-        //PILA_push(&c,aux->valor, aux->color,0);
         baraja_push(&c,aux->valor, aux->color,0);
     }
 
     PILA_destruye(p);
     *p = c;
 }
-
 void baraja_next(Deck *p){
     if(p != NULL) {
         (*p) = (*p)->sig;
