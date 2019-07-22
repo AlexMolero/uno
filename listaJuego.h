@@ -50,4 +50,5 @@ ListaCarta *LISTAJUEGO_consultaLista(ListaJuego l);
 ListaCarta LISTAJUEGO_consultaCartas(Nodo_jugador nodo);
 int LISTAJUEGO_consultaCartaMax(Nodo_jugador j);
 int LISTAJUEGO_esJugador(ListaJuego l);
+int LISTAJUEGO_finJuego(ListaJuego l);
 #endif //UNO_LISTAJUEGO_H

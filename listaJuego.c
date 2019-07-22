@@ -206,3 +206,15 @@ ListaCarta * LISTAJUEGO_consultaListaCarta(ListaJuego *l){
 int LISTAJUEGO_esJugador(ListaJuego l){
     return l.pdi->type;
 }
+int LISTAJUEGO_finJuego(ListaJuego l){
+    int finJuego=0;
+    LISTAJUEGO_vesInicio(&l);
+    while(!LISTAJUEGO_final(l)){
+        int cartas = LISTACARTA_contarCartas(LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(l)));
+        LISTAJUEGO_avanza(&l);
+        if(cartas==0){
+            finJuego=1;
+        }
+    }
+    return finJuego;
+}

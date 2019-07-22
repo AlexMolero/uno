@@ -27,4 +27,6 @@ int es_comodin_color(Nodo carta);
 int es_suma_2(Nodo carta);
 int es_cambio_direccion(Nodo carta);
 int es_saltar_turno(Nodo carta);
+void cambiar_color(Nodo *carta, int color);
+int es_cero (Nodo carta);
 #endif //UNO_BARAJA_H

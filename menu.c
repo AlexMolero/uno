@@ -8,6 +8,7 @@
 #include "bots.h"
 #include "estadisticas.h"
 #include "final.h"
+#include "listaCarta.h"
 
 #define JUGAR            1
 #define JUGAR_CARTA      'A'
@@ -30,7 +31,7 @@ void muestraMenuEstadisticas(){
     printf("2- Bots\n");
     printf("3- Salir\n");
 }
-int getOption(){
+int  getOption(){
     int option;
     printf("Selecciona una opcion: \n");
     scanf("%d",&option);
@@ -61,13 +62,13 @@ char getGame(char *name_player){
 
     return option;
 }
-int selectCarta(){
+int  selectCarta(){
     int option;
     printf("Qué carta quieres jugar? \n");
     scanf("%d",&option);
     return option;
 }
-int getColor(){
+int  getColor(){
 
     /*
      * En la estructura del programa los colores tienen los siguientes valores:
@@ -94,9 +95,11 @@ void selectFirstAction(char option, ListaJuego *lista_jugadores, ListaCarta *des
             break;
         case ROBAR_CARTA:
             robar_carta(lista_jugadores,descarte,p);
+
             break;
         default:
             printf("Opcion erronea, seleccione otra\n");
+
             break;
     }
 }
@@ -107,22 +110,23 @@ void selectSecondAction(char option, ListaJuego *lista_jugadores, ListaCarta *de
 
             break;
         case ROBAR_CARTA:
-
                 robar_carta(lista_jugadores,descarte,p);
 
             break;
         default:
             printf("Opcion erronea, seleccione otra\n");
+
             break;
     }
 }
 void selectOption(int option, char **argv, ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
-
     switch (option) {
         case JUGAR:
-
-            jugar_por_turnos(lista_jugadores,descarte,p);
-
+           /* while(!LISTACARTA_vacia(LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores)))){
+            }*/
+            while(!LISTAJUEGO_finJuego(*lista_jugadores)){
+                jugar_por_turnos(lista_jugadores,descarte,p);
+            }
             //crear_juego(argv, lista_jugadores, juego_creado);
 
             break;
@@ -136,6 +140,7 @@ void selectOption(int option, char **argv, ListaJuego *lista_jugadores, ListaCar
             printf("Opcion erronea, seleccione otra\n");
             break;
     }
+
 }
 void selectOptionEstadisticas(int option, char **args, ListaJuego *lista_jugadores){
     switch (option) {
@@ -190,7 +195,7 @@ Jugador loadPlayer(char *fileUser){
 		return j;
     }
 }
-Bots *loadBots(char *fileBot, int *numBots){
+Bots    *loadBots(char *fileBot, int *numBots){
     //printf("%s",fileBot);
     FILE *f;
     f = fopen(fileBot, "r");
