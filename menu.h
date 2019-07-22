@@ -23,6 +23,6 @@ char getGameOption(char *name_player);
 char getGame(char *name_player);
 void convertirCarta(Nodo carta);
 char opcion_robar();
-int selectCarta();
+int  selectCarta(ListaJuego lista_jugadores);
 int getColor();
 #endif //UNO_MENU_H

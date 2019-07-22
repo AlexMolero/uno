@@ -120,6 +120,8 @@ int LISTACARTA_contarCartas(ListaCarta l){
     return count;
 }
 void LISTACARTA_roba(ListaCarta *l, Nodo *elemento) {
+    *l = LISTACARTA_vesInicio(*l);
+
     Nodo *aux;
     aux = (Nodo*)malloc(sizeof(Nodo));
     if (aux == NULL) {

@@ -62,10 +62,17 @@ char getGame(char *name_player){
 
     return option;
 }
-int  selectCarta(){
+int  selectCarta(ListaJuego lista_jugadores){
+    ListaCarta lista  = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(lista_jugadores));
+    int cantidad = LISTACARTA_contarCartas(lista);
+
     int option;
     printf("Qué carta quieres jugar? \n");
     scanf("%d",&option);
+    while(option>cantidad || option<=0){
+        printf("Qué carta quieres jugar? \n");
+        scanf("%d",&option);
+    }
     return option;
 }
 int  getColor(){
