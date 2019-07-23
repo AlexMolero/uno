@@ -155,7 +155,7 @@ void selectOptionEstadisticas(int option, char **args, ListaJuego *lista_jugador
             estadisticas_jugador(args);
             break;
         case ESTADISTICAS_BOTS:
-            estadisticas_bots(lista_jugadores, args);
+            estadisticas_bots(lista_jugadores);
             break;
         default:
             printf("Opcion erronea, seleccione otra\n");
