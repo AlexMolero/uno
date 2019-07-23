@@ -26,7 +26,7 @@ void estadisticas_jugador(char **argv){
     printf("\t Perdidas:  ... \t %d (%d%%)\n", JUGADOR_consultaPartidasPerdidas(j), (JUGADOR_consultaPartidasPerdidas(j)*100)/partidas);
 //presiona enter para volver al menú principal
 }
-void estadisticas_bots(ListaJuego *lista_jugadores, char **argv){
+void estadisticas_bots(ListaJuego *lista_jugadores){
     //int numBots;
     //Bots *b = loadBots(argv[2], &numBots);
     printf("\nUNO - Estadísticas de Bots\n");

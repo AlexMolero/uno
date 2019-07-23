@@ -7,5 +7,5 @@
 
 void estadisticas(ListaJuego *lista_jugadores, char **args);
 void estadisticas_jugador(char **argv);
-void estadisticas_bots(ListaJuego *lista_jugadores, char **argv);
+void estadisticas_bots(ListaJuego *lista_jugadores);
 #endif //UNO_ESTADISTICAS_H
