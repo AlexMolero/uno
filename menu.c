@@ -207,7 +207,7 @@ Bots    *loadBots(char *fileBot, int *numBots){
     //printf("%s",fileBot);
     FILE *f;
     f = fopen(fileBot, "r");
-        Bots *bots;
+    Bots *bots = NULL;
 
     if (f == NULL) {
         printf("\nError en obrir fitxer...\n");
