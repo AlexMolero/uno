@@ -273,10 +273,10 @@ void convertirCarta(Nodo carta){
             printf("Suma dos");
             break;
         case 13:
-            printf(" Cambio de color");
+            printf("Cambio de color");
             break;
         case 14:
-            printf(" Robar 4");
+            printf("Robar 4");
             break;
         default:
             printf("%d",valor);

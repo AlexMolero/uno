@@ -13,7 +13,7 @@ int main(int argc, char **argv) {
         baraja      = crear_baraja();
         barajar(&baraja);
         Jugador j   = loadPlayer(argv[1]);
-        repartir_carta(&baraja,&j.cartas,85,&descarte);
+        repartir_carta(&baraja,&j.cartas,7,&descarte);
         LISTAJUEGO_insertaJugador(&lista_jugadores,j);
         int numBots;
         Bots *b = loadBots(argv[2], &numBots);

@@ -54,7 +54,6 @@ int  repartir_carta(Deck *p, ListaCarta *lista, int cantidad, ListaCarta *descar
     for(int i=0;i<cantidad;i++){
         if(PILA_vacia(*p)){
             LISTACARTA_descarteToBaraja(descarte,p);
-            printf("Volcando cartas");
         }
         (*lista) = LISTACARTA_inserta(lista,(*p));
         baraja_pop(p);
@@ -248,7 +247,9 @@ void logica_jugar_bot(ListaJuego *lista_jugadores, ListaCarta *descarte,Deck *p)
         Nodo carta_jugador = LISTACARTA_consultaByPosicion(lista,sel_carta);
         logica_jugar_carta(carta_jugador,lista_jugadores,p,sel_carta,descarte);
         printf("%s juega un ", LISTAJUEGO_consultaNombre(j));
-        convertirCarta(carta_jugador);
+        Nodo carta_jugada = LISTACARTA_consultaByPosicion(*descarte,1);
+
+        convertirCarta(carta_jugada);
         printf(". \n");
 
     }else{
