@@ -118,8 +118,7 @@ void robar_carta(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
         scanf(" %c", &opcion_robo);
         if(!strcmpi(&opcion_robo, "S")){
             //Desea jugar la carta robada.
-            int cantidad = LISTACARTA_contarCartas(lista);
-            LISTACARTA_eliminaPosicion(&lista,descarte,cantidad);
+            logica_jugar_carta(carta_robada, lista_jugadores,p,1,descarte);
         }
     }else{
         printf(". No se puede jugar.\n");
@@ -142,11 +141,9 @@ void robar_bot(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
     convertirCarta(carta_robada);
     printf("\n");
     if(validar_jugada(carta_robada,carta_descarte)==1){ //la jugada es valida
-        LISTACARTA_eliminaPosicion(&lista,descarte,1);
         logica_jugar_carta(carta_robada, lista_jugadores,p,1,descarte);
     }
 
-    printf("El bot roba una carta \n");
 }
 int  seleccionar_color(ListaJuego lista_jugadores){
     int sel_color;
