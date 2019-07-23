@@ -10,6 +10,7 @@ int main(int argc, char **argv) {
         /*Inicio: Creacion de lista y pilas*/
         ListaJuego lista_jugadores = LISTAJUEGO_crea();
         Deck baraja = NULL;
+        ListaCarta descarte = LISTACARTA_crea(); //Creamos la baraja de descartes
         baraja      = crear_baraja();
         barajar(&baraja);
         Jugador j   = loadPlayer(argv[1]);
@@ -21,7 +22,6 @@ int main(int argc, char **argv) {
             repartir_carta(&baraja,&b[i].cartas,b[i].carta_maxima);
             LISTAJUEGO_insertaBot(&lista_jugadores,b[i]);
         }
-        ListaCarta descarte = LISTACARTA_crea(); //Creamos la baraja de descartes
         repartir_carta(&baraja, &descarte,1);
         LISTAJUEGO_vesInicio(&lista_jugadores);
 
