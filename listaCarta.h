@@ -16,6 +16,7 @@ typedef struct {
 ListaCarta LISTACARTA_crea();
 ListaCarta LISTACARTA_inserta(ListaCarta *l, Nodo *elemento);
 void LISTACARTA_elimina(ListaCarta *l, int posicion);
+ListaCarta LISTACARTA_pop(ListaCarta l);
 Nodo LISTACARTA_consulta(ListaCarta l);
 ListaCarta LISTACARTA_avanza(ListaCarta l);
 ListaCarta LISTACARTA_vesInicio(ListaCarta l);

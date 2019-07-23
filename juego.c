@@ -54,6 +54,7 @@ int  repartir_carta(Deck *p, ListaCarta *lista, int cantidad, ListaCarta *descar
     for(int i=0;i<cantidad;i++){
         if(PILA_vacia(*p)){
             LISTACARTA_descarteToBaraja(descarte,p);
+            printf("Volcando cartas");
         }
         (*lista) = LISTACARTA_inserta(lista,(*p));
         baraja_pop(p);

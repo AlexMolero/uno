@@ -48,6 +48,18 @@ void LISTACARTA_elimina(ListaCarta *l, int posicion){
         free(aux);
     }
 }
+ListaCarta LISTACARTA_pop(ListaCarta l) {
+    Nodo *aux;
+
+    if (l.ant->sig == NULL) {
+        printf("\nError al eliminar, el PDI está al final...\n");
+    } else {
+        aux = l.ant->sig;
+        l.ant->sig = aux->sig; // l.ant->sig->sig;
+        free(aux);
+    }
+    return l;
+}
 Nodo LISTACARTA_consulta(ListaCarta l) {
     Nodo *aux;
     if (l.ant->sig == NULL) {
@@ -326,6 +338,9 @@ void LISTACARTA_descarteToBaraja(ListaCarta *lista, Deck *p){
         if(LISTACARTA_esComodin(carta)){
             cambiar_color(&carta,4);
             baraja_push(p,carta.valor,carta.color,0);
+        }else{
+            baraja_push(p,carta.valor,carta.color,0);
+
         }
         *lista = LISTACARTA_avanza(*lista);
     }
