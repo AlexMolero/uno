@@ -166,11 +166,11 @@ Jugador loadPlayer(char *fileUser){
    // printf("%s",fileUser);
     FILE *f;
     f = fopen(fileUser, "r");
+    Jugador j = JUGADOR_crea();
 
     if (f == NULL) {
         printf("\nError en obrir fitxer...\n");
     } else {
-    	Jugador j = JUGADOR_crea();
 
 	    char *nombre = malloc(sizeof(char) * 1024);
 	    fgets(nombre, 25, f);
@@ -201,17 +201,19 @@ Jugador loadPlayer(char *fileUser){
 	    fclose(f);
 		return j;
     }
+    return j;
 }
 Bots    *loadBots(char *fileBot, int *numBots){
     //printf("%s",fileBot);
     FILE *f;
     f = fopen(fileBot, "r");
+        Bots *bots;
 
     if (f == NULL) {
         printf("\nError en obrir fitxer...\n");
     }else {
         fscanf(f, "%d", numBots);
-        Bots *bots = malloc(sizeof(Bots) * (*numBots));
+         bots = malloc(sizeof(Bots) * (*numBots));
         //printf("%d\n", numBots);
 
         char aux;
@@ -254,6 +256,7 @@ Bots    *loadBots(char *fileBot, int *numBots){
 
         return bots;
     }
+    return bots;
 }
 void convertirCarta(Nodo carta){
     int valor = carta.valor;

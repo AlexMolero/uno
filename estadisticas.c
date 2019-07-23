@@ -27,8 +27,8 @@ void estadisticas_jugador(char **argv){
 //presiona enter para volver al menú principal
 }
 void estadisticas_bots(ListaJuego *lista_jugadores, char **argv){
-    int numBots;
-    Bots *b = loadBots(argv[2], &numBots);
+    //int numBots;
+    //Bots *b = loadBots(argv[2], &numBots);
     printf("\nUNO - Estadísticas de Bots\n");
     printf("%-25s \t %-3s \t %-3s \n", "Nombre", "P.Ganadas", "P.Perdidas");
     LISTAJUEGO_vesInicio(lista_jugadores);

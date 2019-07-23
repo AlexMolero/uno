@@ -19,7 +19,6 @@ Deck crear_baraja() {
     Deck p;
     p = NULL;
     int cont = 0;
-    int j = 0;
     for(int b=0;b<2;b++){
         for(int i=0;i<COLORES;i++){
             // 0=Rojo, 1=Amarillo, 2=Verde, 3=Azul y 4 = Comodin

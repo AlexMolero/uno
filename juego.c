@@ -7,7 +7,7 @@
 #include "menu.h"
 
 void ver_resumen(ListaJuego *lista_jugadores, ListaCarta *descarte){
-    ver_jugadores((*lista_jugadores),(*descarte));
+    ver_jugadores((*lista_jugadores));
     Nodo carta_descarte = LISTACARTA_consulta((*descarte));
 
     printf("\n ### ");
@@ -47,24 +47,20 @@ int  validar_jugada(Nodo carta_jugador, Nodo carta_descarte){
         return 0;
     }
 }
-int  repartir_carta(Deck *p, ListaCarta *lista, int cantidad){
+int  repartir_carta(Deck *p, ListaCarta *lista, int cantidad, ListaCarta *descarte){
 
-    Nodo *aux;
-    aux = (*p);
+    /*Nodo *aux;
+    aux = (*p);*/
     for(int i=0;i<cantidad;i++){
         if(PILA_vacia(*p)){
-            //printf("La pila esta vacia \n");
-            //Vaciamos la lista de descartes en la pila de cartas y la barajamos para que pueda seguir robando
-
-        }else{
-           // printf("La pila esta llena \n");
+            LISTACARTA_descarteToBaraja(descarte,p);
         }
         (*lista) = LISTACARTA_inserta(lista,(*p));
         baraja_pop(p);
     }
     return 1;
 }
-void ver_jugadores(ListaJuego lista_jugadores, ListaCarta descarte){
+void ver_jugadores(ListaJuego lista_jugadores){
     LISTAJUEGO_vesInicio(&lista_jugadores);
     while(!LISTAJUEGO_final(lista_jugadores)){
         Nodo_jugador j = LISTAJUEGO_consulta(lista_jugadores);
@@ -116,7 +112,7 @@ void robar_carta(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
         printf(". Deseas jugarlo? [S/N]\n");
         char opcion_robo;
         scanf(" %c", &opcion_robo);
-        if(!strcmpi(&opcion_robo, "S")){
+        if(opcion_robo == 'S'){
             //Desea jugar la carta robada.
             logica_jugar_carta(carta_robada, lista_jugadores,p,1,descarte);
         }
@@ -166,7 +162,7 @@ void logica_jugar_carta(Nodo carta_jugada,ListaJuego *lista_jugadores, Deck *p, 
             LISTAJUEGO_vesInicio(lista_jugadores);
         }
         lista  = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores));
-        repartir_carta(p,&lista,4);
+        repartir_carta(p,&lista,4,descarte);
         LISTAJUEGO_retrocede(lista_jugadores);
         if(LISTAJUEGO_inicio(*lista_jugadores)){
             LISTAJUEGO_vesFinal(lista_jugadores);
@@ -183,7 +179,7 @@ void logica_jugar_carta(Nodo carta_jugada,ListaJuego *lista_jugadores, Deck *p, 
             LISTAJUEGO_vesInicio(lista_jugadores);
         }
         lista  = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores));
-        repartir_carta(p,&lista,2);
+        repartir_carta(p,&lista,2,descarte);
 
         LISTAJUEGO_retrocede(lista_jugadores);
         if(LISTAJUEGO_inicio(*lista_jugadores)){
@@ -221,7 +217,7 @@ int  carta_preferencia_bot(ListaCarta lista, ListaCarta descarte, Nodo_jugador j
             posicion_carta = 0;
         }
     }
-    if(!strcmpi(caracter, "Agresivo")){
+    if(!strcmp(caracter, "Agresivo")){
        posicion_carta = LISTACARTA_posicionComodin(lista,posicion_carta,carta_descarte,carta_juego);
     }
     //Aqui si es agresivo juega color si no le favorece
@@ -235,7 +231,7 @@ int  carta_preferencia_bot(ListaCarta lista, ListaCarta descarte, Nodo_jugador j
             posicion_carta = 0;
         }
     }
-    if(!strcmpi(caracter, "Calmado")){
+    if(!strcmp(caracter, "Calmado")){
         //Aqui el bot calmado tiene que jugar comodin si puede
         posicion_carta = LISTACARTA_posicionComodin(lista,posicion_carta,carta_descarte,carta_juego);
     }

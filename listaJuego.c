@@ -86,10 +86,11 @@ char *LISTAJUEGO_consultaNombre(Nodo_jugador nodo){
     }
 }
 char * LISTAJUEGO_consultaCaracter(Nodo_jugador nodo){
-
+    char *c=NULL;
     if(nodo.type!=0){
         return BOTS_consultaNombreCaracter(nodo.bots);
     }
+    return c;
 }
 int LISTAJUEGO_consultaTipo(Nodo_jugador nodo){
 
@@ -115,6 +116,7 @@ int LISTAJUEGO_consultaCartasPartida(Nodo_jugador j, int partida){
     if(!LISTAJUEGO_consultaTipo(j)){
         return JUGADOR_consultaCartasPartida(j.jugador, partida);
     }
+    return -1;
 }
 int LISTAJUEGO_consultaNBots(Nodo_jugador j){
     return BOTS_consultaNBots(j.bots);

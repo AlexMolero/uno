@@ -5,7 +5,6 @@
 
 int main(int argc, char **argv) {
     setbuf(stdout,0);
-    int juego_creado = 1;
     if(argc == 3){
         /*Inicio: Creacion de lista y pilas*/
         ListaJuego lista_jugadores = LISTAJUEGO_crea();
@@ -14,15 +13,15 @@ int main(int argc, char **argv) {
         baraja      = crear_baraja();
         barajar(&baraja);
         Jugador j   = loadPlayer(argv[1]);
-        repartir_carta(&baraja,&j.cartas,7);
+        repartir_carta(&baraja,&j.cartas,85,&descarte);
         LISTAJUEGO_insertaJugador(&lista_jugadores,j);
         int numBots;
         Bots *b = loadBots(argv[2], &numBots);
         for (int i = 0; i < numBots; ++i) {
-            repartir_carta(&baraja,&b[i].cartas,b[i].carta_maxima);
+            repartir_carta(&baraja,&b[i].cartas,b[i].carta_maxima,&descarte);
             LISTAJUEGO_insertaBot(&lista_jugadores,b[i]);
         }
-        repartir_carta(&baraja, &descarte,1);
+        repartir_carta(&baraja, &descarte,1,&descarte);
         LISTAJUEGO_vesInicio(&lista_jugadores);
 
         /*Fin: Creacion de lista y pilas*/

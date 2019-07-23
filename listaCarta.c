@@ -1,6 +1,7 @@
 //#include <libnet.h>
 #include "listaCarta.h"
 #include "juego.h"
+#include "baraja.h"
 #define COLOR_COMODIN  4
 
 ListaCarta LISTACARTA_crea() {
@@ -304,8 +305,30 @@ int LISTACARTA_posicionComodin(ListaCarta lista, int posicion_carta, Nodo carta_
             }
         }
     }
+    return -1;
 }
+int LISTACARTA_esComodin(Nodo carta){
+    if(carta.valor==14){
+        return 1;
+    }else if(carta.valor==13){
+        return 1;
+    }else{
+        return 0;
+    }
+}
+void LISTACARTA_descarteToBaraja(ListaCarta *lista, Deck *p){
+    *lista = LISTACARTA_vesInicio(*lista);
+    *lista = LISTACARTA_avanza(*lista); //esta es la carta primera que se debe mantener
 
-
-
+    while (lista->ant->sig!=NULL) {
+        Nodo carta = LISTACARTA_consulta(*lista);
+        //printf("carta valor %d color %d", carta.valor,carta.color);
+        if(LISTACARTA_esComodin(carta)){
+            cambiar_color(&carta,4);
+            baraja_push(p,carta.valor,carta.color,0);
+        }
+        *lista = LISTACARTA_avanza(*lista);
+    }
+    barajar(p);
+}
 

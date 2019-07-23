@@ -35,4 +35,5 @@ int LISTACARTA_favoreceColor(ListaCarta l, Nodo carta);
 int LISTACARTA_devolverColorFavorecido(ListaCarta l);
 int LISTACARTA_comodin(ListaCarta l);
 int LISTACARTA_posicionComodin(ListaCarta lista, int posicion_carta, Nodo carta_descarte, Nodo carta_juego);
+void LISTACARTA_descarteToBaraja(ListaCarta *lista, Deck *p);
 #endif //UNO_LISTACARTA_H
