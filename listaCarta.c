@@ -13,7 +13,7 @@ ListaCarta LISTACARTA_crea() {
     } else {
         l.ant = l.pri;
         l.pri->sig = NULL;
-        l.pri->valor = -1; // FANTASMA, ELEMENTO_indefinido();
+        l.pri->valor = -1; //
     }
     return l;
 }
