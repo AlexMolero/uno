@@ -29,16 +29,18 @@ ListaJuego LISTAJUEGO_crea() {
     return l;
 }
 void LISTAJUEGO_insertaJugador(ListaJuego *l, Jugador jugador){
-    Nodo_jugador nodo;
-    nodo.jugador = jugador;
-    nodo.type = 0;
+    Nodo_jugador    nodo;
+    nodo.jugador    = jugador;
+    nodo.type       = 0;
+    nodo.direccion  = 1;
     LISTAJUEGO_insertaDerecha(l,nodo);
 
 }
 void LISTAJUEGO_insertaBot(ListaJuego *l, Bots bot){
-    Nodo_jugador nodo;
-    nodo.bots = bot;
-    nodo.type = 1;
+    Nodo_jugador    nodo;
+    nodo.bots       = bot;
+    nodo.type       = 1;
+    nodo.direccion  = 1;
     LISTAJUEGO_insertaDerecha(l,nodo);
 
 }
@@ -212,4 +214,33 @@ int LISTAJUEGO_finJuego(ListaJuego l){
         }
     }
     return finJuego;
+}
+int LISTAJUEGO_siguienteTurno(ListaJuego *l){
+    Nodo_jugador jugador = LISTAJUEGO_consulta(*l);
+    if(jugador.direccion==1){
+        LISTAJUEGO_avanza(l);
+    }else{
+        LISTAJUEGO_retrocede(l);
+    }
+
+    if(LISTAJUEGO_final(*l)){
+        LISTAJUEGO_vesInicio(l);
+    }else if(LISTAJUEGO_inicio(*l)){
+        LISTAJUEGO_vesFinal(l);
+    }
+}
+int LISTAJUEGO_anteriorTurno(ListaJuego *l){
+    Nodo_jugador jugador = LISTAJUEGO_consulta(*l);
+    if(jugador.direccion==1){
+        LISTAJUEGO_retrocede(l);
+    }else{
+        LISTAJUEGO_avanza(l);
+
+    }
+
+    if(LISTAJUEGO_final(*l)){
+        LISTAJUEGO_vesInicio(l);
+    }else if(LISTAJUEGO_inicio(*l)){
+        LISTAJUEGO_vesFinal(l);
+    }
 }

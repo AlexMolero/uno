@@ -9,6 +9,7 @@
 
 typedef struct Node {
     int type; // Si es 0 es Jugador y si es 1 es Bot
+    int direccion; //Si es 1 el juego es hacia abajo, si es 0 el juego es hacia arriba
     Jugador jugador;
     Bots bots;
     struct Node *sig;
@@ -51,4 +52,6 @@ ListaCarta LISTAJUEGO_consultaCartas(Nodo_jugador nodo);
 int LISTAJUEGO_consultaCartaMax(Nodo_jugador j);
 int LISTAJUEGO_esJugador(ListaJuego l);
 int LISTAJUEGO_finJuego(ListaJuego l);
+int LISTAJUEGO_siguienteTurno(ListaJuego *l);
+int LISTAJUEGO_anteriorTurno(ListaJuego *l);
 #endif //UNO_LISTAJUEGO_H
