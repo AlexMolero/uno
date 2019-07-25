@@ -114,13 +114,16 @@ void LISTACARTA_eliminaPosicion(ListaCarta *l, ListaCarta *descarte, int posicio
     } else {
         for(int i=0;i<(posicion-1);i++){
             (*l) = LISTACARTA_avanza((*l));
-
         }
         Nodo nodo_carta = LISTACARTA_consulta((*l));//Recuperamos la carta que queremos jugar.
-        LISTACARTA_inserta(descarte,&nodo_carta);//Insertar en la lista de descartes la carta seleccionada.
-        aux = (*l).ant->sig;
-        (*l).ant->sig = aux->sig; // Eliminamos la carta que hemos jugado de la lista de cartas.
-        free(aux);
+        Nodo nodo_carta_descarte = LISTACARTA_consulta(*descarte);//Recuperamos la carta que queremos jugar.
+        if(validar_jugada(nodo_carta,nodo_carta_descarte)){
+
+            LISTACARTA_inserta(descarte,&nodo_carta);//Insertar en la lista de descartes la carta seleccionada.
+            aux = (*l).ant->sig;
+            (*l).ant->sig = aux->sig; // Eliminamos la carta que hemos jugado de la lista de cartas.
+            free(aux);
+        }
     }
 }
 int LISTACARTA_contarCartas(ListaCarta l){
@@ -212,7 +215,7 @@ int LISTACARTA_comodin(ListaCarta l){
     int cont     = 0;
     while (l.ant->sig!=NULL){
         cont++;
-        if(LISTACARTA_consulta(l).color==COLOR_COMODIN){
+        if(LISTACARTA_consulta(l).valor == 13 || LISTACARTA_consulta(l).valor == 14){
             posicion = cont;
         }
         l = LISTACARTA_avanza(l);
@@ -303,7 +306,10 @@ int LISTACARTA_devolverColorFavorecido(ListaCarta l){
     }
 }
 int LISTACARTA_posicionComodin(ListaCarta lista, int posicion_carta, Nodo carta_descarte, Nodo carta_juego){
+    lista = LISTACARTA_vesInicio(lista);
+
     if(!LISTACARTA_favoreceColor(lista,carta_descarte)){
+        lista = LISTACARTA_vesInicio(lista);
         //Aqui la carta no favorece, mejor jugar el comodin.
         //int mejor_color =  LISTACARTA_devolverColorFavorecido(lista);
         posicion_carta = LISTACARTA_comodin(lista);
@@ -317,7 +323,6 @@ int LISTACARTA_posicionComodin(ListaCarta lista, int posicion_carta, Nodo carta_
             }
         }
     }
-    return -1;
 }
 int LISTACARTA_esComodin(Nodo carta){
     if(carta.valor==14){

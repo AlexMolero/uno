@@ -134,6 +134,7 @@ void selectOption(int option, char **argv, ListaJuego *lista_jugadores, ListaCar
             while(!LISTAJUEGO_finJuego(*lista_jugadores)){
                 jugar_por_turnos(lista_jugadores,descarte,p);
             }
+
             savePlayer(lista_jugadores, argv[0]);
             saveBots(lista_jugadores, argv[1]);
             //crear_juego(argv, lista_jugadores, juego_creado);

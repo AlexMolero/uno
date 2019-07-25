@@ -124,7 +124,6 @@ int LISTAJUEGO_consultaCartasPartida(Nodo_jugador j, int partida){
     if(!LISTAJUEGO_consultaTipo(j)){
         return JUGADOR_consultaCartasPartida(j.jugador, partida);
     }
-    return -1;
 }
 int LISTAJUEGO_consultaNBots(Nodo_jugador j){
     return BOTS_consultaNBots(j.bots);

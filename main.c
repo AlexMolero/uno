@@ -14,7 +14,7 @@ int main(int argc, char **argv) {
         barajar(&baraja);
 
         Jugador j   = loadPlayer(argv[1]);
-        repartir_carta(&baraja,&j.cartas,1,&descarte); // El 1 son las cartas que se le reparten al jugador
+        repartir_carta(&baraja,&j.cartas,7,&descarte); // El 1 son las cartas que se le reparten al jugador
         LISTAJUEGO_insertaJugador(&lista_jugadores,j);
         int numBots;
         Bots *b = loadBots(argv[2], &numBots);

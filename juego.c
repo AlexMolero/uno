@@ -5,7 +5,6 @@
 #include "jugador.h"
 #include "listaJuego.h"
 #include "menu.h"
-//sig turno
 void ver_resumen(ListaJuego *lista_jugadores, ListaCarta *descarte){
     ver_jugadores((*lista_jugadores));
     Nodo carta_descarte = LISTACARTA_consulta((*descarte));
@@ -17,7 +16,7 @@ void ver_resumen(ListaJuego *lista_jugadores, ListaCarta *descarte){
 void jugar_por_turnos(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
 
         (*descarte) = LISTACARTA_vesInicio((*descarte));
-        //ver_lista_cartas(*lista_jugadores,*descarte);
+        ver_lista_cartas(*lista_jugadores,*descarte);
         char *name = LISTAJUEGO_consultaNombre((LISTAJUEGO_consulta(*lista_jugadores)));
         if(!LISTAJUEGO_esJugador(*lista_jugadores)){
             ver_resumen(lista_jugadores,descarte);
@@ -33,14 +32,20 @@ void jugar_por_turnos(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p
         }
 }
 int  validar_jugada(Nodo carta_jugador, Nodo carta_descarte){
-
-    if(carta_jugador.color==carta_descarte.color || carta_jugador.valor==carta_descarte.valor|| carta_jugador.color==4){
+    if(carta_jugador.color==carta_descarte.color || carta_jugador.valor==carta_descarte.valor|| carta_jugador.color==4 ){
         //Se puede jugar la carta
+        return 1;
+    }else if(carta_jugador.valor==10 && carta_jugador.color==carta_descarte.color){
+        return 1;
+    }else if(carta_jugador.valor==11 && carta_jugador.color==carta_descarte.color){
+        return 1;
+    }else if(carta_jugador.valor==12 && carta_jugador.color==carta_descarte.color){
         return 1;
     }else{
         //No es valida la jugada.
         return 0;
     }
+
 }
 int  repartir_carta(Deck *p, ListaCarta *lista, int cantidad, ListaCarta *descarte){
 
@@ -201,6 +206,8 @@ void logica_jugar_carta(Nodo carta_jugada,ListaJuego *lista_jugadores, Deck *p, 
     }else if(es_cambio_direccion(carta_jugada)){
         //Cambiar la direccion
          //LISTAJUEGO_cambioDireccion(lista_jugadores);
+        LISTACARTA_eliminaPosicion(&lista,descarte,sel_carta);
+
     }else{
         //Se juega una carta normal
         LISTACARTA_eliminaPosicion(&lista,descarte,sel_carta);
@@ -210,6 +217,7 @@ int  carta_preferencia_bot(ListaCarta lista, ListaCarta descarte, Nodo_jugador j
 
     char *caracter      = LISTAJUEGO_consultaCaracter(j);
     int  posicion_carta = 0;
+    descarte = LISTACARTA_vesInicio(descarte);
     Nodo carta_descarte = LISTACARTA_consulta(descarte);
     Nodo carta_juego;
 
@@ -223,11 +231,15 @@ int  carta_preferencia_bot(ListaCarta lista, ListaCarta descarte, Nodo_jugador j
             posicion_carta = 0;
         }
     }
-    /*
+
     if(!strcmp(caracter, "Agresivo")){
-       posicion_carta = LISTACARTA_posicionComodin(lista,posicion_carta,carta_descarte,carta_juego);
-    }*/
+        posicion_carta = LISTACARTA_posicionComodin(lista,posicion_carta,carta_descarte,carta_juego);
+        if(posicion_carta!=0) {
+            return posicion_carta;
+        }
+    }
     //Aqui si es agresivo juega color si no le favorece
+
     posicion_carta = LISTACARTA_mismoColor(lista,descarte);
     if(posicion_carta!=0){
         carta_juego = LISTACARTA_consultaByPosicion(lista,posicion_carta);
@@ -238,21 +250,25 @@ int  carta_preferencia_bot(ListaCarta lista, ListaCarta descarte, Nodo_jugador j
             posicion_carta = 0;
         }
     }
-   /* if(!strcmp(caracter, "Calmado")){
+
+    if(!strcmp(caracter, "Calmado")){
         //Aqui el bot calmado tiene que jugar comodin si puede
         posicion_carta = LISTACARTA_posicionComodin(lista,posicion_carta,carta_descarte,carta_juego);
-    }*/
+        if(posicion_carta!=0) {
+            return posicion_carta;
+        }
+    }
 
     return posicion_carta;
 }
 void logica_jugar_bot(ListaJuego *lista_jugadores, ListaCarta *descarte,Deck *p){
     Nodo_jugador j = LISTAJUEGO_consulta(*lista_jugadores);
     ListaCarta lista  = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores));
-   /* printf("ANTES JUGAR \n");
-    ver_lista_cartas(*lista_jugadores,*descarte);*/
+    lista = LISTACARTA_vesInicio(lista);
 
     int sel_carta = 0;
     sel_carta = carta_preferencia_bot(lista,*descarte,j);
+    printf("posicion a borrar %d", sel_carta);
     if(sel_carta!=0){
 
         Nodo carta_jugador = LISTACARTA_consultaByPosicion(lista,sel_carta);
@@ -260,10 +276,9 @@ void logica_jugar_bot(ListaJuego *lista_jugadores, ListaCarta *descarte,Deck *p)
         /*printf("DESPUES JUGAR \n");
         ver_lista_cartas(*lista_jugadores,*descarte);*/
         printf("%s juega un ", LISTAJUEGO_consultaNombre(j));
-        Nodo carta_jugada = LISTACARTA_consultaByPosicion(*descarte,1);
+       // Nodo carta_jugada = LISTACARTA_consultaByPosicion(*descarte,1);
 
-
-        convertirCarta(carta_jugada);
+        convertirCarta(carta_jugador);
         printf(". \n");
 
     }else{
