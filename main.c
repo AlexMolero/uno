@@ -23,8 +23,6 @@ int main(int argc, char **argv) {
             LISTAJUEGO_insertaBot(&lista_jugadores,b[i]);
         }
         repartir_carta(&baraja, &descarte,1,&descarte);
-        printf("Pila tamaño despues de repartir cartas: %d \n",PILA_count(baraja));
-
         LISTAJUEGO_vesInicio(&lista_jugadores);
 
         /*Fin: Creacion de lista y pilas*/
