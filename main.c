@@ -12,6 +12,7 @@ int main(int argc, char **argv) {
         ListaCarta descarte = LISTACARTA_crea(); //Creamos la baraja de descartes
         baraja      = crear_baraja();
         barajar(&baraja);
+
         Jugador j   = loadPlayer(argv[1]);
         repartir_carta(&baraja,&j.cartas,7,&descarte);
         LISTAJUEGO_insertaJugador(&lista_jugadores,j);
