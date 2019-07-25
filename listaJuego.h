@@ -54,4 +54,5 @@ int LISTAJUEGO_esJugador(ListaJuego l);
 int LISTAJUEGO_finJuego(ListaJuego l);
 int LISTAJUEGO_siguienteTurno(ListaJuego *l);
 int LISTAJUEGO_anteriorTurno(ListaJuego *l);
+//sig turno
 #endif //UNO_LISTAJUEGO_H

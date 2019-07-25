@@ -244,3 +244,4 @@ int LISTAJUEGO_anteriorTurno(ListaJuego *l){
         LISTAJUEGO_vesFinal(l);
     }
 }
+//sig turno

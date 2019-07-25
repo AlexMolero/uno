@@ -5,7 +5,7 @@
 #include "jugador.h"
 #include "listaJuego.h"
 #include "menu.h"
-
+//sig turno
 void ver_resumen(ListaJuego *lista_jugadores, ListaCarta *descarte){
     ver_jugadores((*lista_jugadores));
     Nodo carta_descarte = LISTACARTA_consulta((*descarte));
