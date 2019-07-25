@@ -45,9 +45,9 @@ int  validar_jugada(Nodo carta_jugador, Nodo carta_descarte){
 int  repartir_carta(Deck *p, ListaCarta *lista, int cantidad, ListaCarta *descarte){
 
     for(int i=0;i<cantidad;i++){
-        if(PILA_vacia(*p)){
+      /*  if(PILA_vacia(*p)){
             LISTACARTA_descarteToBaraja(descarte,p);
-        }
+        }*/
 
         (*lista) = LISTACARTA_inserta(lista,(*p));
         baraja_pop(p);
@@ -161,7 +161,6 @@ void logica_jugar_carta(Nodo carta_jugada,ListaJuego *lista_jugadores, Deck *p, 
         repartir_carta(p,&lista,4,descarte);
        // LISTAJUEGO_anteriorTurno(lista_jugadores);
 
-
         LISTAJUEGO_retrocede(lista_jugadores);
         if(LISTAJUEGO_inicio(*lista_jugadores)){
             LISTAJUEGO_vesFinal(lista_jugadores);
@@ -224,9 +223,10 @@ int  carta_preferencia_bot(ListaCarta lista, ListaCarta descarte, Nodo_jugador j
             posicion_carta = 0;
         }
     }
+    /*
     if(!strcmp(caracter, "Agresivo")){
        posicion_carta = LISTACARTA_posicionComodin(lista,posicion_carta,carta_descarte,carta_juego);
-    }
+    }*/
     //Aqui si es agresivo juega color si no le favorece
     posicion_carta = LISTACARTA_mismoColor(lista,descarte);
     if(posicion_carta!=0){
@@ -238,31 +238,37 @@ int  carta_preferencia_bot(ListaCarta lista, ListaCarta descarte, Nodo_jugador j
             posicion_carta = 0;
         }
     }
-    if(!strcmp(caracter, "Calmado")){
+   /* if(!strcmp(caracter, "Calmado")){
         //Aqui el bot calmado tiene que jugar comodin si puede
         posicion_carta = LISTACARTA_posicionComodin(lista,posicion_carta,carta_descarte,carta_juego);
-    }
+    }*/
+
     return posicion_carta;
 }
 void logica_jugar_bot(ListaJuego *lista_jugadores, ListaCarta *descarte,Deck *p){
     Nodo_jugador j = LISTAJUEGO_consulta(*lista_jugadores);
     ListaCarta lista  = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores));
+   /* printf("ANTES JUGAR \n");
+    ver_lista_cartas(*lista_jugadores,*descarte);*/
 
     int sel_carta = 0;
     sel_carta = carta_preferencia_bot(lista,*descarte,j);
     if(sel_carta!=0){
+
         Nodo carta_jugador = LISTACARTA_consultaByPosicion(lista,sel_carta);
         logica_jugar_carta(carta_jugador,lista_jugadores,p,sel_carta,descarte);
+        /*printf("DESPUES JUGAR \n");
+        ver_lista_cartas(*lista_jugadores,*descarte);*/
         printf("%s juega un ", LISTAJUEGO_consultaNombre(j));
         Nodo carta_jugada = LISTACARTA_consultaByPosicion(*descarte,1);
+
 
         convertirCarta(carta_jugada);
         printf(". \n");
 
     }else{
-       // printf("El bot tiene que robar una carta.\n");
+        printf("El bot tiene que robar una carta.\n");
         robar_bot(lista_jugadores,descarte,p);
-
     }
 }
 void jugar_carta(ListaJuego *lista_jugadores, ListaCarta *descarte,Deck *p){

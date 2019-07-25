@@ -149,9 +149,9 @@ void LISTACARTA_roba(ListaCarta *l, Nodo *elemento) {
 }
 Nodo LISTACARTA_consultaByPosicion(ListaCarta l, int posicion) {
     Nodo *aux;
-    if (l.pri->sig == NULL) {
+    if(l.pri->sig == NULL){
         printf("\nError al consultar, el PDI está al final...\n");
-    } else {
+    }else{
         l = LISTACARTA_vesInicio(l);
         for(int i=0;i<(posicion-1);i++){
             l = LISTACARTA_avanza(l);
