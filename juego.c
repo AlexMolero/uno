@@ -17,7 +17,7 @@ void ver_resumen(ListaJuego *lista_jugadores, ListaCarta *descarte){
 void jugar_por_turnos(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
 
         (*descarte) = LISTACARTA_vesInicio((*descarte));
-
+        ver_lista_cartas(*lista_jugadores,*descarte);
         char *name = LISTAJUEGO_consultaNombre((LISTAJUEGO_consulta(*lista_jugadores)));
         if(!LISTAJUEGO_esJugador(*lista_jugadores)){
             ver_resumen(lista_jugadores,descarte);
@@ -50,6 +50,9 @@ int  repartir_carta(Deck *p, ListaCarta *lista, int cantidad, ListaCarta *descar
         if(PILA_vacia(*p)){
             LISTACARTA_descarteToBaraja(descarte,p);
         }
+        Nodo carta = baraja_top(*p);
+        convertirCarta(carta);
+        printf("\n");
         (*lista) = LISTACARTA_inserta(lista,(*p));
         baraja_pop(p);
     }
@@ -202,6 +205,7 @@ void logica_jugar_carta(Nodo carta_jugada,ListaJuego *lista_jugadores, Deck *p, 
         }*/
     }else if(es_cambio_direccion(carta_jugada)){
         //Cambiar la direccion
+         LISTAJUEGO_cambioDireccion(lista_jugadores);
     }else{
         //Se juega una carta normal
         LISTACARTA_eliminaPosicion(&lista,descarte,sel_carta);

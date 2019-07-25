@@ -45,6 +45,16 @@ Deck crear_baraja() {
     }
     return p;
 }
+void ver_baraja(Deck p){
+
+    while(p != NULL) {
+        Nodo carta = baraja_top(p);
+        convertirCarta(carta);
+        printf("\n");
+        p = p->sig;
+    }
+
+}
 void baraja_push(Deck *p, int elemento, int color, int cont) {
     Nodo *aux;
     aux = (Nodo*)malloc(sizeof(Nodo));

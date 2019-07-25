@@ -55,11 +55,13 @@ void LISTAJUEGO_insertaDerecha(ListaJuego *l, Nodo_jugador nodo){
             printf("\nError al insertar a la derecha...\n");
         } else {
             if(nodo.type==0){
-                aux->jugador = nodo.jugador;
-                aux->type = 0;
+                aux->jugador   = nodo.jugador;
+                aux->type      = 0;
+                aux->direccion = 1;
             }else{
-                aux->bots = nodo.bots;
-                aux->type = 1;
+                aux->bots      = nodo.bots;
+                aux->type      = 1;
+                aux->direccion = 1;
             }
             aux->sig = l->pdi->sig;
             aux->ant = l->pdi;
@@ -97,6 +99,10 @@ char * LISTAJUEGO_consultaCaracter(Nodo_jugador nodo){
 int LISTAJUEGO_consultaTipo(Nodo_jugador nodo){
 
     return nodo.type;
+}
+int LISTAJUEGO_consultaDireccion(Nodo_jugador nodo){
+
+    return nodo.direccion;
 }
 int LISTAJUEGO_consultaPartidasGanadas(Nodo_jugador nodo){
     if(LISTAJUEGO_consultaTipo(nodo)){
@@ -243,5 +249,21 @@ int LISTAJUEGO_anteriorTurno(ListaJuego *l){
     }else if(LISTAJUEGO_inicio(*l)){
         LISTAJUEGO_vesFinal(l);
     }
+}
+void LISTAJUEGO_cambioDireccion(ListaJuego *l){
+    Nodo_jugador j = LISTAJUEGO_consulta(*l);
+    int direccion_actual = LISTAJUEGO_consultaDireccion(j);
+
+    if(direccion_actual==1){
+        direccion_actual=0;
+    } else{
+        direccion_actual=1;
+    }
+    int count = LISTAJUEGO_count(*l);
+    for (int i = 0; i < count; i++) {
+         l->pdi->direccion=direccion_actual;
+        LISTAJUEGO_siguienteTurno(l);
+    }
+
 }
 //sig turno
