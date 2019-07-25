@@ -26,24 +26,34 @@ void savePlayer(ListaJuego *listaJuego, char *filePlayer){
 
         int winP = LISTAJUEGO_consultaPartidasGanadas(LISTAJUEGO_consulta(*listaJuego));
         winP = winP + 1;
-        char *winPs; sprintf(winPs,"%d", winP);
+        char *winPs = (char*)malloc(sizeof(char)); sprintf(winPs,"%d", winP);
 
         int losP = LISTAJUEGO_consultaPartidasPerdidas(LISTAJUEGO_consulta(*listaJuego));
-        char *losPs; sprintf(winPs,"%d", losP);
+        char *losPs = (char*)malloc(sizeof(char)); sprintf(winPs,"%d", losP);
         int p = winP + losP;
 
-        fwrite(nombre, sizeof(nombre), 1, f);
-        fwrite(LISTAJUEGO_consultaNombre(LISTAJUEGO_consulta(*listaJuego)), sizeof(LISTAJUEGO_consultaNombre(LISTAJUEGO_consulta(*listaJuego))), 1, f);
-        fwrite(&winPs, sizeof(winPs), 1, f);
-        fwrite(&losPs, sizeof(losPs), 1, f);
+        fputs(nombre, f);
+        fputs("\n", f);
+        fputs(winPs, f);
+        fputs("\n", f);
+        fputs(losPs, f);
 
         int partida_i = 0;
-        char partida_is[2];
-        for (int i = 0; i < p; ++i) {
+        char *partida_is = NULL;
+
+        for (int i = 0; i < p; ++i){
             partida_i =  LISTAJUEGO_consultaCartasPartida(LISTAJUEGO_consulta(*listaJuego),i);
             sprintf(partida_is,"%d", partida_i);
-            fwrite(partida_is, sizeof(partida_is), 1, f);
+//          fwrite(partida_is, sizeof(partida_is), 1, f);
+            fputs(partida_is, f);
+            fputs("\n", f);
         }
+
+//        fwrite(nombre, sizeof(nombre), 1, f);
+//        fwrite(LISTAJUEGO_consultaNombre(LISTAJUEGO_consulta(*listaJuego)), sizeof(LISTAJUEGO_consultaNombre(LISTAJUEGO_consulta(*listaJuego))), 1, f);
+//        fwrite(&winPs, sizeof(winPs), 1, f);
+//        fwrite(&losPs, sizeof(losPs), 1, f);
+
 
         fclose(f);
     }
@@ -56,23 +66,29 @@ void saveBots(ListaJuego *listaJuego, char *fileBots){
         printf("\nError en obrir fitxer...\n");
     } else {
         int nbots = LISTAJUEGO_consultaNBots(LISTAJUEGO_consulta(*listaJuego));
-        char *nbotss;
+        char *nbotss = NULL;
         sprintf(nbotss,"%d", nbots);
         fwrite(&nbotss, sizeof(nbotss), 1, f);
         LISTAJUEGO_vesInicio(listaJuego);
-        char *nombre;
-        char *caracter;
+        char *nombre = NULL;
+        char *caracter = NULL;
         int cartas = 0;
-        char *cartass;
+        char *cartass = NULL;
         while(!LISTAJUEGO_final(*listaJuego)){
             if(LISTAJUEGO_consultaTipo(LISTAJUEGO_consulta(*listaJuego))){
                 nombre = LISTAJUEGO_consultaNombre(LISTAJUEGO_consulta(*listaJuego));
-                fwrite(&nombre, sizeof(nombre), 1, f);
+//                fwrite(&nombre, sizeof(nombre), 1, f);
+                fputs(nombre, f);
+                fputs("\n", f);
                 caracter = LISTAJUEGO_consultaCaracter(LISTAJUEGO_consulta(*listaJuego));
-                fwrite(&caracter, sizeof(caracter), 1, f);
+//                fwrite(&caracter, sizeof(caracter), 1, f);
+                fputs(caracter, f);
+                fputs("\n", f);
                 cartas = LISTAJUEGO_consultaCartaMax(LISTAJUEGO_consulta(*listaJuego));
                 sprintf(cartass,"%d", cartas);
-                fwrite(&cartass, sizeof(cartass), 1, f);
+                fputs(cartass, f);
+                fputs("\n", f);
+//                fwrite(&cartass, sizeof(cartass), 1, f);
             }
             LISTAJUEGO_avanza(listaJuego);
         }
