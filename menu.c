@@ -69,7 +69,8 @@ int  selectCarta(ListaJuego lista_jugadores){
     int option;
     printf("Qué carta quieres jugar? \n");
     scanf("%d",&option);
-    while(option>cantidad || option<=0){
+    while(option>cantidad || option<=0  ){
+        option=0;
         printf("Qué carta quieres jugar? \n");
         scanf("%d",&option);
     }
@@ -137,6 +138,10 @@ void selectOption(int option, char **argv, ListaJuego *lista_jugadores, ListaCar
 
             savePlayer(lista_jugadores, argv[0]);
             saveBots(lista_jugadores, argv[1]);
+            LISTAJUEGO_vesInicio(lista_jugadores);
+            free_partida(lista_jugadores,p,descarte);
+            crear_partida(lista_jugadores,p,descarte,argv);
+
             //crear_juego(argv, lista_jugadores, juego_creado);
 
             break;

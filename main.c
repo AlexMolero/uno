@@ -10,20 +10,7 @@ int main(int argc, char **argv) {
         ListaJuego lista_jugadores = LISTAJUEGO_crea();
         Deck baraja = NULL;
         ListaCarta descarte = LISTACARTA_crea(); //Creamos la baraja de descartes
-        baraja      = crear_baraja();
-        barajar(&baraja);
-
-        Jugador j   = loadPlayer(argv[1]);
-        repartir_carta(&baraja,&j.cartas,7,&descarte); // El 1 son las cartas que se le reparten al jugador
-        LISTAJUEGO_insertaJugador(&lista_jugadores,j);
-        int numBots;
-        Bots *b = loadBots(argv[2], &numBots);
-        for (int i = 0; i < numBots; ++i) {
-            repartir_carta(&baraja,&b[i].cartas,b[i].carta_maxima,&descarte);
-            LISTAJUEGO_insertaBot(&lista_jugadores,b[i]);
-        }
-        repartir_carta(&baraja, &descarte,1,&descarte);
-        LISTAJUEGO_vesInicio(&lista_jugadores);
+        crear_partida(&lista_jugadores,&baraja,&descarte,argv);
 
         /*Fin: Creacion de lista y pilas*/
         muestraMenu();

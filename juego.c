@@ -5,6 +5,28 @@
 #include "jugador.h"
 #include "listaJuego.h"
 #include "menu.h"
+
+void free_partida(ListaJuego *lista_jugadores, Deck *baraja, ListaCarta *descarte){
+    *lista_jugadores = LISTAJUEGO_crea();
+    baraja = NULL;
+    *descarte = LISTACARTA_crea(); //Creamos la baraja de descartes
+}
+void crear_partida(ListaJuego *lista_jugadores, Deck *baraja, ListaCarta *descarte, char **argv){
+    *baraja = crear_baraja();
+    barajar(baraja);
+
+    Jugador j   = loadPlayer(argv[1]);
+    repartir_carta(baraja,&j.cartas,1,descarte); // El 1 son las cartas que se le reparten al jugador
+    LISTAJUEGO_insertaJugador(lista_jugadores,j);
+    int numBots;
+    Bots *b = loadBots(argv[2], &numBots);
+    for (int i = 0; i < numBots; ++i) {
+        repartir_carta(baraja,&b[i].cartas,b[i].carta_maxima,descarte);
+        LISTAJUEGO_insertaBot(lista_jugadores,b[i]);
+    }
+    repartir_carta(baraja, descarte,1,descarte);
+    LISTAJUEGO_vesInicio(lista_jugadores);
+}
 void ver_resumen(ListaJuego *lista_jugadores, ListaCarta *descarte){
     ver_jugadores((*lista_jugadores));
     Nodo carta_descarte = LISTACARTA_consulta((*descarte));
@@ -32,15 +54,19 @@ void jugar_por_turnos(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p
         }
 }
 int  validar_jugada(Nodo carta_jugador, Nodo carta_descarte){
-    if(carta_jugador.color==carta_descarte.color || carta_jugador.valor==carta_descarte.valor|| carta_jugador.color==4 ){
+    if(carta_jugador.color==carta_descarte.color || carta_jugador.valor==carta_descarte.valor || carta_jugador.color==4 ){
         //Se puede jugar la carta
-        return 1;
-    }else if(carta_jugador.valor==10 && carta_jugador.color==carta_descarte.color){
-        return 1;
-    }else if(carta_jugador.valor==11 && carta_jugador.color==carta_descarte.color){
-        return 1;
-    }else if(carta_jugador.valor==12 && carta_jugador.color==carta_descarte.color){
-        return 1;
+        if(carta_jugador.valor==10 && carta_jugador.color==carta_descarte.color){
+            return 1;
+        }else if(carta_jugador.valor==11 && carta_jugador.color==carta_descarte.color){
+            return 1;
+        }else if(carta_jugador.valor==12 && carta_jugador.color==carta_descarte.color){
+            return 1;
+        }else if(carta_jugador.valor!=12 && carta_jugador.valor!=11 && carta_jugador.valor!=10){
+            return 1;
+        }else{
+            return 0;
+        }
     }else{
         //No es valida la jugada.
         return 0;
@@ -50,9 +76,9 @@ int  validar_jugada(Nodo carta_jugador, Nodo carta_descarte){
 int  repartir_carta(Deck *p, ListaCarta *lista, int cantidad, ListaCarta *descarte){
 
     for(int i=0;i<cantidad;i++){
-      /*  if(PILA_vacia(*p)){
+        if(PILA_vacia(*p)){
             LISTACARTA_descarteToBaraja(descarte,p);
-        }*/
+        }
 
         (*lista) = LISTACARTA_inserta(lista,(*p));
         baraja_pop(p);

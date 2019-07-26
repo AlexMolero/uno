@@ -10,6 +10,8 @@
 #include "listaJuego.h"
 #include "bots.h"
 
+void free_partida(ListaJuego *lista_jugadores, Deck *baraja, ListaCarta *descarte);
+void crear_partida(ListaJuego *lista_jugadores, Deck *baraja, ListaCarta *descarte, char **argv);
 int  validar_jugada(Nodo carta_jugador, Nodo carta_descarte);
 int  repartir_carta(Deck *p, ListaCarta *lista, int cantidad, ListaCarta *descarte);
 void ver_jugadores(ListaJuego lista_jugadores);
