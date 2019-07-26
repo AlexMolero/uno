@@ -55,5 +55,7 @@ int LISTAJUEGO_finJuego(ListaJuego l);
 int LISTAJUEGO_siguienteTurno(ListaJuego *l);
 int LISTAJUEGO_anteriorTurno(ListaJuego *l);
 void LISTAJUEGO_cambioDireccion(ListaJuego *l);
+void LISTAJUEGO_direccion(Nodo_jugador jugador);
+int LISTAJUEGO_mostrarGanador(ListaJuego lista_jugadores);
 //sig turno
 #endif //UNO_LISTAJUEGO_H

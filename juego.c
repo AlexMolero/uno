@@ -38,7 +38,6 @@ void ver_resumen(ListaJuego *lista_jugadores, ListaCarta *descarte){
 void jugar_por_turnos(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
 
         (*descarte) = LISTACARTA_vesInicio((*descarte));
-        ver_lista_cartas(*lista_jugadores,*descarte);
         char *name = LISTAJUEGO_consultaNombre((LISTAJUEGO_consulta(*lista_jugadores)));
         if(!LISTAJUEGO_esJugador(*lista_jugadores)){
             ver_resumen(lista_jugadores,descarte);
@@ -46,12 +45,8 @@ void jugar_por_turnos(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p
         }else{
             logica_jugar_bot(lista_jugadores,descarte,p);
         }
-        //LISTAJUEGO_siguienteTurno(lista_jugadores);
-        LISTAJUEGO_avanza(lista_jugadores);
+        LISTAJUEGO_siguienteTurno(lista_jugadores);
 
-        if(LISTAJUEGO_final(*lista_jugadores)){
-            LISTAJUEGO_vesInicio(lista_jugadores);
-        }
 }
 int  validar_jugada(Nodo carta_jugador, Nodo carta_descarte){
     if(carta_jugador.color==carta_descarte.color || carta_jugador.valor==carta_descarte.valor || carta_jugador.color==4 ){
@@ -86,13 +81,18 @@ int  repartir_carta(Deck *p, ListaCarta *lista, int cantidad, ListaCarta *descar
     return 1;
 }
 void ver_jugadores(ListaJuego lista_jugadores){
+    Nodo_jugador jugador_en_posicion = LISTAJUEGO_consulta(lista_jugadores);
+
     LISTAJUEGO_vesInicio(&lista_jugadores);
     while(!LISTAJUEGO_final(lista_jugadores)){
         Nodo_jugador j = LISTAJUEGO_consulta(lista_jugadores);
         ListaCarta lista = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(lista_jugadores));
-
-        printf("%-15s \t %-3d \t  \n", LISTAJUEGO_consultaNombre(j), LISTACARTA_contarCartas(lista));
-
+        if(!strcmp(LISTAJUEGO_consultaNombre(j),LISTAJUEGO_consultaNombre(jugador_en_posicion))){
+            printf("%-15s \t %-3d \t  ", LISTAJUEGO_consultaNombre(j), LISTACARTA_contarCartas(lista));
+            LISTAJUEGO_direccion(jugador_en_posicion);
+        } else{
+            printf("%-15s \t %-3d \t  \n", LISTAJUEGO_consultaNombre(j), LISTACARTA_contarCartas(lista));
+        }
         LISTAJUEGO_avanza(&lista_jugadores);
     }
 }
@@ -182,20 +182,14 @@ void logica_jugar_carta(Nodo carta_jugada,ListaJuego *lista_jugadores, Deck *p, 
     ListaCarta lista  = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores));
 
     if(es_roba_4(carta_jugada)){ // Si es roba 4 mas color
-        LISTAJUEGO_avanza(lista_jugadores);
-        if(LISTAJUEGO_final(*lista_jugadores)){
-            LISTAJUEGO_vesInicio(lista_jugadores);
-        }
-        //LISTAJUEGO_siguienteTurno(lista_jugadores);
+
+        LISTAJUEGO_siguienteTurno(lista_jugadores);
 
         lista  = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores));
         repartir_carta(p,&lista,4,descarte);
-       // LISTAJUEGO_anteriorTurno(lista_jugadores);
+        LISTAJUEGO_anteriorTurno(lista_jugadores);
 
-        LISTAJUEGO_retrocede(lista_jugadores);
-        if(LISTAJUEGO_inicio(*lista_jugadores)){
-            LISTAJUEGO_vesFinal(lista_jugadores);
-        }
+
         int sel_color = seleccionar_color(*lista_jugadores);
         lista  = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores));
         LISTACARTA_cambiaColorComodin(&lista,sel_carta,sel_color,descarte);
@@ -203,35 +197,23 @@ void logica_jugar_carta(Nodo carta_jugada,ListaJuego *lista_jugadores, Deck *p, 
         int sel_color = seleccionar_color(*lista_jugadores);
         LISTACARTA_cambiaColorComodin(&lista,sel_carta,sel_color,descarte);
     }else if(es_suma_2(carta_jugada)){
-        //LISTAJUEGO_siguienteTurno(lista_jugadores);
+        LISTAJUEGO_siguienteTurno(lista_jugadores);
 
-        LISTAJUEGO_avanza(lista_jugadores);
-        if(LISTAJUEGO_final(*lista_jugadores)){
-            LISTAJUEGO_vesInicio(lista_jugadores);
-        }
+
         lista  = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores));
         repartir_carta(p,&lista,2,descarte);
-        //LISTAJUEGO_anteriorTurno(lista_jugadores);
+        LISTAJUEGO_anteriorTurno(lista_jugadores);
 
-        LISTAJUEGO_retrocede(lista_jugadores);
-        if(LISTAJUEGO_inicio(*lista_jugadores)){
-            LISTAJUEGO_vesFinal(lista_jugadores);
-        }
+
         lista  = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores));
         LISTACARTA_eliminaPosicion(&lista,descarte,sel_carta);
 
     }else if(es_saltar_turno(carta_jugada)){
-        //FALTA QUE SE TIRE LA CARTA
         LISTACARTA_eliminaPosicion(&lista,descarte,sel_carta);
-        //LISTAJUEGO_siguienteTurno(lista_jugadores);
+        LISTAJUEGO_siguienteTurno(lista_jugadores);
 
-        LISTAJUEGO_avanza(lista_jugadores);
-        if(LISTAJUEGO_final(*lista_jugadores)){
-            LISTAJUEGO_vesInicio(lista_jugadores);
-        }
     }else if(es_cambio_direccion(carta_jugada)){
-        //Cambiar la direccion
-         //LISTAJUEGO_cambioDireccion(lista_jugadores);
+         LISTAJUEGO_cambioDireccion(lista_jugadores);
         LISTACARTA_eliminaPosicion(&lista,descarte,sel_carta);
 
     }else{
@@ -294,21 +276,18 @@ void logica_jugar_bot(ListaJuego *lista_jugadores, ListaCarta *descarte,Deck *p)
 
     int sel_carta = 0;
     sel_carta = carta_preferencia_bot(lista,*descarte,j);
-    printf("posicion a borrar %d", sel_carta);
     if(sel_carta!=0){
 
         Nodo carta_jugador = LISTACARTA_consultaByPosicion(lista,sel_carta);
         logica_jugar_carta(carta_jugador,lista_jugadores,p,sel_carta,descarte);
-        /*printf("DESPUES JUGAR \n");
-        ver_lista_cartas(*lista_jugadores,*descarte);*/
+
         printf("%s juega un ", LISTAJUEGO_consultaNombre(j));
-       // Nodo carta_jugada = LISTACARTA_consultaByPosicion(*descarte,1);
 
         convertirCarta(carta_jugador);
         printf(". \n");
 
     }else{
-        printf("El bot tiene que robar una carta.\n");
+       // printf("El bot tiene que robar una carta.\n");
         robar_bot(lista_jugadores,descarte,p);
     }
 }

@@ -352,3 +352,4 @@ void LISTACARTA_descarteToBaraja(ListaCarta *lista, Deck *p){
     barajar(p);
 }
 
+

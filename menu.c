@@ -139,6 +139,7 @@ void selectOption(int option, char **argv, ListaJuego *lista_jugadores, ListaCar
             savePlayer(lista_jugadores, argv[0]);
             saveBots(lista_jugadores, argv[1]);
             LISTAJUEGO_vesInicio(lista_jugadores);
+            LISTAJUEGO_mostrarGanador(*lista_jugadores);
             free_partida(lista_jugadores,p,descarte);
             crear_partida(lista_jugadores,p,descarte,argv);
 

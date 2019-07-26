@@ -251,6 +251,7 @@ int LISTAJUEGO_anteriorTurno(ListaJuego *l){
 }
 void LISTAJUEGO_cambioDireccion(ListaJuego *l){
     Nodo_jugador j = LISTAJUEGO_consulta(*l);
+    //LISTAJUEGO_vesInicio(l);
     int direccion_actual = LISTAJUEGO_consultaDireccion(j);
 
     if(direccion_actual==1){
@@ -261,8 +262,59 @@ void LISTAJUEGO_cambioDireccion(ListaJuego *l){
     int count = LISTAJUEGO_count(*l);
     for (int i = 0; i < count; i++) {
          l->pdi->direccion=direccion_actual;
-        LISTAJUEGO_siguienteTurno(l);
+        if(l->pdi->direccion==1){
+            LISTAJUEGO_avanza(l);
+        }else{
+            LISTAJUEGO_retrocede(l);
+        }
+
+        if(LISTAJUEGO_final(*l)){
+            LISTAJUEGO_vesInicio(l);
+        }else if(LISTAJUEGO_inicio(*l)){
+            LISTAJUEGO_vesFinal(l);
+        }
     }
+    /*
+    while(!LISTAJUEGO_final(*l)){
+        l->pdi->direccion=direccion_actual;
+        LISTAJUEGO_avanza(l);
+    }*/
 
 }
+void LISTAJUEGO_direccion(Nodo_jugador jugador){
+    if(jugador.direccion==1){
+        printf("v\n");
+    }else{
+        printf("^\n");
+
+    }
+}
+int LISTAJUEGO_contarCartasJugador(ListaJuego lista_jugadores){
+    LISTAJUEGO_inicio(lista_jugadores);
+    while(!LISTAJUEGO_final(lista_jugadores)){
+        if(LISTAJUEGO_esJugador(lista_jugadores)){
+            ListaCarta lista  = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(lista_jugadores));
+            int numero_cartas = LISTACARTA_contarCartas(lista);
+            return numero_cartas;
+        }
+        LISTAJUEGO_avanza(&lista_jugadores);
+    }
+}
+int LISTAJUEGO_mostrarGanador(ListaJuego lista_jugadores){
+    LISTAJUEGO_inicio(lista_jugadores);
+    while(!LISTAJUEGO_final(lista_jugadores)){
+        ListaCarta lista  = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(lista_jugadores));
+
+        if(LISTACARTA_contarCartas(lista)==0 && LISTAJUEGO_esJugador(lista_jugadores)){
+            Nodo_jugador j = LISTAJUEGO_consulta(lista_jugadores);
+            printf("%s ha ganado la partida. Te quedaban %d cartas en la mano",LISTAJUEGO_consultaNombre(j), LISTAJUEGO_contarCartasJugador(lista_jugadores));
+            return 1;
+        }else if(LISTACARTA_contarCartas(lista)==0 && !LISTAJUEGO_esJugador(lista_jugadores)){
+            //El jugador ha ganado la partida
+            printf("¡Has ganado la partida!\n");
+        }
+        LISTAJUEGO_avanza(&lista_jugadores);
+    }
+}
+
 //sig turno
