@@ -2,6 +2,7 @@
 // Created by Alex on 30/04/2019.
 //
 #include <memory.h>
+#include <conio.h>
 #include "menu.h"
 #include "juego.h"
 #include "jugador.h"
@@ -130,8 +131,7 @@ void selectSecondAction(char option, ListaJuego *lista_jugadores, ListaCarta *de
 void selectOption(int option, char **argv, ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
     switch (option) {
         case JUGAR:
-           /* while(!LISTACARTA_vacia(LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores)))){
-            }*/
+
             while(!LISTAJUEGO_finJuego(*lista_jugadores)){
                 jugar_por_turnos(lista_jugadores,descarte,p);
             }
@@ -141,9 +141,10 @@ void selectOption(int option, char **argv, ListaJuego *lista_jugadores, ListaCar
             LISTAJUEGO_vesInicio(lista_jugadores);
             LISTAJUEGO_mostrarGanador(*lista_jugadores);
             free_partida(lista_jugadores,p,descarte);
-            crear_partida(lista_jugadores,p,descarte,argv);
 
-            //crear_juego(argv, lista_jugadores, juego_creado);
+            captarEnter();
+            crear_partida(lista_jugadores,p,descarte,argv);
+//Detectar enter para nueva partida
 
             break;
         case ESTADISTICAS:
@@ -308,4 +309,15 @@ void convertirCarta(Nodo carta){
         default:
             break;
     }
+}
+int captarEnter(){
+    char cTecla;
+    printf("Presiona enter para volver al menu principal \n");
+
+    while(cTecla != 13){
+        cTecla = getch();
+        if(cTecla == 0)
+            cTecla = getch();
+    }
+    return 0;
 }

@@ -25,4 +25,5 @@ void convertirCarta(Nodo carta);
 char opcion_robar();
 int  selectCarta(ListaJuego lista_jugadores);
 int getColor();
+int captarEnter();
 #endif //UNO_MENU_H

@@ -8,9 +8,9 @@
 #include "menu.h"
 
 void free_partida(ListaJuego *lista_jugadores, Deck *baraja, ListaCarta *descarte){
-    free(lista_jugadores);
+    /*free(lista_jugadores);
     free(baraja);
-    free(descarte);
+    free(descarte);*/
     *lista_jugadores = LISTAJUEGO_crea();
     baraja = NULL;
     *descarte = LISTACARTA_crea(); //Creamos la baraja de descartes
