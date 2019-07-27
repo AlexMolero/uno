@@ -8,9 +8,9 @@
 #include "menu.h"
 
 void free_partida(ListaJuego *lista_jugadores, Deck *baraja, ListaCarta *descarte){
-    /*free(lista_jugadores);
+    free(lista_jugadores);
     free(baraja);
-    free(descarte);*/
+    free(descarte);
     *lista_jugadores = LISTAJUEGO_crea();
     baraja = NULL;
     *descarte = LISTACARTA_crea(); //Creamos la baraja de descartes
@@ -20,7 +20,7 @@ void crear_partida(ListaJuego *lista_jugadores, Deck *baraja, ListaCarta *descar
     barajar(baraja);
 
     Jugador j   = loadPlayer(argv[1]);
-    repartir_carta(baraja,&j.cartas,1,descarte); // El 1 son las cartas que se le reparten al jugador
+    repartir_carta(baraja,&j.cartas,7,descarte); // El 1 son las cartas que se le reparten al jugador
     LISTAJUEGO_insertaJugador(lista_jugadores,j);
     int numBots;
     Bots *b = loadBots(argv[2], &numBots);
