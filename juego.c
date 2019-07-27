@@ -158,6 +158,10 @@ void robar_carta(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p){
         printf(". Deseas jugarlo? [S/N]\n");
         char opcion_robo;
         scanf(" %c", &opcion_robo);
+        while(opcion_robo != 'S' && opcion_robo != 'N'){
+            printf(". Escribe [S/N]\n");
+            scanf(" %c", &opcion_robo);
+        }
         if(opcion_robo == 'S'){
             //Desea jugar la carta robada.
             logica_jugar_carta(carta_robada, lista_jugadores,p,1,descarte);

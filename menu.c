@@ -2,7 +2,7 @@
 // Created by Alex on 30/04/2019.
 //
 #include <memory.h>
-#include <conio.h>
+//#include <conio.h>
 #include "menu.h"
 #include "juego.h"
 #include "jugador.h"
@@ -44,6 +44,10 @@ char getGameOption(char *name_player){
     printf("A. Ver mano\n");
     printf("B. Robar carta\n");
     scanf(" %c", &option);
+    while(option != 'A' && option != 'B'){
+        printf("No es una opción, intentalo de nuevo\n");
+        scanf(" %c", &option);
+    }
 
     return option;
 }
@@ -60,6 +64,10 @@ char getGame(char *name_player){
     printf("A. Jugar carta\n");
     printf("B. Robar carta\n");
     scanf(" %c", &option);
+    while(option != 'A' && option != 'B'){
+        printf("No es una opción, intentalo de nuevo\n");
+        scanf(" %c", &option);
+    }
 
     return option;
 }
@@ -315,9 +323,10 @@ int captarEnter(){
     printf("Presiona enter para volver al menu principal \n");
 
     while(cTecla != 13){
-        cTecla = getch();
-        if(cTecla == 0)
-            cTecla = getch();
+       // cTecla = getch();
+//        if(cTecla == 0)
+//            //cTecla = getch();
+        cTecla = 13;
     }
     return 0;
 }
