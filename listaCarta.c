@@ -342,9 +342,9 @@ void LISTACARTA_descarteToBaraja(ListaCarta *lista, Deck *p){
         //printf("carta valor %d color %d", carta.valor,carta.color);
         if(LISTACARTA_esComodin(carta)){
             cambiar_color(&carta,4);
-            baraja_push(p,carta.valor,carta.color,0);
+            baraja_push(p,carta.valor,carta.color);
         }else{
-            baraja_push(p,carta.valor,carta.color,0);
+            baraja_push(p,carta.valor,carta.color);
 
         }
         *lista = LISTACARTA_avanza(*lista);

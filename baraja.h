@@ -9,7 +9,6 @@
 #include <stdio.h>
 
 typedef struct N {
-    int cont;
     int valor;
     int color;
     struct N *sig;
@@ -18,7 +17,7 @@ typedef Nodo *Deck;
 
 void barajar(Deck *baraja);
 Deck crear_baraja();
-void baraja_push(Deck *baraja, int valor, int color, int cont);
+void baraja_push(Deck *baraja, int valor, int color);
 void baraja_pop(Deck *p);
 int PILA_vacia(Deck p);
 int PILA_count(Deck p);

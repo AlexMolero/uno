@@ -14,6 +14,7 @@ void free_partida(ListaJuego *lista_jugadores, Deck *baraja, ListaCarta *descart
 void crear_partida(ListaJuego *lista_jugadores, Deck *baraja, ListaCarta *descarte, char **argv);
 int  validar_jugada(Nodo carta_jugador, Nodo carta_descarte);
 int  repartir_carta(Deck *p, ListaCarta *lista, int cantidad, ListaCarta *descarte);
+int  repartir_carta_inicial(Deck *p, ListaCarta *lista);
 void ver_jugadores(ListaJuego lista_jugadores);
 void ver_lista_cartas(ListaJuego lista_jugadores, ListaCarta descarte);
 void jugar_por_turnos(ListaJuego *lista_jugadores, ListaCarta *descarte, Deck *p);

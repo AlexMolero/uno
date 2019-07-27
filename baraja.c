@@ -25,10 +25,10 @@ Deck crear_baraja() {
             for (int j = 0; j < NUM_MAX_CARTA; j++) {
                 if(b==1 && j==0){
                     //Aqui entra cuando es el 0 en la segunda baraja
-                    baraja_push(&p, j, i, cont);
+                    baraja_push(&p, j, i);
                 }else{
                     cont++;
-                    baraja_push(&p, j, i, cont);
+                    baraja_push(&p, j, i);
                 }
             }
         }
@@ -37,9 +37,9 @@ Deck crear_baraja() {
     int value_comodin = NUM_MAX_CARTA;
     for(int i=0;i<8;i++){
         if(i>=4){
-            baraja_push(&p, value_comodin+1, COLORES, cont);
+            baraja_push(&p, value_comodin+1, COLORES);
         }else{
-            baraja_push(&p, value_comodin, COLORES, cont);
+            baraja_push(&p, value_comodin, COLORES);
         }
         cont++;
     }
@@ -55,13 +55,12 @@ void ver_baraja(Deck p){
     }
 
 }
-void baraja_push(Deck *p, int elemento, int color, int cont) {
+void baraja_push(Deck *p, int elemento, int color) {
     Nodo *aux;
     aux = (Nodo*)malloc(sizeof(Nodo));
     if (aux == NULL){
         printf("\nError al hacer push...\n");
     }else{
-        aux->cont = cont;
         aux->valor = elemento;
         aux->color = color;
         aux->sig = *p;
@@ -137,7 +136,7 @@ void barajar(Deck *p) {
             aux = aux->sig;
             cont++;
         }
-        baraja_push(&c,aux->valor, aux->color,0);
+        baraja_push(&c,aux->valor, aux->color);
     }
 
     PILA_destruye(p);

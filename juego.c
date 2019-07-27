@@ -1,12 +1,16 @@
 //
 // Created by Alex on 30/04/2019.
 //
+#include <time.h>
 #include "juego.h"
 #include "jugador.h"
 #include "listaJuego.h"
 #include "menu.h"
 
 void free_partida(ListaJuego *lista_jugadores, Deck *baraja, ListaCarta *descarte){
+    free(lista_jugadores);
+    free(baraja);
+    free(descarte);
     *lista_jugadores = LISTAJUEGO_crea();
     baraja = NULL;
     *descarte = LISTACARTA_crea(); //Creamos la baraja de descartes
@@ -24,7 +28,9 @@ void crear_partida(ListaJuego *lista_jugadores, Deck *baraja, ListaCarta *descar
         repartir_carta(baraja,&b[i].cartas,b[i].carta_maxima,descarte);
         LISTAJUEGO_insertaBot(lista_jugadores,b[i]);
     }
-    repartir_carta(baraja, descarte,1,descarte);
+    //Aqui reparte una carta en la baraja de descartes.
+
+    repartir_carta_inicial(baraja,descarte);
     LISTAJUEGO_vesInicio(lista_jugadores);
 }
 void ver_resumen(ListaJuego *lista_jugadores, ListaCarta *descarte){
@@ -79,6 +85,21 @@ int  repartir_carta(Deck *p, ListaCarta *lista, int cantidad, ListaCarta *descar
         baraja_pop(p);
     }
     return 1;
+}
+int repartir_carta_inicial(Deck *p, ListaCarta *lista){
+    //Repartimos la carta inicial con la que se empiez a jugar, si es un comodin se le asigna un color aleatorio.
+    Nodo carta_robada = baraja_top(*p);
+    if(es_comodin_color(carta_robada) || es_roba_4(carta_robada)){
+        srand(time(NULL));
+        int random = rand() % 4;
+
+        cambiar_color(&carta_robada,random);
+        (*lista) = LISTACARTA_inserta(lista,&carta_robada);
+
+    }else{
+        (*lista) = LISTACARTA_inserta(lista,*p);
+    }
+    baraja_pop(p);
 }
 void ver_jugadores(ListaJuego lista_jugadores){
     Nodo_jugador jugador_en_posicion = LISTAJUEGO_consulta(lista_jugadores);
