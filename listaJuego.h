@@ -28,6 +28,7 @@ void LISTAJUEGO_insertaJugador(ListaJuego *l, Jugador jugador);
 void LISTAJUEGO_insertaBot(ListaJuego *l, Bots bot);
 void LISTAJUEGO_insertaDerecha(ListaJuego *l, Nodo_jugador nodo);
 Nodo_jugador LISTAJUEGO_consulta(ListaJuego l);
+Nodo_jugador* LISTAJUEGO_consultaPuntero(ListaJuego l);
 int LISTAJUEGO_consultaNBots(Nodo_jugador j);
 char *LISTAJUEGO_consultaNombre(Nodo_jugador nodo);
 char * LISTAJUEGO_consultaCaracter(Nodo_jugador nodo);
@@ -35,6 +36,7 @@ int LISTAJUEGO_consultaTipo(Nodo_jugador nodo);
 int LISTAJUEGO_consultaPartidasGanadas(Nodo_jugador nodo);
 int LISTAJUEGO_consultaPartidasPerdidas(Nodo_jugador nodo);
 int LISTAJUEGO_consultaCartasPartida(Nodo_jugador j, int partida);
+void LISTAJUEGO_insertaCartasPartida_i(Nodo_jugador *j, int cartas);
 void LISTAJUEGO_elimina(ListaJuego *l);
 void LISTAJUEGO_avanza(ListaJuego *l);
 void LISTAJUEGO_retrocede(ListaJuego *l);
@@ -56,6 +58,6 @@ int LISTAJUEGO_siguienteTurno(ListaJuego *l);
 int LISTAJUEGO_anteriorTurno(ListaJuego *l);
 void LISTAJUEGO_cambioDireccion(ListaJuego *l);
 void LISTAJUEGO_direccion(Nodo_jugador jugador);
-int LISTAJUEGO_mostrarGanador(ListaJuego lista_jugadores);
+int LISTAJUEGO_mostrarGanador(ListaJuego *lista_jugadores);
 //sig turno
 #endif //UNO_LISTAJUEGO_H

@@ -80,6 +80,15 @@ Nodo_jugador LISTAJUEGO_consulta(ListaJuego l){
     }
     return (*nodo);
 }
+Nodo_jugador* LISTAJUEGO_consultaPuntero(ListaJuego l){
+    Nodo_jugador *nodo;
+    if (l.pdi==l.pri || l.pdi==l.ult) {
+        printf("\nError al consultar, PDI al incio o al final, ...\n");
+    } else {
+        nodo = l.pdi;
+    }
+    return nodo;
+}
 char *LISTAJUEGO_consultaNombre(Nodo_jugador nodo){
 
     if(nodo.type==0){
@@ -123,6 +132,11 @@ int LISTAJUEGO_consultaPartidasPerdidas(Nodo_jugador nodo){
 int LISTAJUEGO_consultaCartasPartida(Nodo_jugador j, int partida){
     if(!LISTAJUEGO_consultaTipo(j)){
         return JUGADOR_consultaCartasPartida(j.jugador, partida);
+    }
+}
+void LISTAJUEGO_insertaCartasPartida_i(Nodo_jugador *j, int cartas){
+    if(!LISTAJUEGO_consultaTipo(*j)){
+        JUGADOR_insertaCartasPartida_i(&j->jugador, cartas);
     }
 }
 int LISTAJUEGO_consultaNBots(Nodo_jugador j){
@@ -281,6 +295,23 @@ void LISTAJUEGO_cambioDireccion(ListaJuego *l){
     }*/
 
 }
+void LISTAJUEGO_insertaPartidasGanadas(Nodo_jugador *nodo){
+    if(LISTAJUEGO_consultaTipo(*nodo)){
+        BOTS_insertaPartidasGanadas(&nodo->bots);
+    }
+    else{
+        JUGADOR_insertaPartidasGanadas(&nodo->jugador, nodo->jugador.partidas_ganadas+1);
+    }
+
+}
+void LISTAJUEGO_insertaPartidasPerdidas(Nodo_jugador *nodo){
+    if(LISTAJUEGO_consultaTipo(*nodo)) {
+        BOTS_insertaPartidasPerdidas(&nodo->bots);
+    }
+    else{
+        JUGADOR_insertaPartidasPerdidas(&nodo->jugador, nodo->jugador.partidas_perdidas+1);
+    }
+}
 void LISTAJUEGO_direccion(Nodo_jugador jugador){
     if(jugador.direccion==1){
         printf("v\n");
@@ -300,21 +331,33 @@ int LISTAJUEGO_contarCartasJugador(ListaJuego lista_jugadores){
         LISTAJUEGO_avanza(&lista_jugadores);
     }
 }
-int LISTAJUEGO_mostrarGanador(ListaJuego lista_jugadores){
-    LISTAJUEGO_inicio(lista_jugadores);
-    while(!LISTAJUEGO_final(lista_jugadores)){
-        ListaCarta lista  = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(lista_jugadores));
+int LISTAJUEGO_mostrarGanador(ListaJuego *lista_jugadores){
+    LISTAJUEGO_inicio(*lista_jugadores);
+    while(!LISTAJUEGO_final(*lista_jugadores)){
+        ListaCarta lista  = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores));
+        if(LISTACARTA_contarCartas(lista)==0){
+            LISTAJUEGO_insertaPartidasGanadas(LISTAJUEGO_consultaPuntero(*lista_jugadores));
+        }
+        else{
+            LISTAJUEGO_insertaPartidasPerdidas(LISTAJUEGO_consultaPuntero(*lista_jugadores));
+        }
+        if(LISTACARTA_contarCartas(lista)==0 && LISTAJUEGO_esJugador(*lista_jugadores)){
+            Nodo_jugador j = LISTAJUEGO_consulta(*lista_jugadores);
+            printf("%s ha ganado la partida. Te quedaban %d cartas en la mano",LISTAJUEGO_consultaNombre(j), LISTAJUEGO_contarCartasJugador(*lista_jugadores));
+            //añade derrota a jugador y bots
 
-        if(LISTACARTA_contarCartas(lista)==0 && LISTAJUEGO_esJugador(lista_jugadores)){
-            Nodo_jugador j = LISTAJUEGO_consulta(lista_jugadores);
-            printf("%s ha ganado la partida. Te quedaban %d cartas en la mano",LISTAJUEGO_consultaNombre(j), LISTAJUEGO_contarCartasJugador(lista_jugadores));
             return 1;
-        }else if(LISTACARTA_contarCartas(lista)==0 && !LISTAJUEGO_esJugador(lista_jugadores)){
+        }else if(LISTACARTA_contarCartas(lista)==0 && !LISTAJUEGO_esJugador(*lista_jugadores)){
             //El jugador ha ganado la partida
             printf("¡Has ganado la partida!\n");
+
         }
-        LISTAJUEGO_avanza(&lista_jugadores);
+        if(!LISTAJUEGO_esJugador(*lista_jugadores)){
+            LISTAJUEGO_insertaCartasPartida_i(LISTAJUEGO_consultaPuntero(*lista_jugadores),LISTAJUEGO_contarCartasJugador(*lista_jugadores));
+        }
+        LISTAJUEGO_avanza(lista_jugadores);
     }
 }
+
 
 //sig turno

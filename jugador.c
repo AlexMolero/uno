@@ -7,6 +7,7 @@ Jugador JUGADOR_crea() {
     j.partidas_ganadas = 0;
     j.partidas_perdidas = 0;
     j.num_partidas = 0;
+    j.cartas_partida_i = (int *) malloc(sizeof(int));
     return j;
 }
 void JUGADOR_insertaNombre(Jugador *j, char *nombre) {
@@ -33,13 +34,14 @@ int JUGADOR_consultaPartidasPerdidas(Jugador j) {
     return j.partidas_perdidas;
 }
 
-void JUGADOR_insertaCartasPartida(Jugador *j, int cartas){
-    j->cartas_partida_i = (int *) malloc(sizeof(int) * j->num_partidas+1);
-    j->cartas_partida_i[j->num_partidas] = cartas;
-
+void JUGADOR_insertaCartasPartida(Jugador *j, int cartas, int i){
+    j->cartas_partida_i[i] = cartas;
 }
 int JUGADOR_consultaCartasPartida(Jugador j, int partida){
     return j.cartas_partida_i[partida];
+}
+void JUGADOR_insertaCartasPartida_i(Jugador *j, int cartas){
+    j->cartas_partida_i[j->num_partidas] = cartas;
 }
 int JUGADOR_consultaNumPartidas(Jugador j){
     return j.num_partidas;
@@ -47,6 +49,7 @@ int JUGADOR_consultaNumPartidas(Jugador j){
 
 void JUGADOR_insertaNumPartidas(Jugador *j, int n_partidas){
     j->num_partidas = n_partidas;
+    j->cartas_partida_i = (int *) malloc(sizeof(int) * n_partidas);
 }
 ListaCarta JUGADOR_consultaCartas(Jugador b) {
     return b.cartas;

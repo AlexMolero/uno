@@ -25,11 +25,10 @@ void savePlayer(ListaJuego *listaJuego, char *filePlayer){
         char *nombre = LISTAJUEGO_consultaNombre(LISTAJUEGO_consulta(*listaJuego));
 
         int winP = LISTAJUEGO_consultaPartidasGanadas(LISTAJUEGO_consulta(*listaJuego));
-        winP = winP + 1;
         char *winPs = (char*)malloc(sizeof(char)); sprintf(winPs,"%d", winP);
 
         int losP = LISTAJUEGO_consultaPartidasPerdidas(LISTAJUEGO_consulta(*listaJuego));
-        char *losPs = (char*)malloc(sizeof(char)); sprintf(winPs,"%d", losP);
+        char *losPs = (char*)malloc(sizeof(char)); sprintf(losPs,"%d", losP);
         int p = winP + losP;
 
         fputs(nombre, f);
@@ -37,9 +36,10 @@ void savePlayer(ListaJuego *listaJuego, char *filePlayer){
         fputs(winPs, f);
         fputs("\n", f);
         fputs(losPs, f);
+        fputs("\n", f);
 
         int partida_i = 0;
-        char *partida_is = NULL;
+        char *partida_is = (char*)malloc(sizeof(char));
 
         for (int i = 0; i < p; ++i){
             partida_i =  LISTAJUEGO_consultaCartasPartida(LISTAJUEGO_consulta(*listaJuego),i);
@@ -65,19 +65,23 @@ void saveBots(ListaJuego *listaJuego, char *fileBots){
     if (f == NULL) {
         printf("\nError en obrir fitxer...\n");
     } else {
-        int nbots = LISTAJUEGO_consultaNBots(LISTAJUEGO_consulta(*listaJuego));
-        char *nbotss = NULL;
-        sprintf(nbotss,"%d", nbots);
-        fwrite(&nbotss, sizeof(nbotss), 1, f);
         LISTAJUEGO_vesInicio(listaJuego);
+        LISTAJUEGO_avanza(listaJuego);
+        int nbots = LISTAJUEGO_consultaNBots(LISTAJUEGO_consulta(*listaJuego));
+        char *nbotss = (char*)malloc(sizeof(char));
+        sprintf(nbotss,"%d", nbots);
+        fputs(nbotss, f);
+        //fwrite(&nbotss, sizeof(nbotss), 1, f);
         char *nombre = NULL;
         char *caracter = NULL;
         int cartas = 0;
-        char *cartass = NULL;
+        char *cartass = (char*)malloc(sizeof(char));
+        LISTAJUEGO_vesInicio(listaJuego);
         while(!LISTAJUEGO_final(*listaJuego)){
             if(LISTAJUEGO_consultaTipo(LISTAJUEGO_consulta(*listaJuego))){
                 nombre = LISTAJUEGO_consultaNombre(LISTAJUEGO_consulta(*listaJuego));
 //                fwrite(&nombre, sizeof(nombre), 1, f);
+                fputs("\n", f);
                 fputs(nombre, f);
                 fputs("\n", f);
                 caracter = LISTAJUEGO_consultaCaracter(LISTAJUEGO_consulta(*listaJuego));

@@ -20,9 +20,9 @@ void crear_partida(ListaJuego *lista_jugadores, Deck *baraja, ListaCarta *descar
     barajar(baraja);
 
     Jugador j   = loadPlayer(argv[1]);
-    repartir_carta(baraja,&j.cartas,7,descarte); // El 1 son las cartas que se le reparten al jugador
+    repartir_carta(baraja,&j.cartas,7,descarte); // El 7 son las cartas que se le reparten al jugador
     LISTAJUEGO_insertaJugador(lista_jugadores,j);
-    int numBots;
+    int numBots = 0;
     Bots *b = loadBots(argv[2], &numBots);
     for (int i = 0; i < numBots; ++i) {
         repartir_carta(baraja,&b[i].cartas,b[i].carta_maxima,descarte);
@@ -232,6 +232,7 @@ void logica_jugar_carta(Nodo carta_jugada,ListaJuego *lista_jugadores, Deck *p, 
 
         lista  = LISTAJUEGO_consultaCartas(LISTAJUEGO_consulta(*lista_jugadores));
         LISTACARTA_eliminaPosicion(&lista,descarte,sel_carta);
+        LISTAJUEGO_siguienteTurno(lista_jugadores);
 
     }else if(es_saltar_turno(carta_jugada)){
         LISTACARTA_eliminaPosicion(&lista,descarte,sel_carta);

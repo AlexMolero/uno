@@ -5,8 +5,9 @@ Bots BOTS_crea() {
     b.nombre = "";
     b.caracter = ' ';
     b.carta_maxima = 0;
+    b.partidas_perdidas = 0;
+    b.partidas_ganadas = 0;
     b.cartas = LISTACARTA_crea();
-    //b.cartas = LISTACARTA_vesInicio(b.cartas);
     return b;
 }
 
@@ -54,7 +55,12 @@ int BOTS_consultaPartidasGanadas(Bots b){
 int BOTS_consultaPartidasPerdidas(Bots b){
     return b.partidas_ganadas;
 }
-
 ListaCarta BOTS_consultaCartas(Bots b) {
     return b.cartas;
+}
+void BOTS_insertaPartidasGanadas(Bots *b){
+    b->partidas_ganadas = b->partidas_ganadas +1;
+}
+void BOTS_insertaPartidasPerdidas(Bots *b){
+    b->partidas_perdidas = b->partidas_perdidas +1;
 }

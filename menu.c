@@ -143,16 +143,14 @@ void selectOption(int option, char **argv, ListaJuego *lista_jugadores, ListaCar
             while(!LISTAJUEGO_finJuego(*lista_jugadores)){
                 jugar_por_turnos(lista_jugadores,descarte,p);
             }
-
-            savePlayer(lista_jugadores, argv[0]);
-            saveBots(lista_jugadores, argv[1]);
             LISTAJUEGO_vesInicio(lista_jugadores);
-            LISTAJUEGO_mostrarGanador(*lista_jugadores);
-            free_partida(lista_jugadores,p,descarte);
+            LISTAJUEGO_mostrarGanador(lista_jugadores);
+            savePlayer(lista_jugadores, argv[1]);
+            saveBots(lista_jugadores, argv[2]);
 
-            captarEnter();
+            //captarEnter();
+            LISTAJUEGO_vesInicio(lista_jugadores);
             crear_partida(lista_jugadores,p,descarte,argv);
-//Detectar enter para nueva partida
 
             break;
         case ESTADISTICAS:
@@ -160,6 +158,7 @@ void selectOption(int option, char **argv, ListaJuego *lista_jugadores, ListaCar
             break;
         case SALIR:
             salir(lista_jugadores, argv);
+            free_partida(lista_jugadores,p,descarte);
             break;
         default:
             printf("Opcion erronea, seleccione otra\n");
@@ -209,11 +208,11 @@ Jugador loadPlayer(char *fileUser){
 
 	    int partidas =
 			    JUGADOR_consultaPartidasGanadas(j) + JUGADOR_consultaPartidasPerdidas(j);
-	    int res;
+        JUGADOR_insertaNumPartidas(&j, partidas);
+	    int res = 0;
 	    for (int i = 0; i < partidas; i++) {
 		    fscanf(f, "%d", &res);
-            JUGADOR_insertaNumPartidas(&j, i);
-		    JUGADOR_insertaCartasPartida(&j, res);
+		    JUGADOR_insertaCartasPartida(&j, res, i);
 	    }
 
 	    fclose(f);
@@ -221,7 +220,7 @@ Jugador loadPlayer(char *fileUser){
     }
     return j;
 }
-Bots    *loadBots(char *fileBot, int *numBots){
+Bots *loadBots(char *fileBot, int *numBots){
     //printf("%s",fileBot);
     FILE *f;
     f = fopen(fileBot, "r");
@@ -231,9 +230,9 @@ Bots    *loadBots(char *fileBot, int *numBots){
         printf("\nError en obrir fitxer...\n");
     }else {
         fscanf(f, "%d", numBots);
-         bots = malloc(sizeof(Bots) * (*numBots));
-        //printf("%d\n", numBots);
 
+        bots = malloc(sizeof(Bots) * (*numBots));
+        //printf("%d\n", numBots);
         char aux;
         fscanf(f, "%c", &aux);
 
@@ -246,13 +245,16 @@ Bots    *loadBots(char *fileBot, int *numBots){
         int i = 0;
         while (!feof(f)) {
             char *caracter = malloc(sizeof(char) * 1024);
-            char car;
+            char car = NULL;
             fscanf(f, "%s", caracter);
             if (strcmp(caracter, "Agresivo") == 0) {
                 car = 'a';
             } else if (strcmp(caracter, "Calmado") == 0) {
                 car = 'c';
             }
+            bots[i].partidas_ganadas = 0;
+            bots[i].partidas_perdidas = 0;
+            bots[i].n_bots = *numBots;
             BOTS_insertaCaracter(&bots[i], car);
             bots[i].cartas = LISTACARTA_crea();
             //printf("%c\n", BOTS_consultaCaracter(bots[i]));
